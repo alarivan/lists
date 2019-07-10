@@ -2,17 +2,17 @@
   <div class="component-list">
     <ListHead :list="list" />
     <ListPanel :list="list" />
+
     <ItemForm class="mb-1" ref="itemForm" v-if="showForm" :list="list" @cancel="hideForm" />
-
-    <div class="list-items">
-      <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
-    </div>
-
-    <button @click="toggleForm" class="button primary w-full mb-1 item-form-trigger">
+    <button v-else @click="toggleForm" class="button primary w-full mb-1 item-form-trigger">
       <svg class="icon mx-auto">
         <use xlink:href="#icon-plus" />
       </svg>
     </button>
+
+    <div class="list-items">
+      <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
+    </div>
 
     <div class="list-actions flex">
       <button class="button secondary" v-if="!isListView" @click="viewList">view</button>
