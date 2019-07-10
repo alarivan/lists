@@ -66,7 +66,7 @@ export default {
     openForm() {
       this.showFormLocal = true;
       this.$nextTick(() => {
-        if (this.showForm) {
+        if (this.showFormLocal) {
           this.$refs.itemForm.focus();
         }
       });
@@ -123,7 +123,7 @@ export default {
   },
 
   watch: {
-    itemForm(n) {
+    showForm(n) {
       if (n) this.openForm();
     }
   }
