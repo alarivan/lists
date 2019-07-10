@@ -14,5 +14,7 @@ module.exports = {
       }
     }
   },
-  workboxOptions: { skipWaiting: true }
+  pwa: {
+    workboxOptions: { skipWaiting: true }
+  }
 };
