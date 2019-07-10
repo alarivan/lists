@@ -19,12 +19,17 @@
       </button>
       <button @click="openDeleteDialog" class="button delete">
         <svg class="icon">
-          <v-dialog />
           <use xlink:href="#icon-bin" />
         </svg>
       </button>
     </div>
-    <v-dialog />
+    <Dialog
+      ref="deleteDialog"
+      :name="deleteDialogName"
+      :text="deleteDialogText"
+      confirmText="delete"
+      @confirm="deleteList"
+    />
   </div>
 </template>
 
@@ -34,17 +39,20 @@ import { mapActions, mapGetters } from "vuex";
 import ListApi from "../../api/list";
 
 import SimpleForm from "Components/SimpleForm.vue";
+import Dialog from "Components/Dialog.vue";
 
 export default {
   name: "component-list-head",
   components: {
-    SimpleForm
+    SimpleForm,
+    Dialog
   },
 
   data() {
     return {
       listName: "",
-      showForm: false
+      showForm: false,
+      deleteDialogName: "delete-list-dialog"
     };
   },
 
@@ -84,20 +92,7 @@ export default {
     },
 
     openDeleteDialog() {
-      this.$modal.show("dialog", {
-        text: `Delete ${this.list.name}`,
-        buttons: [
-          {
-            title: "Delete",
-            handler: () => {
-              this.deleteList();
-            }
-          },
-          {
-            title: "Cancel"
-          }
-        ]
-      });
+      this.$refs.deleteDialog.open();
     },
 
     viewList() {
@@ -110,6 +105,10 @@ export default {
   computed: {
     isListView() {
       return this.$route.name === "view-list";
+    },
+
+    deleteDialogText() {
+      return `Delete ${this.list.name}?`;
     },
 
     ...mapGetters([])

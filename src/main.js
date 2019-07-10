@@ -8,7 +8,7 @@ import "Styles/main.scss";
 
 Vue.config.productionTip = false;
 
-Vue.use(VModal, { dialog: true });
+Vue.use(VModal);
 
 new Vue({
   store,

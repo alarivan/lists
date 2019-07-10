@@ -1,0 +1,70 @@
+<template>
+  <modal class="dialog-modal" :name="name" width="100%" height="auto" :pivotY="0.7">
+    <div class="dialog-container">
+      <h1 class="dialog-text">{{text}}</h1>
+      <div class="dialog-actions">
+        <button class="dialog-action-button button delete" @click="confirm">{{confirmText}}</button>
+        <button class="dialog-action-button button secondary" @click="cancel">{{cancelText}}</button>
+      </div>
+    </div>
+  </modal>
+</template>
+
+<script>
+export default {
+  name: "component-dialog",
+
+  props: {
+    name: { type: String, required: true },
+    text: { type: String, required: true },
+    confirmText: { type: String, default: "confirm" },
+    cancelText: { type: String, default: "cancel" }
+  },
+
+  methods: {
+    confirm() {
+      this.$emit("confirm");
+    },
+
+    cancel() {
+      this.close();
+      this.$emit("cancel");
+    },
+
+    open() {
+      this.$modal.show(this.name);
+    },
+
+    close() {
+      this.$modal.hide(this.name);
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+.dialog-modal {
+  .v--modal {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+.dialog-container {
+  width: 80%;
+  @apply p-4 bg-gray-100 mx-auto;
+  box-shadow: 0 20px 10px -2px rgba(27, 33, 58, 0.4);
+}
+
+.dialog-text {
+  @apply p-2 mb-2 text-2xl text-center;
+}
+
+.dialog-actions {
+  @apply flex w-full;
+}
+
+.dialog-action-button {
+  @apply flex-auto font-bold uppercase;
+}
+</style>
