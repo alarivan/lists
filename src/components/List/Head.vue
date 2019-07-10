@@ -86,6 +86,8 @@ export default {
     deleteList() {
       ListApi.deleteList(this.list);
 
+      this.$refs.deleteDialog.close();
+
       if (this.$route.name === "view-list") {
         this.$router.push("/");
       }
