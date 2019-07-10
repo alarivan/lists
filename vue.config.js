@@ -13,5 +13,6 @@ module.exports = {
         Styles: path.resolve(__dirname, "src", "styles")
       }
     }
-  }
+  },
+  workboxOptions: { skipWaiting: true }
 };
