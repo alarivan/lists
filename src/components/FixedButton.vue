@@ -19,9 +19,14 @@ export default {
 
 <style lang="scss">
 .new-fixed {
-  @apply fixed font-bold px-4 py-4 bg-blue-500 rounded-full text-white;
+  @apply fixed font-bold px-4 py-4 bg-blue-500 rounded-full text-white shadow-2xl;
 
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 </style>
