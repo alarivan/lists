@@ -75,7 +75,7 @@ const mutations = {
   },
 
   ADD_LIST_ITEM(state, { index, item_id }) {
-    state.lists[index].items.push(item_id);
+    state.lists[index].items.unshift(item_id);
   },
 
   REMOVE_LIST_ITEM(state, { list_index, item_index }) {
