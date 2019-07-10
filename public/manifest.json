@@ -1,14 +1,13 @@
 {
-  "name": "shop",
-  "short_name": "shop",
-  "icons": [
-    {
-      "src": "./img/icons/android-chrome-192x192.png",
+  "name": "LISTS",
+  "short_name": "LISTS",
+  "icons": [{
+      "src": "./img/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./img/icons/android-chrome-512x512.png",
+      "src": "./img/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -16,5 +15,5 @@
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "theme_color": "#5a67d8"
 }
