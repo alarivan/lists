@@ -1,17 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>shop</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but shop doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>shop</title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but shop doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="icon-cross" viewBox="0 0 32 32">
+        <path
+          d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z">
+        </path>
+      </symbol>
+      <symbol id="icon-checkmark" viewBox="0 0 32 32">
+        <path
+          d="M12.42 28.678l-12.433-12.238 6.168-6.071 6.265 6.167 13.426-13.214 6.168 6.071-19.594 19.285zM3.372 16.441l9.048 8.905 16.208-15.953-2.782-2.739-13.426 13.214-6.265-6.167-2.782 2.739z">
+        </path>
+      </symbol>
+      <symbol id="icon-checkmark1" viewBox="0 0 32 32">
+        <path d="M27 4l-15 15-7-7-5 5 12 12 20-20z"></path>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 32 32">
+        <path
+          d="M31 12h-11v-11c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v11h-11c-0.552 0-1 0.448-1 1v6c0 0.552 0.448 1 1 1h11v11c0 0.552 0.448 1 1 1h6c0.552 0 1-0.448 1-1v-11h11c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1z">
+        </path>
+      </symbol>
+      <symbol id="icon-move-down" viewBox="0 0 32 32">
+        <path d="M24 22v-12h-2v12h-5l6 6 6-6z"></path>
+        <path d="M10 8v6h-6v-6h6zM12 6h-10v10h10v-10z"></path>
+        <path d="M2 20h3v2h-3v-2z"></path>
+        <path d="M6 20h3v2h-3v-2z"></path>
+        <path d="M10 20h2v3h-2v-3z"></path>
+        <path d="M2 27h2v3h-2v-3z"></path>
+        <path d="M5 28h3v2h-3v-2z"></path>
+        <path d="M9 28h3v2h-3v-2z"></path>
+        <path d="M2 23h2v3h-2v-3z"></path>
+        <path d="M10 24h2v3h-2v-3z"></path>
+      </symbol>
+      <symbol id="icon-move-up" viewBox="0 0 32 32">
+        <path d="M22 16v12h2v-12h5l-6-6-6 6z"></path>
+        <path d="M2 6h3v2h-3v-2z"></path>
+        <path d="M6 6h3v2h-3v-2z"></path>
+        <path d="M10 6h2v3h-2v-3z"></path>
+        <path d="M2 13h2v3h-2v-3z"></path>
+        <path d="M5 14h3v2h-3v-2z"></path>
+        <path d="M9 14h3v2h-3v-2z"></path>
+        <path d="M2 9h2v3h-2v-3z"></path>
+        <path d="M10 10h2v3h-2v-3z"></path>
+        <path d="M10 22v6h-6v-6h6zM12 20h-10v10h10v-10z"></path>
+      </symbol>
+      <symbol id="icon-tab" viewBox="0 0 32 32">
+        <path d="M32 30v2h-16v-2h16z"></path>
+        <path d="M16 0v2h-16v-2h16z"></path>
+        <path d="M10 10v22h-4v-22h-5l7-7 7 7h-5z"></path>
+        <path d="M22 22v-22h4v22h5l-7 7-7-7z"></path>
+      </symbol>
+      <symbol id="icon-eye" viewBox="0 0 32 32">
+        <path
+          d="M16 6c-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-2.972-5.936-9.021-10-16-10zM23.889 11.303c1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228v0zM16 13c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z">
+        </path>
+      </symbol>
+      <symbol id="icon-pencil" viewBox="0 0 32 32">
+        <path
+          d="M12 20l4-2 14-14-2-2-14 14-2 4zM9.041 27.097c-0.989-2.085-2.052-3.149-4.137-4.137l3.097-8.525 4-2.435 12-12h-6l-12 12-6 20 20-6 12-12v-6l-12 12-2.435 4z">
+        </path>
+      </symbol>
+      <symbol id="icon-bin" viewBox="0 0 32 32">
+        <path d="M6 32h20l2-22h-24zM20 4v-4h-8v4h-10v6l2-2h24l2 2v-6h-10zM18 4h-4v-2h4v2z"></path>
+      </symbol>
+    </defs>
+  </svg>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

@@ -1,0 +1,84 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.icon {
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+
+    &.icon-md {
+        width: 1.5em;
+        height: 1.5em;
+    }
+}
+
+.list-item-padding {
+    @apply py-3;
+}
+
+input {
+    @apply border border-gray-200;
+}
+
+button,
+.button,
+input {
+    @apply px-4 py-2;
+
+    &,
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
+
+button,
+.button {
+    transition: background-color 200ms;
+
+    &.primary {
+        @apply bg-indigo-500 text-gray-100;
+
+        &:hover,
+        &:focus,
+        &:active {
+            @apply bg-indigo-600;
+        }
+    }
+
+    &.save {
+        @apply bg-blue-500 text-gray-100;
+
+        &:hover,
+        &:focus,
+        &:active {
+            @apply bg-blue-600;
+        }
+    }
+
+    &.delete {
+        @apply bg-red-500 text-gray-100;
+
+        &:hover,
+        &:focus,
+        &:active {
+            @apply bg-red-600;
+        }
+    }
+
+    &.secondary {
+        @apply bg-gray-400 text-gray-100;
+
+        &:hover,
+        &:focus,
+        &:active {
+            @apply bg-gray-500;
+        }
+    }
+}
