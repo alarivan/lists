@@ -3,8 +3,18 @@
     <ListHead :list="list" />
     <ListPanel :list="list" />
 
-    <ItemForm class="mb-1" ref="itemForm" v-if="showForm" :list="list" @cancel="hideForm" />
-    <button v-else @click="toggleForm" class="button primary w-full mb-1 item-form-trigger">
+    <ItemForm
+      class="mb-1"
+      ref="itemForm"
+      v-if="showForm || showFormLocal"
+      :list="list"
+      @cancel="closeForm"
+    />
+    <button
+      v-if="!showForm && showFormTrigger"
+      @click="openForm"
+      class="button primary w-full mb-1 item-form-trigger"
+    >
       <svg class="icon mx-auto">
         <use xlink:href="#icon-plus" />
       </svg>
@@ -42,17 +52,19 @@ export default {
 
   data() {
     return {
-      showForm: false
+      showFormLocal: false
     };
   },
 
   props: {
-    list: { type: Object, required: true }
+    list: { type: Object, required: true },
+    showForm: { type: Boolean, defaul: false },
+    showFormTrigger: { type: Boolean, default: false }
   },
 
   methods: {
-    toggleForm() {
-      this.showForm = !this.showForm;
+    openForm() {
+      this.showFormLocal = true;
       this.$nextTick(() => {
         if (this.showForm) {
           this.$refs.itemForm.focus();
@@ -60,8 +72,10 @@ export default {
       });
     },
 
-    hideForm() {
-      this.showForm = false;
+    closeForm() {
+      this.showFormLocal = false;
+
+      this.$emit("item-cancel");
     },
 
     updateItem(item) {
@@ -106,6 +120,12 @@ export default {
     },
 
     ...mapGetters(["sortStatus", "sortDirection"])
+  },
+
+  watch: {
+    itemForm(n) {
+      if (n) this.openForm();
+    }
   }
 };
 </script>

@@ -2,14 +2,12 @@
   <div class="px-1">
     <div class="lists flex flex-wrap -mx-1">
       <div class="w-full sm:w-1/2 px-1 mb-2" v-for="(list, index) in listsWithItems" :key="index">
-        <component-list :list="list" />
+        <component-list :list="list" :showFormTrigger="true" />
       </div>
     </div>
-    <button @click="openNewListModal" class="new-list-fixed button primary">
-      <svg class="icon">
-        <use xlink:href="#icon-plus" />
-      </svg>
-    </button>
+
+    <FixedButton @click="openNewListModal" />
+
     <ComponentNewList />
   </div>
 </template>
@@ -21,12 +19,14 @@ import ListApi from "../api/list";
 
 import ComponentList from "./List.vue";
 import ComponentNewList from "./NewList.vue";
+import FixedButton from "Components/FixedButton.vue";
 
 export default {
   name: "componenet-lists",
   components: {
     ComponentList,
-    ComponentNewList
+    ComponentNewList,
+    FixedButton
   },
 
   data() {
@@ -53,11 +53,5 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.new-list-fixed {
-  @apply fixed font-bold px-4 py-4 bg-blue-500 rounded-full text-white;
-
-  bottom: 1rem;
-  right: 1rem;
-}
+<style lang="scss">
 </style>

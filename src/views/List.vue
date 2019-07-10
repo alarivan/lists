@@ -1,6 +1,9 @@
 <template>
   <div>
-    <component-list v-if="list" :list="list" />
+    <div v-if="list">
+      <ComponentList :showForm="newItemForm" @item-cancel="onNewItemCancel" :list="list" />
+      <FixedButton @click="showNewItemForm" v-if="!newItemForm" />
+    </div>
     <div v-else>List not found</div>
   </div>
 </template>
@@ -10,16 +13,30 @@ import { mapActions, mapGetters } from "vuex";
 
 import ListApi from "../api/list";
 
-import ComponentList from "../components/List.vue";
+import ComponentList from "Components/List.vue";
+import FixedButton from "Components/FixedButton.vue";
 
 export default {
   name: "view-list",
   components: {
-    ComponentList
+    ComponentList,
+    FixedButton
   },
 
   data() {
-    return {};
+    return {
+      newItemForm: false
+    };
+  },
+
+  methods: {
+    showNewItemForm() {
+      this.newItemForm = true;
+    },
+
+    onNewItemCancel() {
+      this.newItemForm = false;
+    }
   },
 
   computed: {
