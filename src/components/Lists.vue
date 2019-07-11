@@ -6,52 +6,33 @@
       </div>
     </div>
 
-    <FixedButton @click="openNewListModal" />
-
     <ComponentNewList />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
-import ListApi from "../api/list";
+import { mapGetters } from "vuex";
 
 import ComponentList from "./List.vue";
 import ComponentNewList from "./NewList.vue";
-import FixedButton from "Components/FixedButton.vue";
 
 export default {
   name: "componenet-lists",
   components: {
     ComponentList,
-    ComponentNewList,
-    FixedButton
-  },
-
-  data() {
-    return {};
+    ComponentNewList
   },
 
   methods: {
-    openNewListModal() {
-      this.$modal.show("new-list-modal");
-    },
-
-    deleteList(list) {
-      ListApi.deleteList(list);
-    },
-
     viewList(list) {
       this.$router.push({ name: "view-list", params: { id: list.id } });
     }
   },
 
   computed: {
-    ...mapGetters(["lists", "listsWithItems"])
+    ...mapGetters(["listsWithItems"])
   }
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

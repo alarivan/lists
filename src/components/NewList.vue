@@ -1,28 +1,36 @@
 <template>
-  <modal name="new-list-modal" width="80%" height="auto" @opened="focus">
-    <SimpleForm class="p-2" @submit="newList" @cancel="cancel">
+  <div>
+    <FixedButton @click="open" />
+
+    <FixedForm
+      name="list-new-form"
+      @submit="newList"
+      ref="listForm"
+      @opened="focus"
+      @closed="closed"
+    >
       <input
+        class="block w-full"
         ref="listNameInput"
-        class="p-2 block w-full"
         v-model="listName"
         type="text"
         placeholder="List Name"
       />
-    </SimpleForm>
-  </modal>
+    </FixedForm>
+  </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
 import ListApi from "../api/list";
 
-import SimpleForm from "Components/SimpleForm.vue";
+import FixedForm from "Components/common/FixedForm.vue";
+import FixedButton from "Components/FixedButton.vue";
 
 export default {
   name: "component-new-list",
   components: {
-    SimpleForm
+    FixedForm,
+    FixedButton
   },
 
   data() {
@@ -41,19 +49,19 @@ export default {
       this.$router.push({ name: "view-list", params: { id: list.id } });
     },
 
-    cancel() {
-      this.$modal.hide("new-list-modal");
+    closed() {
+      this.listName = "";
     },
 
     focus() {
       this.$refs.listNameInput.focus();
+    },
+
+    open() {
+      this.$refs.listForm.open();
     }
   }
 };
 </script>
 
-<style lang="scss">
-.v--modal {
-  border-radius: 0;
-}
-</style>
+<style lang="scss"></style>
