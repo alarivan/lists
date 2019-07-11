@@ -13,14 +13,10 @@
     <div v-else class="flex">
       <h1 class="font-bold flex-auto p-2">{{list.name}}</h1>
       <button @click="openForm" class="button primary">
-        <svg class="icon">
-          <use xlink:href="#icon-pencil" />
-        </svg>
+        <Icon href="#icon-pencil" />
       </button>
       <button @click="openDeleteDialog" class="button delete">
-        <svg class="icon">
-          <use xlink:href="#icon-bin" />
-        </svg>
+        <Icon href="#icon-bin" />
       </button>
     </div>
     <Dialog
@@ -40,12 +36,14 @@ import ListApi from "../../api/list";
 
 import SimpleForm from "Components/SimpleForm.vue";
 import Dialog from "Components/Dialog.vue";
+import Icon from "Components/common/Icon.vue";
 
 export default {
   name: "component-list-head",
   components: {
     SimpleForm,
-    Dialog
+    Dialog,
+    Icon
   },
 
   data() {

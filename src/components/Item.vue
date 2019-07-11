@@ -2,16 +2,12 @@
   <div class="flex mb-1">
     <div @click="updateItem" class="list-item flex items-center">
       <div class="checkmark mr-2">
-        <svg class="icon">
-          <use :xlink:href="itemStatus" />
-        </svg>
+        <Icon :href="itemStatus" size="md" />
       </div>
       <div>{{item.name}}</div>
     </div>
     <button class="button delete" @click="deleteItem">
-      <svg class="icon">
-        <use xlink:href="#icon-bin" />
-      </svg>
+      <Icon href="#icon-bin" />
     </button>
   </div>
 </template>
@@ -22,8 +18,13 @@ import { mapGetters } from "vuex";
 import ItemApi from "../api/item";
 import ListApi from "../api/list";
 
+import Icon from "Components/common/Icon.vue";
+
 export default {
   name: "component-item",
+  components: {
+    Icon
+  },
 
   props: {
     item: { type: Object, required: true },
@@ -55,12 +56,5 @@ export default {
 
 .button-delete {
   @apply bg-red-800 text-white px-4;
-}
-
-.checkmark {
-  .icon {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
 }
 </style>

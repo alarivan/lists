@@ -1,14 +1,18 @@
 <template>
   <button @click="click" class="new-fixed button primary">
-    <svg class="icon">
-      <use xlink:href="#icon-plus" />
-    </svg>
+    <Icon href="#icon-plus" size="lg" />
   </button>
 </template>
 
 <script>
+import Icon from "Components/common/Icon.vue";
+
 export default {
   name: "componenet-fixed-button",
+  components: {
+    Icon
+  },
+
   methods: {
     click() {
       this.$emit("click");
@@ -23,10 +27,5 @@ export default {
 
   bottom: 1.5rem;
   right: 1.5rem;
-
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
 }
 </style>

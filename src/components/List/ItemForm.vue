@@ -19,9 +19,7 @@
           class="item-form-multiple-toggle"
           :class="{enabled: multiple}"
         >
-          <svg class="icon icon-md">
-            <use xlink:href="#icon-infinite" />
-          </svg>
+          <Icon href="#icon-infinite" size="md" />
         </button>
       </div>
     </SimpleForm>
@@ -30,9 +28,7 @@
       @click="show"
       class="button primary w-full mb-1 item-form-trigger"
     >
-      <svg class="icon mx-auto">
-        <use xlink:href="#icon-plus" />
-      </svg>
+      <Icon href="#icon-plus" class="mx-auto" />
     </button>
   </div>
 </template>
@@ -46,12 +42,14 @@ import ListApi from "../../api/list";
 import VueSimpleSuggest from "vue-simple-suggest";
 
 import SimpleForm from "Components/SimpleForm.vue";
+import Icon from "Components/common/Icon.vue";
 
 export default {
   name: "component-list-item-from",
   components: {
     VueSimpleSuggest,
-    SimpleForm
+    SimpleForm,
+    Icon
   },
 
   data() {
