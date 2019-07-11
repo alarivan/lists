@@ -41,9 +41,9 @@ export default {
 
 .simple-form.fixed-mobile {
   left: 0;
-  bottom: 0.5rem;
+  bottom: 0;
 
-  @apply fixed bg-white w-full px-2;
+  @apply fixed bg-white w-full p-2;
 
   @screen sm {
     @apply static px-0;
