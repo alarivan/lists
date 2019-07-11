@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
 import SimpleForm from "Components/SimpleForm.vue";
 
 export default {
