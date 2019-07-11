@@ -30,12 +30,22 @@
       </button>
       <button
         :title="sortStatusLabel"
-        class="list-panel-item sort-status"
+        class="list-panel-item togglable"
         :class="{active: sortStatus}"
         @click="toggleSortStatus"
       >
         <svg class="icon">
           <use xlink:href="#icon-tab" />
+        </svg>
+      </button>
+      <button
+        :title="sortStatusLabel"
+        class="list-panel-item togglable"
+        :class="{active: showComplete}"
+        @click="toggleShowComplete"
+      >
+        <svg class="icon">
+          <use xlink:href="#icon-checkmark1" />
         </svg>
       </button>
     </div>
@@ -67,11 +77,15 @@ export default {
       this.setSortStatus(!this.sortStatus);
     },
 
+    toggleShowComplete() {
+      this.setShowComplete(!this.showComplete);
+    },
+
     toggleMore() {
       this.more = !this.more;
     },
 
-    ...mapActions(["setSortStatus", "setSortDirection"])
+    ...mapActions(["setSortStatus", "setSortDirection", "setShowComplete"])
   },
 
   computed: {
@@ -94,6 +108,10 @@ export default {
       return this.sortStatus ? "Disable Sorting" : "Enable Sorting";
     },
 
+    showCompleteLabel() {
+      return this.showComplete ? "Hide Completed" : "Show Completed";
+    },
+
     moreIcon() {
       return this.more ? "#icon-menu-up" : "#icon-menu-down";
     },
@@ -102,7 +120,7 @@ export default {
       return this.more ? "Show Options" : "Hide Options";
     },
 
-    ...mapGetters(["sortStatus", "sortDirection"])
+    ...mapGetters(["sortStatus", "sortDirection", "showComplete"])
   }
 };
 </script>
@@ -119,7 +137,7 @@ export default {
 .list-panel-item {
   @apply text-gray-900;
 
-  &.sort-status {
+  &.togglable {
     @apply text-gray-500;
 
     &.active {

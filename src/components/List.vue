@@ -81,9 +81,10 @@ export default {
 
   computed: {
     sortedItems() {
+      let result = [...this.list.items];
+
       if (this.sortStatus) {
-        const items = [...this.list.items];
-        return items.sort((a, b) => {
+        result = result.sort((a, b) => {
           if (a.status && !b.status) {
             return this.sortDirection ? -1 : 1;
           } else if (!a.status && b.status) {
@@ -94,14 +95,20 @@ export default {
         });
       }
 
-      return this.list.items;
+      if (!this.showComplete) {
+        result = result.filter(i => {
+          return !i.status;
+        });
+      }
+
+      return result;
     },
 
     isListView() {
       return this.$route.name === "view-list";
     },
 
-    ...mapGetters(["sortStatus", "sortDirection"])
+    ...mapGetters(["sortStatus", "sortDirection", "showComplete"])
   },
 
   watch: {

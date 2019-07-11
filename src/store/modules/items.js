@@ -3,7 +3,8 @@ import { getIndexFromArrayById } from "../../helper/main";
 const state = {
   items: [],
   sortDirection: false,
-  sortStatus: true
+  sortStatus: true,
+  showComplete: true
 };
 
 // getters
@@ -18,6 +19,10 @@ const getters = {
 
   sortDirection: state => {
     return state.sortDirection;
+  },
+
+  showComplete: state => {
+    return state.showComplete;
   }
 };
 
@@ -47,6 +52,10 @@ const actions = {
 
   setSortDirection({ commit }, value) {
     commit("SET_SORT_DIRECTION", value);
+  },
+
+  setShowComplete({ commit }, value) {
+    commit("SET_SHOW_COMPLETE", value);
   }
 };
 
@@ -70,6 +79,10 @@ const mutations = {
 
   SET_SORT_DIRECTION(state, value) {
     state.sortDirection = value;
+  },
+
+  SET_SHOW_COMPLETE(state, value) {
+    state.showComplete = value;
   }
 };
 
