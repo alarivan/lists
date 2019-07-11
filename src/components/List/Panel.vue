@@ -1,53 +1,34 @@
 <template>
   <div class="list-panel mb-1">
     <div class="list-panel-main flex">
-      <div class="font-bold italic list-panel-item flex flex-auto px-3 py-2">
-        <div class="flex items-center">
-          <svg class="icon">
-            <use xlink:href="#icon-checkmark1" />
-          </svg>
-          <div class="ml-1">{{stats[0]}}</div>
-        </div>
-        <div class="mx-1 py-1">/</div>
-        <div class="flex items-center">
-          <svg class="icon">
-            <use xlink:href="#icon-checkmark" />
-          </svg>
-          <div class="ml-1">{{stats[1]}}</div>
-        </div>
-      </div>
-      <button :title="moreLabel" class="list-panel-item" @click="toggleMore">
-        <svg class="icon icon-md">
-          <use :xlink:href="moreIcon" />
-        </svg>
-      </button>
+      <Stats :items="list.items" />
+
+      <PanelButton :title="moreTitle" @click.native="toggleMore">
+        <Icon :href="moreIcon" size="lg" />
+      </PanelButton>
     </div>
     <div class="list-panel-more" v-if="more">
-      <button class="list-panel-item" @click="toggleSortDirection">
-        <svg class="icon icon-md">
-          <use :xlink:href="sortDirectionLabel" />
-        </svg>
-      </button>
-      <button
-        :title="sortStatusLabel"
-        class="list-panel-item togglable"
+      <PanelButton title="Sort Direction" @click.native="toggleSortDirection">
+        <Icon :href="sortDirectionIcon" size="lg" />
+      </PanelButton>
+
+      <PanelButton
+        class="togglable"
         :class="{active: sortStatus}"
-        @click="toggleSortStatus"
+        :title="sortStatusTitle"
+        @click.native="toggleSortStatus"
       >
-        <svg class="icon">
-          <use xlink:href="#icon-tab" />
-        </svg>
-      </button>
-      <button
-        :title="sortStatusLabel"
-        class="list-panel-item togglable"
+        <Icon href="#icon-tab" size="md" />
+      </PanelButton>
+
+      <PanelButton
+        class="togglable"
         :class="{active: showComplete}"
-        @click="toggleShowComplete"
+        :title="showCompleteTitle"
+        @click.native="toggleShowComplete"
       >
-        <svg class="icon">
-          <use xlink:href="#icon-checkmark1" />
-        </svg>
-      </button>
+        <Icon href="#icon-checkmark1" size="md" />
+      </PanelButton>
     </div>
   </div>
 </template>
@@ -55,8 +36,17 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
+import Stats from "Components/List/Panel/Stats.vue";
+import PanelButton from "Components/List/Panel/Button.vue";
+import Icon from "Components/common/Icon.vue";
+
 export default {
   name: "component-list-panel",
+  components: {
+    Stats,
+    PanelButton,
+    Icon
+  },
 
   data() {
     return {
@@ -89,26 +79,15 @@ export default {
   },
 
   computed: {
-    stats() {
-      return this.list.items.reduce(
-        (acc, item) => {
-          item.status ? (acc[0] += 1) : (acc[1] += 1);
-
-          return acc;
-        },
-        [0, 0]
-      );
-    },
-
-    sortDirectionLabel() {
+    sortDirectionIcon() {
       return this.sortDirection ? "#icon-move-down" : "#icon-move-up";
     },
 
-    sortStatusLabel() {
+    sortStatusTitle() {
       return this.sortStatus ? "Disable Sorting" : "Enable Sorting";
     },
 
-    showCompleteLabel() {
+    showCompleteTitle() {
       return this.showComplete ? "Hide Completed" : "Show Completed";
     },
 
@@ -116,7 +95,7 @@ export default {
       return this.more ? "#icon-menu-up" : "#icon-menu-down";
     },
 
-    moreLabel() {
+    moreTitle() {
       return this.more ? "Show Options" : "Hide Options";
     },
 
@@ -132,17 +111,5 @@ export default {
 
 .list-panel-more {
   @apply flex justify-end border-t border-gray-100;
-}
-
-.list-panel-item {
-  @apply text-gray-900;
-
-  &.togglable {
-    @apply text-gray-500;
-
-    &.active {
-      @apply text-gray-900;
-    }
-  }
 }
 </style>
