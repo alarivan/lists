@@ -4,23 +4,6 @@
 
 @tailwind utilities;
 
-.icon {
-    width: 1em;
-    height: 1em;
-    stroke-width: 0;
-    stroke: currentColor;
-    fill: currentColor;
-
-    &.icon-md {
-        width: 1.5em;
-        height: 1.5em;
-    }
-}
-
-.list-item-padding {
-    @apply py-3;
-}
-
 input {
     @apply border border-gray-200;
 }
@@ -82,11 +65,4 @@ button,
             @apply bg-gray-500;
         }
     }
-}
-
-.new-fixed {
-    @apply fixed font-bold px-4 py-4 bg-blue-500 rounded-full text-white;
-
-    bottom: 1rem;
-    right: 1rem;
 }
