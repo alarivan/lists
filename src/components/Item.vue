@@ -6,9 +6,17 @@
       </div>
       <div>{{item.name}}</div>
     </div>
-    <button class="button delete" @click="deleteItem">
+    <button class="button delete" @click="openDeleteDialog">
       <Icon href="#icon-bin" />
     </button>
+
+    <Dialog
+      ref="deleteDialog"
+      :name="deleteDialogName"
+      :text="deleteDialogText"
+      confirmText="delete"
+      @confirm="deleteItem"
+    />
   </div>
 </template>
 
@@ -19,11 +27,20 @@ import ItemApi from "../api/item";
 import ListApi from "../api/list";
 
 import Icon from "Components/common/Icon.vue";
+import Dialog from "Components/Dialog.vue";
 
 export default {
   name: "component-item",
   components: {
-    Icon
+    Icon,
+    Dialog
+  },
+
+  data() {
+    return {
+      deleteDialogName: "delete-item-dialog",
+      deleteDialogText: "Delete Item?"
+    };
   },
 
   props: {
@@ -38,6 +55,12 @@ export default {
 
     deleteItem() {
       ListApi.removeItemFromList(this.list, this.item);
+
+      this.$refs.deleteDialog.close();
+    },
+
+    openDeleteDialog() {
+      this.$refs.deleteDialog.open();
     }
   },
 
