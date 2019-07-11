@@ -6,19 +6,10 @@
     <ItemForm
       class="mb-1"
       ref="itemForm"
-      v-if="showForm || showFormLocal"
       :list="list"
-      @cancel="closeForm"
+      :showFormTrigger="showFormTrigger"
+      @hide="closeForm"
     />
-    <button
-      v-if="!showForm && showFormTrigger"
-      @click="openForm"
-      class="button primary w-full mb-1 item-form-trigger"
-    >
-      <svg class="icon mx-auto">
-        <use xlink:href="#icon-plus" />
-      </svg>
-    </button>
 
     <div class="list-items">
       <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
@@ -51,9 +42,7 @@ export default {
   },
 
   data() {
-    return {
-      showFormLocal: false
-    };
+    return {};
   },
 
   props: {
@@ -64,17 +53,10 @@ export default {
 
   methods: {
     openForm() {
-      this.showFormLocal = true;
-      this.$nextTick(() => {
-        if (this.showFormLocal) {
-          this.$refs.itemForm.focus();
-        }
-      });
+      this.$refs.itemForm.show();
     },
 
     closeForm() {
-      this.showFormLocal = false;
-
       this.$emit("item-cancel");
     },
 

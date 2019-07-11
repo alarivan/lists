@@ -1,15 +1,40 @@
 <template>
-  <SimpleForm @submit="newItem" @cancel="cancel">
-    <vue-simple-suggest
-      v-model="itemName"
-      :list="uniqItems"
-      display-attribute="name"
-      :filter-by-query="true"
-      ref="newItemSuggest"
+  <div>
+    <SimpleForm v-if="visible" @submit="newItem" @cancel="cancel">
+      <div class="flex w-full">
+        <vue-simple-suggest
+          class="flex-auto mr-1"
+          v-model="itemName"
+          :list="uniqItems"
+          display-attribute="name"
+          :filter-by-query="true"
+          ref="newItemSuggest"
+        >
+          <input type="text" placeholder="Item Name" ref="newItemInput" />
+        </vue-simple-suggest>
+        <button
+          v-if="visible"
+          @click="toggleMultiple"
+          type="button"
+          class="item-form-multiple-toggle"
+          :class="{enabled: multiple}"
+        >
+          <svg class="icon icon-md">
+            <use xlink:href="#icon-infinite" />
+          </svg>
+        </button>
+      </div>
+    </SimpleForm>
+    <button
+      v-if="!visible && showFormTrigger"
+      @click="show"
+      class="button primary w-full mb-1 item-form-trigger"
     >
-      <input type="text" placeholder="Item Name" ref="newItemInput" />
-    </vue-simple-suggest>
-  </SimpleForm>
+      <svg class="icon mx-auto">
+        <use xlink:href="#icon-plus" />
+      </svg>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -31,17 +56,20 @@ export default {
 
   data() {
     return {
-      itemName: ""
+      itemName: "",
+      multiple: false,
+      visible: false
     };
   },
 
   props: {
-    list: { type: Object, required: true }
+    list: { type: Object, required: true },
+    showFormTrigger: { type: Boolean, default: false }
   },
 
   methods: {
     cancel() {
-      this.$emit("cancel");
+      this.hide();
     },
 
     focus() {
@@ -52,10 +80,34 @@ export default {
       const item = ItemApi.addItem(this.itemName);
       ListApi.addItemToList(this.list, item);
 
-      this.$refs.newItemSuggest.setText("");
-      this.$refs.newItemInput.focus();
+      if (this.multiple) {
+        this.$refs.newItemSuggest.setText("");
+        this.$refs.newItemInput.focus();
+      } else {
+        this.hide();
+      }
 
       this.$emit("saved");
+    },
+
+    show() {
+      this.visible = true;
+
+      this.$nextTick(() => {
+        this.focus();
+      });
+
+      this.$emit("show");
+    },
+
+    hide() {
+      this.visible = false;
+
+      this.$emit("hide");
+    },
+
+    toggleMultiple() {
+      this.multiple = !this.multiple;
     }
   },
 
@@ -119,6 +171,20 @@ export default {
 
   &.selected {
     @apply bg-indigo-500;
+  }
+}
+
+.item-form-multiple-toggle {
+  @apply bg-gray-200 px-3 text-gray-500;
+
+  &.enabled {
+    @apply bg-teal-400 text-gray-100;
+
+    &:hover,
+    &:focus,
+    &:active {
+      @apply bg-teal-500;
+    }
   }
 }
 </style>
