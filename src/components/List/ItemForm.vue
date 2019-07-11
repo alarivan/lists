@@ -108,6 +108,8 @@ export default {
 
     toggleMultiple() {
       this.multiple = !this.multiple;
+
+      this.$refs.newItemInput.focus();
     }
   },
 
