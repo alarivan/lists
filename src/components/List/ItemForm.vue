@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SimpleForm v-if="visible" @submit="newItem" @cancel="cancel">
+    <SimpleForm class="fixed-mobile" v-if="visible" @submit="newItem" @cancel="cancel">
       <div class="flex w-full">
         <vue-simple-suggest
           class="flex-auto mr-1"

@@ -38,4 +38,15 @@ export default {
 .simple-form-actions-button {
   @apply flex-auto font-bold;
 }
+
+.simple-form.fixed-mobile {
+  left: 0;
+  bottom: 0.5rem;
+
+  @apply fixed bg-white w-full px-2;
+
+  @screen sm {
+    @apply static px-0;
+  }
+}
 </style>
