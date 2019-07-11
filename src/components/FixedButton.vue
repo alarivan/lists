@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .new-fixed {
   @apply fixed font-bold px-4 py-4 bg-blue-500 rounded-full text-white shadow-2xl;
 
