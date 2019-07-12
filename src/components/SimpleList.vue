@@ -4,7 +4,7 @@
     <ListPanel :list="list" :menu="false" />
 
     <button
-      class="button secondary w-full uppercase font-bold"
+      class="button primary w-full uppercase font-bold"
       v-if="!isListView"
       @click="viewList"
     >view</button>
