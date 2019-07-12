@@ -3,13 +3,7 @@
     <ListHead :list="list" />
     <ListPanel :list="list" />
 
-    <ItemForm
-      class="mb-1"
-      ref="itemForm"
-      :list="list"
-      :showFormTrigger="showFormTrigger"
-      @hide="closeForm"
-    />
+    <ItemForm class="mb-1" ref="itemForm" :list="list" />
 
     <div class="list-items">
       <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
@@ -22,10 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
-import ItemApi from "../api/item";
-import ListApi from "../api/list";
+import { mapGetters } from "vuex";
 
 import Item from "./Item.vue";
 import ListHead from "./List/Head.vue";
@@ -46,37 +37,13 @@ export default {
   },
 
   props: {
-    list: { type: Object, required: true },
-    showForm: { type: Boolean, defaul: false },
-    showFormTrigger: { type: Boolean, default: false }
+    list: { type: Object, required: true }
   },
 
   methods: {
-    openForm() {
-      this.$refs.itemForm.show();
-    },
-
-    closeForm() {
-      this.$emit("item-cancel");
-    },
-
-    updateItem(item) {
-      ItemApi.updateItem(item.id, !item.status);
-    },
-
-    deleteList() {
-      ListApi.deleteList(this.list);
-
-      if (this.$route.name === "view-list") {
-        this.$router.push("/");
-      }
-    },
-
     viewList() {
       this.$router.push({ name: "view-list", params: { id: this.list.id } });
-    },
-
-    ...mapActions([])
+    }
   },
 
   computed: {
@@ -109,12 +76,6 @@ export default {
     },
 
     ...mapGetters(["sortStatus", "sortDirection", "showComplete"])
-  },
-
-  watch: {
-    showForm(n) {
-      if (n) this.openForm();
-    }
   }
 };
 </script>

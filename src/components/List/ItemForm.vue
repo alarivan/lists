@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SimpleForm class="fixed-mobile" v-if="visible" @submit="newItem" @cancel="cancel">
+    <FixedForm ref="newItemForm" name="item-new-from" @submit="newItem" @opened="focus">
       <div class="flex w-full">
         <vue-simple-suggest
           class="flex-auto mr-1"
@@ -13,7 +13,6 @@
           <input type="text" placeholder="Item Name" ref="newItemInput" />
         </vue-simple-suggest>
         <button
-          v-if="visible"
           @click="toggleMultiple"
           type="button"
           class="item-form-multiple-toggle"
@@ -22,14 +21,12 @@
           <Icon href="#icon-infinite" size="md" />
         </button>
       </div>
-    </SimpleForm>
-    <button
-      v-if="!visible && showFormTrigger"
-      @click="show"
-      class="button primary w-full mb-1 item-form-trigger"
-    >
+    </FixedForm>
+
+    <button @click="open" class="button primary w-full mb-1 item-form-trigger">
       <Icon href="#icon-plus" class="mx-auto" />
     </button>
+    <FixedButton v-if="isListView" @click="open" />
   </div>
 </template>
 
@@ -41,33 +38,33 @@ import ListApi from "../../api/list";
 
 import VueSimpleSuggest from "vue-simple-suggest";
 
-import SimpleForm from "Components/SimpleForm.vue";
 import Icon from "Components/common/Icon.vue";
+import FixedForm from "Components/common/FixedForm.vue";
+import FixedButton from "Components/FixedButton.vue";
 
 export default {
   name: "component-list-item-from",
   components: {
     VueSimpleSuggest,
-    SimpleForm,
-    Icon
+    Icon,
+    FixedForm,
+    FixedButton
   },
 
   data() {
     return {
       itemName: "",
-      multiple: false,
-      visible: false
+      multiple: false
     };
   },
 
   props: {
-    list: { type: Object, required: true },
-    showFormTrigger: { type: Boolean, default: false }
+    list: { type: Object, required: true }
   },
 
   methods: {
-    cancel() {
-      this.hide();
+    open() {
+      this.$refs.newItemForm.open();
     },
 
     focus() {
@@ -82,26 +79,8 @@ export default {
         this.$refs.newItemSuggest.setText("");
         this.$refs.newItemInput.focus();
       } else {
-        this.hide();
+        this.$refs.newItemForm.close();
       }
-
-      this.$emit("saved");
-    },
-
-    show() {
-      this.visible = true;
-
-      this.$nextTick(() => {
-        this.focus();
-      });
-
-      this.$emit("show");
-    },
-
-    hide() {
-      this.visible = false;
-
-      this.$emit("hide");
     },
 
     toggleMultiple() {
@@ -119,12 +98,16 @@ export default {
       );
     },
 
+    isListView() {
+      return this.$route.name === "view-list";
+    },
+
     ...mapGetters(["items"])
   }
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .vue-simple-suggest.designed {
   position: relative;
 }
