@@ -3,7 +3,7 @@
     <div class="list-panel-main flex">
       <Stats :items="list.items" />
 
-      <PanelButton :title="moreTitle" @click.native="toggleMore">
+      <PanelButton v-if="menu" :title="moreTitle" @click.native="toggleMore">
         <Icon :href="moreIcon" size="lg" />
       </PanelButton>
     </div>
@@ -55,7 +55,8 @@ export default {
   },
 
   props: {
-    list: { type: Object, required: true }
+    list: { type: Object, required: true },
+    menu: {type: Boolean, default: true}
   },
 
   methods: {

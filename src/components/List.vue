@@ -8,10 +8,6 @@
     <div class="list-items">
       <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
     </div>
-
-    <div class="list-actions flex">
-      <button class="button secondary" v-if="!isListView" @click="viewList">view</button>
-    </div>
   </div>
 </template>
 
@@ -40,12 +36,6 @@ export default {
     list: { type: Object, required: true }
   },
 
-  methods: {
-    viewList() {
-      this.$router.push({ name: "view-list", params: { id: this.list.id } });
-    }
-  },
-
   computed: {
     sortedItems() {
       let result = [...this.list.items];
@@ -71,26 +61,9 @@ export default {
       return result;
     },
 
-    isListView() {
-      return this.$route.name === "view-list";
-    },
-
     ...mapGetters(["sortStatus", "sortDirection", "showComplete"])
   }
 };
 </script>
 
-<style lang="scss">
-.item-form-trigger {
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-}
-
-.list-actions {
-  button {
-    @apply px-3 py-2 flex-auto uppercase font-bold;
-  }
-}
-</style>
+<style lang="scss"></style>
