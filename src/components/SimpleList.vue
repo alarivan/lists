@@ -3,11 +3,7 @@
     <ListHead :list="list" />
     <ListPanel :list="list" :menu="false" />
 
-    <button
-      class="button primary w-full uppercase font-bold"
-      v-if="!isListView"
-      @click="viewList"
-    >view</button>
+    <button class="button primary w-full uppercase font-bold" @click="viewList">view</button>
   </div>
 </template>
 
