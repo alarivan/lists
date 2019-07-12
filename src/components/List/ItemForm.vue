@@ -24,7 +24,7 @@
     </FixedForm>
 
     <button @click="open" class="hidden sm:block button primary w-full item-form-trigger">
-      <Icon href="#icon-plus" class="mx-auto" />
+      <Icon href="#icon-plus" size="md" class="mx-auto" />
     </button>
     <FixedButton v-if="isListView" @click="open" />
   </div>
