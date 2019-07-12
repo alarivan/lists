@@ -7,9 +7,11 @@
     @opened="$emit('opened')"
     @closed="$emit('closed')"
   >
-    <SimpleForm class="p-2" @submit="submit" @cancel="cancel">
-      <slot></slot>
-    </SimpleForm>
+    <div class="fixed-form">
+      <SimpleForm class="p-2" @submit="submit" @cancel="cancel">
+        <slot></slot>
+      </SimpleForm>
+    </div>
   </modal>
 </template>
 
@@ -59,7 +61,12 @@ export default {
 </script>
 
 <style lang="scss">
-.v--modal {
+.v--modal-box.v--modal {
   border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.fixed-form {
 }
 </style>

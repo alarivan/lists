@@ -31,22 +31,21 @@ export default {
 </script>
 
 <style lang="scss">
+.simple-form {
+  @apply bg-white;
+
+  @screen sm {
+    @apply mx-auto my-2;
+    max-width: 480px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+
 .simple-form-actions {
   @apply flex w-full;
 }
 
 .simple-form-actions-button {
   @apply flex-auto font-bold;
-}
-
-.simple-form.fixed-mobile {
-  left: 0;
-  bottom: 0;
-
-  @apply fixed bg-white w-full p-2;
-
-  @screen sm {
-    @apply static px-0;
-  }
 }
 </style>
