@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FixedForm ref="newItemForm" name="item-new-from" @submit="newItem" @opened="focus">
+    <FixedForm ref="newItemForm" :name="fixedFormName" @submit="newItem" @opened="focus">
       <div class="flex w-full">
         <vue-simple-suggest
           class="flex-auto mr-1"
@@ -100,6 +100,10 @@ export default {
 
     isListView() {
       return this.$route.name === "view-list";
+    },
+
+    fixedFormName() {
+      return `item-new-from-${this.list.id}`;
     },
 
     ...mapGetters(["items"])

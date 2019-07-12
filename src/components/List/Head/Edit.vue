@@ -5,7 +5,7 @@
     </button>
 
     <FixedForm
-      name="list-edit-form"
+      :name="fixedFormName"
       @submit="updateList"
       ref="listForm"
       @opened="focusForm"
@@ -66,6 +66,12 @@ export default {
       ListApi.updateList(this.list, this.listName);
 
       this.$refs.listForm.close();
+    }
+  },
+
+  computed: {
+    fixedFormName() {
+      return `list-edit-form-${this.list.id}`;
     }
   }
 };
