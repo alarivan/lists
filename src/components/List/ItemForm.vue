@@ -153,11 +153,11 @@ export default {
   }
 
   &.hover {
-    @apply bg-blue-500;
+    @apply bg-blue-300;
   }
 
   &.selected {
-    @apply bg-indigo-500;
+    @apply bg-indigo-300;
   }
 }
 
