@@ -23,7 +23,7 @@ export default {
 
 <style scoped lang="scss">
 .new-fixed {
-  @apply fixed font-bold px-4 py-4 bg-blue-500 rounded-full text-white;
+  @apply fixed px-4 py-4 rounded-full;
 
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   bottom: 1.5rem;
