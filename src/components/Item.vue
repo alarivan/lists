@@ -38,7 +38,6 @@ export default {
 
   data() {
     return {
-      deleteDialogName: "delete-item-dialog",
       deleteDialogText: "Delete Item?"
     };
   },
@@ -67,6 +66,10 @@ export default {
   computed: {
     itemStatus() {
       return this.item.status ? "#icon-checkmark1" : "#icon-checkmark";
+    },
+
+    deleteDialogName() {
+      return `delete-item-dialog-${this.item.id}`;
     }
   }
 };

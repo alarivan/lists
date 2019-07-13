@@ -27,12 +27,6 @@ export default {
     Icon
   },
 
-  data() {
-    return {
-      deleteDialogName: "delete-list-dialog"
-    };
-  },
-
   props: {
     list: { type: Object, required: true }
   },
@@ -60,6 +54,10 @@ export default {
 
     deleteDialogText() {
       return `Delete ${this.list.name}?`;
+    },
+
+    deleteDialogName() {
+      return `delete-list-dialog-${this.list.id}`;
     }
   }
 };
