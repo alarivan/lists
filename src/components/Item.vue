@@ -25,7 +25,7 @@ import ItemApi from "../api/item";
 import ListApi from "../api/list";
 
 import Icon from "Components/common/Icon.vue";
-import Dialog from "Components/Dialog.vue";
+import Dialog from "Components/common/Dialog.vue";
 
 export default {
   name: "component-item",

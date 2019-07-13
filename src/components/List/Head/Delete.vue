@@ -17,7 +17,7 @@
 <script>
 import ListApi from "Api/list";
 
-import Dialog from "Components/Dialog.vue";
+import Dialog from "Components/common/Dialog.vue";
 import Icon from "Components/common/Icon.vue";
 
 export default {
