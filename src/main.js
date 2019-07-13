@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VModal from "vue-js-modal";
 import VueMq from "vue-mq";
+import Vue2TouchEvents from "vue2-touch-events";
 import App from "./App.vue";
 import store from "Store";
 import router from "Router";
@@ -21,6 +22,8 @@ Vue.use(VueMq, {
   },
   defaultBreakpoint: "sm"
 });
+
+Vue.use(Vue2TouchEvents);
 
 new Vue({
   store,
