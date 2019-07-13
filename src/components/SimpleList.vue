@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import ListHead from "./List/Head.vue";
-import ListPanel from "./List/Panel.vue";
+import ListHead from "Components/List/Head.vue";
+import ListPanel from "Components/List/Panel.vue";
 
 export default {
   name: "component-simple-list",

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Lists from "../components/Lists.vue";
+import Lists from "Components/Lists.vue";
 
 export default {
   name: "view-home",

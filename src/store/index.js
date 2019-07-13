@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
-import lists from "./modules/lists";
-import items from "./modules/items";
+import lists from "Store/modules/lists";
+import items from "Store/modules/items";
 
 Vue.use(Vuex);
 

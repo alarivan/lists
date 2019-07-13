@@ -1,4 +1,4 @@
-import { getIndexFromArrayById } from "../../helper/main";
+import { getIndexFromArrayById } from "Helper/main";
 
 const state = {
   items: []

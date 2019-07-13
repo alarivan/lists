@@ -1,5 +1,5 @@
-import { getFromArrayById, getIndexFromArrayById } from "../../helper/main";
-import ListApi from "../../api/list";
+import { getFromArrayById, getIndexFromArrayById } from "Helper/main";
+import ListApi from "Api/list";
 
 const state = {
   lists: []

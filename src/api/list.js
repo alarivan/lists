@@ -1,9 +1,9 @@
-import ListModel from "../models/list";
-import store from "../store";
+import ListModel from "Models/list";
+import store from "Store";
 
-import { getFromArrayById } from "../helper/main";
+import { getFromArrayById } from "Helper/main";
 
-import ItemApi from "./item";
+import ItemApi from "Api/item";
 
 const ListApi = {
   getLists() {

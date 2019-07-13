@@ -1,7 +1,7 @@
-import ItemModel from "../models/item";
-import store from "../store";
+import ItemModel from "Models/item";
+import store from "Store";
 
-import { getFromArrayById } from "../helper/main";
+import { getFromArrayById } from "Helper/main";
 
 const ItemApi = {
   getItems() {

@@ -1,8 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-
-import store from "./store";
 
 Vue.use(Router);
 
@@ -13,12 +10,12 @@ const router = new Router({
     {
       path: "/",
       name: "view-home",
-      component: () => import(/* webpackChunkName: "home" */ "./views/Home.vue")
+      component: () => import(/* webpackChunkName: "home" */ "Views/Home.vue")
     },
     {
       path: "/list/:id",
       name: "view-list",
-      component: () => import(/* webpackChunkName: "list" */ "./views/List.vue")
+      component: () => import(/* webpackChunkName: "list" */ "Views/List.vue")
     }
   ]
 });

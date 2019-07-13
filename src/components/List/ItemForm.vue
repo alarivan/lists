@@ -33,8 +33,8 @@
 <script>
 import { mapGetters } from "vuex";
 
-import ItemApi from "../../api/item";
-import ListApi from "../../api/list";
+import ItemApi from "Api/item";
+import ListApi from "Api/list";
 
 import VueSimpleSuggest from "vue-simple-suggest";
 

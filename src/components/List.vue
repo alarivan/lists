@@ -15,9 +15,9 @@
 import { mapGetters } from "vuex";
 
 import Item from "Components/List/Item.vue";
-import ListHead from "./List/Head.vue";
-import ListPanel from "./List/Panel.vue";
-import ItemForm from "./List/ItemForm.vue";
+import ListHead from "Components/List/Head.vue";
+import ListPanel from "Components/List/Panel.vue";
+import ItemForm from "Components/List/ItemForm.vue";
 
 export default {
   name: "component-list",

@@ -1,4 +1,4 @@
-import { randomString } from "../helper/main";
+import { randomString } from "Helper/main";
 
 class ItemModel {
   constructor(name, status = false) {
