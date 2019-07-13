@@ -23,7 +23,9 @@ Vue.use(VueMq, {
   defaultBreakpoint: "sm"
 });
 
-Vue.use(Vue2TouchEvents);
+Vue.use(Vue2TouchEvents, {
+  swipeTolerance: 100
+});
 
 new Vue({
   store,

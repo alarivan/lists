@@ -1,6 +1,6 @@
 <template>
   <div class="flex mb-1">
-    <div @click="updateItem" class="list-item flex items-center">
+    <div v-touch:swipe.left="deleteItem" @click="updateItem" class="list-item flex items-center">
       <div class="checkmark mr-2">
         <Icon :href="itemStatus" size="md" />
       </div>
@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import ItemApi from "../api/item";
 import ListApi from "../api/list";
 
