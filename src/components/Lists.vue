@@ -14,7 +14,7 @@
 import { mapGetters } from "vuex";
 
 import ComponentSimpleList from "Components/SimpleList.vue";
-import ComponentNewList from "./NewList.vue";
+import ComponentNewList from "Components/List/NewList.vue";
 
 export default {
   name: "componenet-lists",
