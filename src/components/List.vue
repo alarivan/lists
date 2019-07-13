@@ -14,7 +14,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-import Item from "./Item.vue";
+import Item from "Components/List/Item.vue";
 import ListHead from "./List/Head.vue";
 import ListPanel from "./List/Panel.vue";
 import ItemForm from "./List/ItemForm.vue";

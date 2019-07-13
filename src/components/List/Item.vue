@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import ItemApi from "../api/item";
-import ListApi from "../api/list";
+import ItemApi from "Api/item";
+import ListApi from "Api/list";
 
 import Icon from "Components/common/Icon.vue";
 import Dialog from "Components/common/Dialog.vue";
