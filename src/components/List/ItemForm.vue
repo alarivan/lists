@@ -40,7 +40,7 @@ import VueSimpleSuggest from "vue-simple-suggest";
 
 import Icon from "Components/common/Icon.vue";
 import FixedForm from "Components/common/FixedForm.vue";
-import FixedButton from "Components/FixedButton.vue";
+import FixedButton from "Components/common/FixedButton.vue";
 
 export default {
   name: "component-list-item-from",

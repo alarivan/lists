@@ -24,7 +24,7 @@
 import ListApi from "../api/list";
 
 import FixedForm from "Components/common/FixedForm.vue";
-import FixedButton from "Components/FixedButton.vue";
+import FixedButton from "Components/common/FixedButton.vue";
 
 export default {
   name: "component-new-list",
