@@ -14,10 +14,6 @@
 export default {
   name: "component-simple-from",
 
-  data() {
-    return {};
-  },
-
   methods: {
     cancel() {
       this.$emit("cancel");

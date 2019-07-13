@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import SimpleForm from "Components/SimpleForm.vue";
+import SimpleForm from "Components/common/SimpleForm.vue";
 
 export default {
   name: "component-fixed-form",
