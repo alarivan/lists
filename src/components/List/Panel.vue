@@ -36,6 +36,8 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
+import ListApi from "Api/list";
+
 import Stats from "Components/List/Panel/Stats.vue";
 import PanelButton from "Components/List/Panel/Button.vue";
 import Icon from "Components/common/Icon.vue";
@@ -56,27 +58,25 @@ export default {
 
   props: {
     list: { type: Object, required: true },
-    menu: {type: Boolean, default: true}
+    menu: { type: Boolean, default: true }
   },
 
   methods: {
     toggleSortDirection() {
-      this.setSortDirection(!this.sortDirection);
+      ListApi.updateListOption(this.list, "sortDirection", !this.sortDirection);
     },
 
     toggleSortStatus() {
-      this.setSortStatus(!this.sortStatus);
+      ListApi.updateListOption(this.list, "sortStatus", !this.sortStatus);
     },
 
     toggleShowComplete() {
-      this.setShowComplete(!this.showComplete);
+      ListApi.updateListOption(this.list, "showComplete", !this.showComplete);
     },
 
     toggleMore() {
       this.more = !this.more;
-    },
-
-    ...mapActions(["setSortStatus", "setSortDirection", "setShowComplete"])
+    }
   },
 
   computed: {
@@ -100,7 +100,17 @@ export default {
       return this.more ? "Show Options" : "Hide Options";
     },
 
-    ...mapGetters(["sortStatus", "sortDirection", "showComplete"])
+    sortDirection() {
+      return this.list.options.sortDirection;
+    },
+
+    sortStatus() {
+      return this.list.options.sortStatus;
+    },
+
+    showComplete() {
+      return this.list.options.showComplete;
+    }
   }
 };
 </script>

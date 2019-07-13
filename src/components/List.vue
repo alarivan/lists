@@ -40,28 +40,26 @@ export default {
     sortedItems() {
       let result = [...this.list.items];
 
-      if (this.sortStatus) {
+      if (this.list.options.sortStatus) {
         result = result.sort((a, b) => {
           if (a.status && !b.status) {
-            return this.sortDirection ? -1 : 1;
+            return this.list.options.sortDirection ? -1 : 1;
           } else if (!a.status && b.status) {
-            return this.sortDirection ? 1 : -1;
+            return this.list.options.sortDirection ? 1 : -1;
           } else {
             return 0;
           }
         });
       }
 
-      if (!this.showComplete) {
+      if (!this.list.options.showComplete) {
         result = result.filter(i => {
           return !i.status;
         });
       }
 
       return result;
-    },
-
-    ...mapGetters(["sortStatus", "sortDirection", "showComplete"])
+    }
   }
 };
 </script>

@@ -41,6 +41,10 @@ const ListApi = {
     store.dispatch("updateList", { id: list.id, name });
   },
 
+  updateListOption(list, option, value) {
+    store.dispatch("updateListOption", { id: list.id, option, value });
+  },
+
   deleteList(list) {
     store.dispatch("removeList", list.id);
 

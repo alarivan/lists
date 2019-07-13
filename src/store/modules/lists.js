@@ -33,6 +33,13 @@ const actions = {
     }
   },
 
+  updateListOption({ commit, state }, { id, option, value }) {
+    const index = getIndexFromArrayById(state.lists, id);
+    if (index !== null) {
+      commit("UPDATE_LIST_OPTION", { index, option, value });
+    }
+  },
+
   removeList({ commit, state }, id) {
     const index = getIndexFromArrayById(state.lists, id);
     if (index !== null) {
@@ -80,6 +87,12 @@ const mutations = {
 
   REMOVE_LIST_ITEM(state, { list_index, item_index }) {
     state.lists[list_index].items.splice(item_index, 1);
+  },
+
+  UPDATE_LIST_OPTION(state, { index, option, value }) {
+    let list = state.lists[index];
+    list.options[option] = value;
+    state.lists[index] = list;
   }
 };
 
