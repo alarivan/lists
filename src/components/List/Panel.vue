@@ -3,17 +3,26 @@
     <div class="list-panel-main flex">
       <Stats :items="list.items" />
 
-      <PanelButton v-if="menu" :title="moreTitle" @click.native="toggleMore">
+      <PanelButton
+        class="list-panel-more-options"
+        v-if="menu"
+        :title="moreTitle"
+        @click.native="toggleMore"
+      >
         <Icon :href="moreIcon" size="lg" />
       </PanelButton>
     </div>
     <div class="list-panel-more" v-if="more">
-      <PanelButton title="Sort Direction" @click.native="toggleSortDirection">
+      <PanelButton
+        class="list-panel-sort-direction"
+        title="Sort Direction"
+        @click.native="toggleSortDirection"
+      >
         <Icon :href="sortDirectionIcon" size="lg" />
       </PanelButton>
 
       <PanelButton
-        class="togglable"
+        class="list-panel-sort-status togglable"
         :class="{active: sortStatus}"
         :title="sortStatusTitle"
         @click.native="toggleSortStatus"
@@ -22,7 +31,7 @@
       </PanelButton>
 
       <PanelButton
-        class="togglable"
+        class="list-panel-show-complete togglable"
         :class="{active: showComplete}"
         :title="showCompleteTitle"
         @click.native="toggleShowComplete"
@@ -97,7 +106,7 @@ export default {
     },
 
     moreTitle() {
-      return this.more ? "Show Options" : "Hide Options";
+      return this.more ? "Hide Options" : "Show Options";
     },
 
     sortDirection() {
