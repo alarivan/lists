@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import ListHead from "./List/Head.vue";
 import ListPanel from "./List/Panel.vue";
 
