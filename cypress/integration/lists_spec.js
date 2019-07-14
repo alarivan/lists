@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 
+const listName = "Test List";
 describe("Lists Page", function() {
   beforeEach(() => {
     cy.visit("/");
@@ -10,12 +11,10 @@ describe("Lists Page", function() {
 
     cy.get('[data-modal="list-new-form"]').should("exist");
 
-    cy.focused().should("have.attr", "placeholder", "List Name");
+    cy.focused().should("have.attr", "placeholder", listName);
   });
 
   it("Creates List", function() {
-    const listName = "Test List";
-
     cy.get(".simple-form input").type(listName);
 
     cy.get(".simple-form-actions-button.save").click();

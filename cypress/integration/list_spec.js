@@ -34,6 +34,6 @@ describe("List", function() {
 
     cy.get(".simple-form-actions-button.save").click();
 
-    cy.get(".list-items").should("contain", "Item 1");
+    cy.get(".list-items").should("contain", itemName);
   });
 });

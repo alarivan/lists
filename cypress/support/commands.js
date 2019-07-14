@@ -23,3 +23,21 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("addItem", itemName => {
+  cy.get(".new-fixed").click();
+
+  cy.get(".simple-form input").type(itemName);
+
+  cy.get(".simple-form-actions-button.save").click();
+});
+
+Cypress.Commands.add("createList", listName => {
+  cy.visit("/");
+
+  cy.get(".new-fixed").click();
+
+  cy.get(".simple-form input").type(listName);
+
+  cy.get(".simple-form-actions-button.save").click();
+});

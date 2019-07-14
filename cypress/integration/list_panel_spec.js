@@ -1,42 +1,13 @@
 /// <reference types="Cypress" />
 
-function addItem(itemName) {
-  cy.get(".new-fixed").click();
-
-  cy.focused().should("have.attr", "placeholder", "Item Name");
-
-  cy.get(".simple-form input").type(itemName);
-
-  cy.get(".simple-form-actions-button.save").click();
-
-  cy.get(".list-items").should("contain", itemName);
-}
-
 describe("List", function() {
   beforeEach(() => {
-    const listName = "Test List";
-
     cy.visit("/");
 
-    cy.get(".new-fixed")
-      .click()
-      .should("exist");
+    cy.createList("Test List");
 
-    cy.get('[data-modal="list-new-form"]').should("exist");
-
-    cy.focused().should("have.attr", "placeholder", "List Name");
-
-    cy.get(".simple-form input").type(listName);
-
-    cy.get(".simple-form-actions-button.save").click();
-
-    cy.get(".component-list .list-head h1").should("contain", listName);
-
-    cy.url().should("include", "/list/");
-
-    ["Item 1", "Item 2"].forEach(i => {
-      addItem(i);
-    });
+    cy.addItem("Item 1");
+    cy.addItem("Item 2");
   });
 
   it("Shows correct numbers in stats", function() {
