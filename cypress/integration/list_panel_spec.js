@@ -16,7 +16,7 @@ describe("List", function() {
   beforeEach(() => {
     const listName = "Test List";
 
-    cy.visit("http://localhost:8080");
+    cy.visit("/");
 
     cy.get(".new-fixed")
       .click()

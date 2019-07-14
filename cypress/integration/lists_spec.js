@@ -2,7 +2,7 @@
 
 describe("Lists Page", function() {
   beforeEach(() => {
-    cy.visit("http://localhost:8080");
+    cy.visit("/");
 
     cy.get(".new-fixed")
       .click()

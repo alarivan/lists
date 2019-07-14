@@ -4,7 +4,7 @@ describe("List", function() {
   beforeEach(() => {
     const listName = "Test List";
 
-    cy.visit("http://localhost:8080");
+    cy.visit("/");
 
     cy.get(".new-fixed")
       .click()
@@ -25,7 +25,7 @@ describe("List", function() {
 
   it("Adds an Item to List", function() {
     const itemName = "Item 1";
-    
+
     cy.get(".new-fixed").click();
 
     cy.focused().should("have.attr", "placeholder", "Item Name");
