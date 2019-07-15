@@ -9,7 +9,7 @@
       <div class="checkmark mr-2">
         <Icon data-cy="item-status" :href="itemStatus" size="md" />
       </div>
-      <div>{{item.name}}</div>
+      <div>{{ item.name }}</div>
     </div>
     <button data-cy="item-delete-button" class="button delete" @click="openDeleteDialog">
       <Icon href="#icon-bin" />

@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center" v-if="total > 0">
     <Icon :href="icon" />
-    <div class="ml-1">{{total}}</div>
+    <div class="ml-1">{{ total }}</div>
   </div>
 </template>
 

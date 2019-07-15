@@ -17,7 +17,7 @@
           @click="toggleMultiple"
           type="button"
           class="item-form-multiple-toggle"
-          :class="{enabled: multiple}"
+          :class="{ enabled: multiple }"
         >
           <Icon href="#icon-infinite" size="md" />
         </button>

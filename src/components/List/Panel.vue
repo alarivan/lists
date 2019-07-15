@@ -24,7 +24,7 @@
       <PanelButton
         data-cy="list-panel-sort-status"
         class="togglable"
-        :class="{active: sortStatus}"
+        :class="{ active: sortStatus }"
         :title="sortStatusTitle"
         @click.native="toggleSortStatus"
       >
@@ -34,7 +34,7 @@
       <PanelButton
         data-cy="list-panel-show-complete"
         class="togglable"
-        :class="{active: showComplete}"
+        :class="{ active: showComplete }"
         :title="showCompleteTitle"
         @click.native="toggleShowComplete"
       >
