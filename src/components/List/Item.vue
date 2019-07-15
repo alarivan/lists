@@ -1,12 +1,17 @@
 <template>
   <div class="flex mb-1">
-    <div v-touch:swipe.left="deleteItem" @click="updateItem" class="list-item flex items-center">
+    <div
+      data-cy="list-item"
+      v-touch:swipe.left="deleteItem"
+      @click="updateItem"
+      class="list-item flex items-center"
+    >
       <div class="checkmark mr-2">
-        <Icon :href="itemStatus" size="md" />
+        <Icon data-cy="item-status" :href="itemStatus" size="md" />
       </div>
       <div>{{item.name}}</div>
     </div>
-    <button class="button delete" @click="openDeleteDialog">
+    <button data-cy="item-delete-button" class="button delete" @click="openDeleteDialog">
       <Icon href="#icon-bin" />
     </button>
 

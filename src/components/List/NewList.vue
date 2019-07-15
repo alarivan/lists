@@ -1,8 +1,9 @@
 <template>
   <div>
-    <FixedButton @click="open" />
+    <FixedButton data-cy="list-new-button" @click="open" />
 
     <FixedForm
+      data-cy="list-new-form"
       name="list-new-form"
       @submit="newList"
       ref="listForm"
@@ -10,6 +11,7 @@
       @closed="closed"
     >
       <input
+        data-cy="list-new-name"
         class="block w-full"
         ref="listNameInput"
         v-model="listName"

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <button @click="openDeleteDialog" class="button delete h-full">
+    <button
+      data-cy="list-head-button-delete"
+      @click="openDeleteDialog"
+      class="button delete h-full"
+    >
       <Icon href="#icon-bin" />
     </button>
 

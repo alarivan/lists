@@ -4,8 +4,16 @@
       <slot></slot>
     </form>
     <div class="simple-form-actions">
-      <button class="simple-form-actions-button button save" @click="submit">Save</button>
-      <button class="simple-form-actions-button button secondary" @click="cancel">Cancel</button>
+      <button
+        data-cy="simple-form-submit"
+        class="simple-form-actions-button button save"
+        @click="submit"
+      >Save</button>
+      <button
+        data-cy="simple-form-cancel"
+        class="simple-form-actions-button button secondary"
+        @click="cancel"
+      >Cancel</button>
     </div>
   </div>
 </template>

@@ -1,11 +1,25 @@
 <template>
   <div class="flex-auto">
     <div v-if="items.length" class="font-bold italic list-panel-item flex px-3 py-2">
-      <StatsItem class="stats-item-complete" :total="stats.complete" icon="#icon-checkmark1" />
+      <StatsItem
+        data-cy="list-stats-item-complete"
+        class="stats-item-complete"
+        :total="stats.complete"
+        icon="#icon-checkmark1"
+      />
 
-      <div v-if="stats.complete && stats.incomplete" class="mx-1">/</div>
+      <div
+        data-cy="list-stats-item-divider"
+        v-if="stats.complete && stats.incomplete"
+        class="mx-1"
+      >/</div>
 
-      <StatsItem class="stats-item-incomplete" :total="stats.incomplete" icon="#icon-checkmark" />
+      <StatsItem
+        data-cy="list-stats-item-incomplete"
+        class="stats-item-incomplete"
+        :total="stats.incomplete"
+        icon="#icon-checkmark"
+      />
     </div>
   </div>
 </template>

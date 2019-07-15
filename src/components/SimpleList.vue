@@ -3,7 +3,11 @@
     <ListHead :list="list" />
     <ListPanel :list="list" :menu="false" />
 
-    <button class="button primary w-full uppercase font-bold" @click="viewList">view</button>
+    <router-link
+      data-cy="list-view-button"
+      class="block text-center button primary w-full uppercase font-bold"
+      :to="{ name: 'view-list', params: { id: this.list.id } }"
+    >view</router-link>
   </div>
 </template>
 
@@ -28,7 +32,7 @@ export default {
 
   methods: {
     viewList() {
-      this.$router.push({ name: "view-list", params: { id: this.list.id } });
+      this.$router.push();
     }
   }
 };

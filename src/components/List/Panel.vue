@@ -1,10 +1,10 @@
 <template>
   <div class="list-panel mb-1">
-    <div class="list-panel-main flex">
+    <div data-cy="list-panel-main" class="list-panel-main flex">
       <Stats :items="list.items" />
 
       <PanelButton
-        class="list-panel-more-options"
+        data-cy="list-panel-more-options"
         v-if="menu"
         :title="moreTitle"
         @click.native="toggleMore"
@@ -12,9 +12,9 @@
         <Icon :href="moreIcon" size="lg" />
       </PanelButton>
     </div>
-    <div class="list-panel-more" v-if="more">
+    <div data-cy="list-panel-more" class="list-panel-more" v-if="more">
       <PanelButton
-        class="list-panel-sort-direction"
+        data-cy="list-panel-sort-direction"
         title="Sort Direction"
         @click.native="toggleSortDirection"
       >
@@ -22,7 +22,8 @@
       </PanelButton>
 
       <PanelButton
-        class="list-panel-sort-status togglable"
+        data-cy="list-panel-sort-status"
+        class="togglable"
         :class="{active: sortStatus}"
         :title="sortStatusTitle"
         @click.native="toggleSortStatus"
@@ -31,7 +32,8 @@
       </PanelButton>
 
       <PanelButton
-        class="list-panel-show-complete togglable"
+        data-cy="list-panel-show-complete"
+        class="togglable"
         :class="{active: showComplete}"
         :title="showCompleteTitle"
         @click.native="toggleShowComplete"

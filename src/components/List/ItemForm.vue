@@ -10,9 +10,10 @@
           :filter-by-query="true"
           ref="newItemSuggest"
         >
-          <input type="text" placeholder="Item Name" ref="newItemInput" />
+          <input data-cy="item-new-name" type="text" placeholder="Item Name" ref="newItemInput" />
         </vue-simple-suggest>
         <button
+          data-cy="item-new-multiple-toggle"
           @click="toggleMultiple"
           type="button"
           class="item-form-multiple-toggle"
@@ -23,10 +24,14 @@
       </div>
     </FixedForm>
 
-    <button @click="open" class="hidden sm:block button primary w-full item-form-trigger">
+    <button
+      data-cy="item-new-button-inline"
+      @click="open"
+      class="hidden sm:block button primary w-full item-form-trigger"
+    >
       <Icon href="#icon-plus" size="md" class="mx-auto" />
     </button>
-    <FixedButton v-if="isListView" @click="open" />
+    <FixedButton data-cy="item-new-button-fixed" v-if="isListView" @click="open" />
   </div>
 </template>
 

@@ -1,7 +1,12 @@
 <template>
   <div class="px-1">
     <div class="lists flex flex-wrap -mx-1">
-      <div class="w-full sm:w-1/2 px-1 mb-8" v-for="(list, index) in listsWithItems" :key="index">
+      <div
+        data-cy="lists-list"
+        class="w-full sm:w-1/2 px-1 mb-8"
+        v-for="(list, index) in listsWithItems"
+        :key="index"
+      >
         <ComponentSimpleList :list="list" />
       </div>
     </div>

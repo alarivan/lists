@@ -5,7 +5,7 @@
 
     <ItemForm class="mb-1" ref="itemForm" :list="list" />
 
-    <div class="list-items">
+    <div data-cy="list-items" class="list-items">
       <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
     </div>
   </div>

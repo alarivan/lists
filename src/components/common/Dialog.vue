@@ -1,10 +1,18 @@
 <template>
   <modal class="dialog-modal" :name="name" width="100%" height="auto" :pivotY="0.7">
     <div class="dialog-container">
-      <h1 class="dialog-text">{{text}}</h1>
+      <h1 data-cy="dialog-text" class="dialog-text">{{text}}</h1>
       <div class="dialog-actions">
-        <button class="dialog-action-button button delete" @click="confirm">{{confirmText}}</button>
-        <button class="dialog-action-button button secondary" @click="cancel">{{cancelText}}</button>
+        <button
+          data-cy="dialog-confirm"
+          class="dialog-action-button button delete"
+          @click="confirm"
+        >{{confirmText}}</button>
+        <button
+          data-cy="dialog-cancel"
+          class="dialog-action-button button secondary"
+          @click="cancel"
+        >{{cancelText}}</button>
       </div>
     </div>
   </modal>

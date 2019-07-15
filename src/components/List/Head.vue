@@ -1,7 +1,7 @@
 <template>
   <div class="list-head mb-1">
     <div class="flex">
-      <h1 class="font-bold flex-auto p-2">{{list.name}}</h1>
+      <h1 data-cy="list-head-name" class="font-bold flex-auto p-2">{{list.name}}</h1>
 
       <HeadEdit :list="list" />
       <HeadDelete :list="list" />

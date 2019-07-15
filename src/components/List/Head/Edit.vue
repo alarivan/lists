@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="openForm" class="button primary h-full">
+    <button data-cy="list-head-button-edit" @click="openForm" class="button primary h-full">
       <Icon href="#icon-pencil" />
     </button>
 
@@ -12,6 +12,7 @@
       @closed="closed"
     >
       <input
+        data-cy="list-head-edit-name"
         class="block w-full"
         ref="listNameInput"
         v-model="listName"
