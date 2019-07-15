@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "blockstack": "^19.2.1",
     "core-js": "^2.6.5",
     "register-service-worker": "^1.6.2",
     "tailwindcss": "^1.0.4",
