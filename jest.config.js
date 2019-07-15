@@ -8,7 +8,15 @@ module.exports = {
   },
   transformIgnorePatterns: ["/node_modules/"],
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1"
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^Router(.*)$": "<rootDir>/src/router/$1",
+    "^Store(.*)$": "<rootDir>/src/store/$1",
+    "^Views(.*)$": "<rootDir>/src/views/$1",
+    "^Components(.*)$": "<rootDir>/src/components/$1",
+    "^Api(.*)$": "<rootDir>/src/api/$1",
+    "^Helper(.*)$": "<rootDir>/src/helper/$1",
+    "^Models(.*)$": "<rootDir>/src/models/$1",
+    "^Styles(.*)$": "<rootDir>/src/styles/$1"
   },
   snapshotSerializers: ["jest-serializer-vue"],
   testMatch: [

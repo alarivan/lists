@@ -14,7 +14,6 @@ describe("items Store", () => {
 
   it("adds item to list", () => {
     ListApi.addItemToList(list, item);
-    console.log(store.state.lists.lists[0].items);
     expect(store.state.lists.lists[0].items[0]).toEqual(item.id);
   });
 });
