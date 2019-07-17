@@ -1,4 +1,4 @@
-import { getFromArrayById, getIndexFromArrayById } from "Helper/main";
+import { getIndexFromArrayById } from "Helper/main";
 import ListApi from "Api/list";
 
 const state = {
@@ -20,6 +20,10 @@ const getters = {
 
 // actions
 const actions = {
+  setLists({ commit }, lists) {
+    commit("SET_LISTS", lists);
+  },
+
   addList({ commit }, list) {
     commit("ADD_LIST", list);
   },
@@ -69,6 +73,10 @@ const actions = {
 
 // mutations
 const mutations = {
+  SET_LISTS(state, lists) {
+    state.lists = lists;
+  },
+
   ADD_LIST(state, list) {
     state.lists.push(list);
   },

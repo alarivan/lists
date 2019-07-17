@@ -1,5 +1,6 @@
 import ItemModel from "Models/item";
 import store from "Store";
+import { putFile } from "Helper/userSession";
 
 import { getFromArrayById } from "Helper/main";
 
@@ -24,7 +25,9 @@ const ItemApi = {
   },
 
   updateItem(id, status) {
-    store.dispatch("updateItem", { id, status });
+    store.dispatch("updateItem", { id, status }).then(() => {
+      putFile();
+    });
   },
 
   deleteItem(item) {

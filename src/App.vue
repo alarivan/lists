@@ -1,12 +1,30 @@
 <template>
   <div id="app" class="container mx-auto p-2">
-    <router-view />
+    <Loading v-if="loading" />
+
+    <div v-else>
+      <Header />
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
+import Loading from "Components/Loading.vue";
+import Header from "Components/Header.vue";
+
 export default {
-  name: "app"
+  name: "app",
+  components: {
+    Loading,
+    Header
+  },
+
+  computed: {
+    ...mapGetters(["loading"])
+  }
 };
 </script>
 

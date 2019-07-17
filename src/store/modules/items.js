@@ -13,6 +13,10 @@ const getters = {
 
 // actions
 const actions = {
+  setItems({ commit }, items) {
+    commit("SET_ITEMS", items);
+  },
+
   addItem({ commit }, item) {
     commit("ADD_ITEM", item);
   },
@@ -34,6 +38,10 @@ const actions = {
 
 // mutations
 const mutations = {
+  SET_ITEMS(state, items) {
+    state.items = items;
+  },
+
   ADD_ITEM(state, item) {
     state.items.push(item);
   },
