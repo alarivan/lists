@@ -25,13 +25,21 @@ const ItemApi = {
   },
 
   updateItem(id, status) {
-    store.dispatch("updateItem", { id, status }).then(() => {
+    return store.dispatch("updateItem", { id, status }).then(() => {
       putFile();
     });
   },
 
   deleteItem(item) {
-    store.dispatch("removeItem", item.id);
+    return store.dispatch("removeItem", item.id);
+  },
+
+  deleteItems(items) {
+    const promises = items.map(item => {
+      return this.deleteItem(item);
+    });
+
+    return Promise.all(promises);
   }
 };
 

@@ -41,13 +41,13 @@ const ListApi = {
   },
 
   updateList(list, name) {
-    store.dispatch("updateList", { id: list.id, name }).then(() => {
+    return store.dispatch("updateList", { id: list.id, name }).then(() => {
       putFile();
     });
   },
 
   updateListOption(list, option, value) {
-    store
+    return store
       .dispatch("updateListOption", { id: list.id, option, value })
       .then(() => {
         putFile();
@@ -57,15 +57,13 @@ const ListApi = {
   deleteList(list) {
     store.dispatch("removeList", list.id);
 
-    list.items
-      .forEach(i => ItemApi.deleteItem(i))
-      .then(() => {
-        putFile();
-      });
+    return ItemApi.deleteItems(list.items).then(() => {
+      putFile();
+    });
   },
 
   addItemToList(list, item) {
-    store
+    return store
       .dispatch("addListItem", { list_id: list.id, item_id: item.id })
       .then(() => {
         putFile();
@@ -78,7 +76,7 @@ const ListApi = {
       item_id: item.id
     });
 
-    ItemApi.deleteItem(item).then(() => {
+    return ItemApi.deleteItem(item).then(() => {
       putFile();
     });
   }
