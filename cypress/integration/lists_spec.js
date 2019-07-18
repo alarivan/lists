@@ -26,6 +26,26 @@ describe("Lists Page", function() {
     cy.url().should("include", "/list/");
   });
 
+  it.only("Creates List from Empty Block", function() {
+    cy.get("[data-cy=empty-block-button]")
+      .should("exist")
+      .click();
+
+    cy.get("[data-cy=list-new-form]").should("exist");
+
+    cy.focused().should("have.attr", "placeholder", "List Name");
+
+    cy.get("[data-cy=list-new-name]")
+      .should("exist")
+      .type(listName);
+
+    cy.get("[data-cy=simple-form-submit]").click();
+
+    cy.get("[data-cy=list-head-name]").should("contain", listName);
+
+    cy.url().should("include", "/list/");
+  });
+
   it("Cancels List Creation", function() {
     cy.get("[data-cy=list-new-button]").click();
 

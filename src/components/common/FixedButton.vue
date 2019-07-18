@@ -8,7 +8,7 @@
 import Icon from "Components/common/Icon.vue";
 
 export default {
-  name: "componenet-fixed-button",
+  name: "component-fixed-button",
   components: {
     Icon
   },
