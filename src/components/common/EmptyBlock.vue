@@ -1,7 +1,7 @@
 <template>
   <div data-cy="empty-block" class="empty-block">
     <div>
-      <h1 v-if="title" data-cy="empty-block-title" class="empty-block-title">{{title}}</h1>
+      <h1 v-if="title" data-cy="empty-block-title" class="empty-block-title">{{ title }}</h1>
 
       <button data-cy="empty-block-button" @click="open" class="empty-block-button button primary">
         <Icon href="#icon-plus" class="empty-block-button-icon" />

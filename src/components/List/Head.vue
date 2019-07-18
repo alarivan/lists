@@ -10,10 +10,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
-import ListApi from "Api/list";
-
 import HeadEdit from "Components/List/Head/Edit.vue";
 import HeadDelete from "Components/List/Head/Delete.vue";
 

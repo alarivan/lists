@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
 import ListApi from "Api/list";
 
 import Stats from "Components/List/Panel/Stats.vue";

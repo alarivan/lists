@@ -6,10 +6,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
-import { Person } from "blockstack";
-import { userSession, getFile } from "Helper/userSession";
+import { mapGetters } from "vuex";
 
 import Login from "Components/Header/Session/Login.vue";
 import Logout from "Components/Header/Session/Logout.vue";

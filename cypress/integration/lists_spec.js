@@ -26,7 +26,7 @@ describe("Lists Page", function() {
     cy.url().should("include", "/list/");
   });
 
-  it.only("Creates List from Empty Block", function() {
+  it("Creates List from Empty Block", function() {
     cy.get("[data-cy=empty-block-button]")
       .should("exist")
       .click();

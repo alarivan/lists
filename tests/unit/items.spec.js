@@ -1,4 +1,3 @@
-import ListApi from "../../src/api/list";
 import ItemApi from "../../src/api/item";
 import store from "../../src/store";
 
