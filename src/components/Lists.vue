@@ -21,7 +21,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-import ComponentSimpleList from "Components/SimpleList.vue";
+import ComponentSimpleList from "Components/Lists/SimpleList.vue";
 import EmptyBlock from "Components/Lists/Empty.vue";
 import NewButton from "Components/Lists/NewButton.vue";
 import NewListForm from "Components/Lists/NewForm.vue";
