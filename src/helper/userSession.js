@@ -15,16 +15,24 @@ const PUT_OPTIONS = {
 };
 
 export function getFile() {
-  return userSession.getFile(FILE_NAME, GET_OPTIONS).then(data => {
-    return JSON.parse(data);
-  });
+  if (userSession.isUserSignedIn()) {
+    return userSession.getFile(FILE_NAME, GET_OPTIONS).then(data => {
+      return JSON.parse(data);
+    });
+  }
+
+  return Promise.resolve(false);
 }
 
 export function putFile() {
-  const data = {
-    items: store.getters.items,
-    lists: store.getters.lists
-  };
+  if (userSession.isUserSignedIn()) {
+    const data = {
+      items: store.getters.items,
+      lists: store.getters.lists
+    };
 
-  return userSession.putFile(FILE_NAME, JSON.stringify(data), PUT_OPTIONS);
+    return userSession.putFile(FILE_NAME, JSON.stringify(data), PUT_OPTIONS);
+  }
+
+  return Promise.resolve(false);
 }
