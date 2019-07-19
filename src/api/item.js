@@ -14,7 +14,7 @@ const ItemApi = {
   },
 
   newItem(name, status) {
-    return new ItemModel(name, status);
+    return new ItemModel(ItemApi.formatName(name), status);
   },
 
   addItem(name, status) {
@@ -40,6 +40,10 @@ const ItemApi = {
     });
 
     return Promise.all(promises);
+  },
+
+  formatName(name) {
+    return name.trim();
   }
 };
 

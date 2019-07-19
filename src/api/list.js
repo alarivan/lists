@@ -28,7 +28,7 @@ const ListApi = {
   },
 
   newList(name, items) {
-    return new ListModel(ListApi.getLists(), name, items);
+    return new ListModel(ListApi.getLists(), ListApi.formatName(name), items);
   },
 
   addList(name, items) {
@@ -79,6 +79,10 @@ const ListApi = {
     return ItemApi.deleteItem(item).then(() => {
       putFile();
     });
+  },
+
+  formatName(name) {
+    return name.trim();
   }
 };
 
