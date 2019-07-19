@@ -5,9 +5,9 @@
 
     <ItemForm class="mb-1" ref="itemForm" :list="list" />
 
-    <div data-cy="list-items" class="list-items">
+    <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
       <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -62,4 +62,32 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.list-enter-active,
+.list-leave-active,
+.list-move {
+  transition: 300ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+  transition-property: opacity, transform;
+}
+
+.list-enter {
+  opacity: 0;
+  transform: translateX(50px) scaleY(0.5);
+}
+
+.list-enter-to {
+  opacity: 1;
+  transform: translateX(0) scaleY(1);
+}
+
+.list-leave-active {
+  position: absolute;
+  width: 100%;
+}
+
+.list-leave-to {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+</style>
