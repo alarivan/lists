@@ -4,17 +4,10 @@
     name="list-new-form"
     @submit="newList"
     ref="listForm"
-    @opened="focus"
+    @opened="opened"
     @closed="closed"
   >
-    <input
-      data-cy="list-new-name"
-      class="block w-full"
-      ref="listNameInput"
-      v-model="listName"
-      type="text"
-      placeholder="List Name"
-    />
+    <InputText ref="listNameInput" :model.sync="listName" placeholder="List Name" />
   </FixedForm>
 </template>
 
@@ -22,11 +15,13 @@
 import ListApi from "Api/list";
 
 import FixedForm from "Components/common/FixedForm.vue";
+import InputText from "Components/common/InputText.vue";
 
 export default {
   name: "component-lists-new-form",
   components: {
-    FixedForm
+    FixedForm,
+    InputText
   },
 
   data() {
@@ -37,8 +32,10 @@ export default {
 
   methods: {
     newList() {
-      const list = ListApi.addList(this.listName);
-      this.viewList(list);
+      if (this.$refs.listNameInput.validate()) {
+        const list = ListApi.addList(this.listName);
+        this.viewList(list);
+      }
     },
 
     viewList(list) {
@@ -49,7 +46,7 @@ export default {
       this.listName = "";
     },
 
-    focus() {
+    opened() {
       this.$refs.listNameInput.focus();
     }
   }
