@@ -4,6 +4,10 @@
 
 @tailwind utilities;
 
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 input {
     @apply border border-gray-200;
 }
