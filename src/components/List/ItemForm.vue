@@ -76,8 +76,8 @@ export default {
       const item = ItemApi.addItem(this.itemName);
       ListApi.addItemToList(this.list, item);
 
+      this.itemName = "";
       if (this.multiple) {
-        this.itemName = "";
         this.$refs.newItemInput.focus();
       } else {
         this.$refs.newItemForm.close();
