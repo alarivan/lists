@@ -2,16 +2,12 @@
   <div>
     <FixedForm ref="newItemForm" :name="fixedFormName" @submit="newItem" @opened="focus">
       <div class="flex w-full">
-        <vue-simple-suggest
-          class="flex-auto mr-1"
-          v-model="itemName"
-          :list="uniqItems"
-          display-attribute="name"
-          :filter-by-query="true"
-          ref="newItemSuggest"
-        >
-          <input data-cy="item-new-name" type="text" placeholder="Item Name" ref="newItemInput" />
-        </vue-simple-suggest>
+        <InputText
+          class="flex-auto"
+          ref="newItemInput"
+          :model.sync="itemName"
+          placeholder="Item Name"
+        />
         <button
           data-cy="item-new-multiple-toggle"
           @click="toggleMultiple"
@@ -41,19 +37,18 @@ import { mapGetters } from "vuex";
 import ItemApi from "Api/item";
 import ListApi from "Api/list";
 
-import VueSimpleSuggest from "vue-simple-suggest";
-
 import Icon from "Components/common/Icon.vue";
 import FixedForm from "Components/common/FixedForm.vue";
 import FixedButton from "Components/common/FixedButton.vue";
+import InputText from "Components/common/InputText.vue";
 
 export default {
   name: "component-list-item-from",
   components: {
-    VueSimpleSuggest,
     Icon,
     FixedForm,
-    FixedButton
+    FixedButton,
+    InputText
   },
 
   data() {
@@ -81,7 +76,7 @@ export default {
       ListApi.addItemToList(this.list, item);
 
       if (this.multiple) {
-        this.$refs.newItemSuggest.setText("");
+        this.itemName = "";
         this.$refs.newItemInput.focus();
       } else {
         this.$refs.newItemForm.close();
@@ -96,13 +91,6 @@ export default {
   },
 
   computed: {
-    uniqItems() {
-      const items = [...this.items];
-      return items.filter(
-        (v, i, a) => a.findIndex(x => x.name === v.name) === i
-      );
-    },
-
     isListView() {
       return this.$route.name === "view-list";
     },
@@ -117,55 +105,6 @@ export default {
 </script>
 
 <style lang="scss">
-.vue-simple-suggest.designed {
-  position: relative;
-}
-
-.vue-simple-suggest.designed input {
-  @apply block w-full;
-  transition: all 0.1s;
-  transition-delay: 0.05s;
-}
-
-.vue-simple-suggest.designed.focus input {
-  @apply border border-gray-500;
-}
-
-.vue-simple-suggest.designed .suggestions {
-  @apply absolute bg-white border border-gray-500;
-  left: 0;
-  right: 0;
-  top: 100%;
-  top: calc(100% - 1px);
-  opacity: 1;
-  z-index: 1000;
-}
-
-.vue-simple-suggest.designed .suggest-item {
-  cursor: pointer;
-  user-select: none;
-}
-
-.vue-simple-suggest.designed .suggest-item,
-.vue-simple-suggest.designed .misc-item {
-  @apply px-4 py-2;
-}
-
-.vue-simple-suggest.designed .suggest-item {
-  &.hover,
-  &.selected {
-    @apply text-gray-100;
-  }
-
-  &.hover {
-    @apply bg-blue-300;
-  }
-
-  &.selected {
-    @apply bg-indigo-300;
-  }
-}
-
 .item-form-multiple-toggle {
   @apply bg-gray-200 px-3 text-gray-500;
 
