@@ -3,6 +3,7 @@
     <FixedForm ref="newItemForm" :name="fixedFormName" @submit="newItem" @opened="focus">
       <div class="flex w-full">
         <InputText
+          data-cy="item-new-name"
           class="flex-auto"
           ref="newItemInput"
           :model.sync="itemName"

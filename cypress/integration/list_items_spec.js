@@ -14,7 +14,7 @@ describe("List Items", function() {
 
     cy.focused().should("have.attr", "placeholder", "Item Name");
 
-    cy.get("[data-cy=item-new-name]").type(itemName);
+    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(itemName);
 
     cy.get("[data-cy=simple-form-submit]").click();
 

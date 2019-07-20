@@ -15,7 +15,7 @@ describe("Lists Page", function() {
 
     cy.focused().should("have.attr", "placeholder", "List Name");
 
-    cy.get("[data-cy=list-new-name]")
+    cy.get("[data-cy=list-new-name] [data-cy=input-text]")
       .should("exist")
       .type(listName);
 
@@ -35,7 +35,7 @@ describe("Lists Page", function() {
 
     cy.focused().should("have.attr", "placeholder", "List Name");
 
-    cy.get("[data-cy=list-new-name]")
+    cy.get("[data-cy=list-new-name] [data-cy=input-text]")
       .should("exist")
       .type(listName);
 

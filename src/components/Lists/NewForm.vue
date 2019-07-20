@@ -7,7 +7,12 @@
     @opened="opened"
     @closed="closed"
   >
-    <InputText ref="listNameInput" :model.sync="listName" placeholder="List Name" />
+    <InputText
+      data-cy="list-new-name"
+      ref="listNameInput"
+      :model.sync="listName"
+      placeholder="List Name"
+    />
   </FixedForm>
 </template>
 
