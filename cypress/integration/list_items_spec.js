@@ -67,4 +67,39 @@ describe("List Items", function() {
       .find("[data-cy=icon-use]")
       .should("have.attr", "xlink:href", "#icon-checkmark");
   });
+
+  it.only("Doesn't close ItemForm if multiple-toggle is active", function() {
+    cy.get("[data-cy=item-new-button-fixed]").click();
+
+    cy.focused().should("have.attr", "placeholder", "Item Name");
+
+    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(itemName);
+
+    cy.get("[data-cy=item-new-multiple-toggle]").click();
+
+    cy.get("[data-cy=simple-form-submit]").click();
+
+    cy.get("[data-cy=list-item]").should("contain", itemName);
+
+    cy.focused().should("have.value", "");
+  });
+
+  it.only("Clears form after ItemForm is closed", function() {
+    cy.get("[data-cy=item-new-button-fixed]").click();
+
+    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(itemName);
+
+    cy.get("[data-cy=item-new-multiple-toggle]").click();
+
+    cy.get("[data-cy=simple-form-cancel]").click();
+
+    cy.get("[data-cy=item-new-button-fixed]").click();
+
+    cy.focused().should("have.value", "");
+
+    cy.get("[data-cy=item-new-multiple-toggle]").should(
+      "not.have.class",
+      "enabled"
+    );
+  });
 });

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <FixedForm ref="newItemForm" :name="fixedFormName" @submit="newItem" @opened="focus">
+    <FixedForm
+      ref="newItemForm"
+      :name="fixedFormName"
+      @submit="newItem"
+      @opened="focus"
+      @closed="closed"
+    >
       <div class="flex w-full">
         <InputText
           data-cy="item-new-name"
@@ -70,6 +76,11 @@ export default {
 
     focus() {
       this.$refs.newItemInput.focus();
+    },
+
+    closed() {
+      this.multiple = false;
+      this.itemName = "";
     },
 
     newItem() {
