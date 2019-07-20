@@ -28,4 +28,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#app {
+  max-width: 800px;
+  @apply mx-auto;
+}
+</style>
