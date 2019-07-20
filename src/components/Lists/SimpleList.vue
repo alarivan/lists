@@ -22,18 +22,8 @@ export default {
     ListPanel
   },
 
-  data() {
-    return {};
-  },
-
   props: {
     list: { type: Object, required: true }
-  },
-
-  methods: {
-    viewList() {
-      this.$router.push();
-    }
   }
 };
 </script>

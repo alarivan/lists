@@ -1,7 +1,7 @@
 <template>
-  <div class="list-head mb-1">
+  <div data-cy="list-head" class="list-head mb-1">
     <div class="flex">
-      <h1 data-cy="list-head-name" class="font-bold flex-auto p-2">{{ list.name }}</h1>
+      <ListName :name="list.name" />
 
       <HeadEdit :list="list" />
       <HeadDelete :list="list" />
@@ -12,12 +12,14 @@
 <script>
 import HeadEdit from "Components/List/Head/Edit.vue";
 import HeadDelete from "Components/List/Head/Delete.vue";
+import ListName from "Components/List/ListName.vue";
 
 export default {
   name: "component-list-head",
   components: {
     HeadEdit,
-    HeadDelete
+    HeadDelete,
+    ListName
   },
 
   props: {

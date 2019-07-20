@@ -1,7 +1,7 @@
 <template>
   <div class="list-panel mb-1">
     <div data-cy="list-panel-main" class="list-panel-main flex">
-      <Stats :items="list.items" />
+      <Stats class="flex-auto" :items="list.items" />
 
       <PanelButton
         data-cy="list-panel-more-options"

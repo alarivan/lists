@@ -3,11 +3,11 @@
     <div class="lists flex flex-wrap -mx-1" v-if="listsWithItems.length">
       <div
         data-cy="lists-list"
-        class="w-full sm:w-1/2 px-1 mb-8"
+        class="w-full sm:w-1/2 px-1 mb-2"
         v-for="(list, index) in listsWithItems"
         :key="index"
       >
-        <ComponentSimpleList :list="list" />
+        <ComponentVerySimpleList :list="list" />
       </div>
     </div>
     <EmptyBlock v-else />
@@ -22,6 +22,7 @@
 import { mapGetters } from "vuex";
 
 import ComponentSimpleList from "Components/Lists/SimpleList.vue";
+import ComponentVerySimpleList from "Components/Lists/VerySimpleList.vue";
 import EmptyBlock from "Components/Lists/Empty.vue";
 import NewButton from "Components/Lists/NewButton.vue";
 import NewListForm from "Components/Lists/NewForm.vue";
@@ -30,6 +31,7 @@ export default {
   name: "component-lists",
   components: {
     ComponentSimpleList,
+    ComponentVerySimpleList,
     EmptyBlock,
     NewButton,
     NewListForm

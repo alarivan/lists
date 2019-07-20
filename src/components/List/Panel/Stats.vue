@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-auto">
+  <div>
     <div v-if="items.length" class="font-bold italic list-panel-item flex px-3 py-2">
       <StatsItem
         data-cy="list-stats-item-complete"

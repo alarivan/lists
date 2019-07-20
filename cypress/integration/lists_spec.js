@@ -21,7 +21,10 @@ describe("Lists Page", function() {
 
     cy.get("[data-cy=simple-form-submit]").click();
 
-    cy.get("[data-cy=list-head-name]").should("contain", listName);
+    cy.get("[data-cy=list-head] [data-cy=list-name]").should(
+      "contain",
+      listName
+    );
 
     cy.url().should("include", "/list/");
   });
@@ -41,7 +44,10 @@ describe("Lists Page", function() {
 
     cy.get("[data-cy=simple-form-submit]").click();
 
-    cy.get("[data-cy=list-head-name]").should("contain", listName);
+    cy.get("[data-cy=list-head] [data-cy=list-name]").should(
+      "contain",
+      listName
+    );
 
     cy.url().should("include", "/list/");
   });
@@ -54,30 +60,6 @@ describe("Lists Page", function() {
     cy.get("[data-cy=list-new-button]").click();
 
     cy.focused().should("have.value", "");
-  });
-
-  it("Deletes List", function() {
-    cy.createList(listName);
-    cy.visit("/");
-
-    cy.get("[data-cy=list-head-button-delete]").click();
-
-    cy.get("[data-cy=dialog-text]").should("contain", `Delete ${listName}?`);
-
-    cy.get("[data-cy=dialog-confirm]").click();
-
-    cy.get("[data-cy=lists-list]").should("not.exist");
-  });
-
-  it("Cancels List Delete action", function() {
-    cy.createList(listName);
-    cy.visit("/");
-
-    cy.get("[data-cy=list-head-button-delete]").click();
-
-    cy.get("[data-cy=dialog-cancel]").click();
-
-    cy.get("[data-cy=lists-list]").should("exist");
   });
 
   it("Has View Link", function() {
