@@ -12,35 +12,37 @@
         <Icon :href="moreIcon" size="lg" />
       </PanelButton>
     </div>
-    <div data-cy="list-panel-more" class="list-panel-more" v-if="more">
-      <PanelButton
-        data-cy="list-panel-sort-direction"
-        title="Sort Direction"
-        @click.native="toggleSortDirection"
-      >
-        <Icon :href="sortDirectionIcon" size="lg" />
-      </PanelButton>
+    <collapse-transition :duration="150">
+      <div data-cy="list-panel-more" class="list-panel-more" v-show="more">
+        <PanelButton
+          data-cy="list-panel-sort-direction"
+          title="Sort Direction"
+          @click.native="toggleSortDirection"
+        >
+          <Icon :href="sortDirectionIcon" size="lg" />
+        </PanelButton>
 
-      <PanelButton
-        data-cy="list-panel-sort-status"
-        class="togglable"
-        :class="{ active: sortStatus }"
-        :title="sortStatusTitle"
-        @click.native="toggleSortStatus"
-      >
-        <Icon href="#icon-tab" size="md" />
-      </PanelButton>
+        <PanelButton
+          data-cy="list-panel-sort-status"
+          class="togglable"
+          :class="{ active: sortStatus }"
+          :title="sortStatusTitle"
+          @click.native="toggleSortStatus"
+        >
+          <Icon href="#icon-tab" size="md" />
+        </PanelButton>
 
-      <PanelButton
-        data-cy="list-panel-show-complete"
-        class="togglable"
-        :class="{ active: showComplete }"
-        :title="showCompleteTitle"
-        @click.native="toggleShowComplete"
-      >
-        <Icon href="#icon-checkmark1" size="md" />
-      </PanelButton>
-    </div>
+        <PanelButton
+          data-cy="list-panel-show-complete"
+          class="togglable"
+          :class="{ active: showComplete }"
+          :title="showCompleteTitle"
+          @click.native="toggleShowComplete"
+        >
+          <Icon href="#icon-checkmark1" size="md" />
+        </PanelButton>
+      </div>
+    </collapse-transition>
   </div>
 </template>
 
@@ -50,13 +52,15 @@ import ListApi from "Api/list";
 import Stats from "Components/List/Panel/Stats.vue";
 import PanelButton from "Components/List/Panel/Button.vue";
 import Icon from "Components/common/Icon.vue";
+import { CollapseTransition } from "vue2-transitions";
 
 export default {
   name: "component-list-panel",
   components: {
     Stats,
     PanelButton,
-    Icon
+    Icon,
+    CollapseTransition
   },
 
   data() {
@@ -125,7 +129,8 @@ export default {
 </script>
 
 <style lang="scss">
-.list-panel {
+.list-panel-main,
+.list-panel-more {
   @apply bg-gray-300;
 }
 

@@ -16,7 +16,7 @@ export default {
 
 <style scoped lang="scss">
 .list-panel-button {
-  @apply text-gray-900;
+  @apply text-gray-900 h-10;
 
   &.togglable {
     @apply text-gray-500;
