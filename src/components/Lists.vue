@@ -3,7 +3,7 @@
     <div class="lists flex flex-wrap -mx-1" v-if="listsWithItems.length">
       <div
         data-cy="lists-list"
-        class="w-full sm:w-1/2 px-1 mb-2"
+        class="w-full px-1 mb-2"
         v-for="(list, index) in listsWithItems"
         :key="index"
       >
