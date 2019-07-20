@@ -5,6 +5,8 @@
 
     <ItemForm class="mb-1" ref="itemForm" :list="list" />
 
+    <NewButton :listId="list.id" />
+
     <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
       <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
     </transition-group>
@@ -16,6 +18,7 @@ import Item from "Components/List/Item.vue";
 import ListHead from "Components/List/Head.vue";
 import ListPanel from "Components/List/Panel.vue";
 import ItemForm from "Components/List/ItemForm.vue";
+import NewButton from "Components/List/ItemForm/NewButton.vue";
 
 export default {
   name: "component-list",
@@ -23,7 +26,8 @@ export default {
     Item,
     ListHead,
     ListPanel,
-    ItemForm
+    ItemForm,
+    NewButton
   },
 
   data() {

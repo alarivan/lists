@@ -7,7 +7,7 @@ describe("Lists Page", function() {
   });
 
   it("Creates List", function() {
-    cy.get("[data-cy=list-new-button]")
+    cy.get("[data-cy=list-new-button-inline]")
       .should("exist")
       .click();
 
@@ -53,11 +53,11 @@ describe("Lists Page", function() {
   });
 
   it("Cancels List Creation", function() {
-    cy.get("[data-cy=list-new-button]").click();
+    cy.get("[data-cy=list-new-button-fixed]").click();
 
     cy.get("[data-cy=simple-form-cancel]").click();
 
-    cy.get("[data-cy=list-new-button]").click();
+    cy.get("[data-cy=list-new-button-inline]").click();
 
     cy.focused().should("have.value", "");
   });

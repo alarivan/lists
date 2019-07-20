@@ -68,8 +68,8 @@ describe("List Items", function() {
       .should("have.attr", "xlink:href", "#icon-checkmark");
   });
 
-  it.only("Doesn't close ItemForm if multiple-toggle is active", function() {
-    cy.get("[data-cy=item-new-button-fixed]").click();
+  it("Doesn't close ItemForm if multiple-toggle is active", function() {
+    cy.get("[data-cy=item-new-button-inline]").click();
 
     cy.focused().should("have.attr", "placeholder", "Item Name");
 
@@ -84,7 +84,7 @@ describe("List Items", function() {
     cy.focused().should("have.value", "");
   });
 
-  it.only("Clears form after ItemForm is closed", function() {
+  it("Clears form after ItemForm is closed", function() {
     cy.get("[data-cy=item-new-button-fixed]").click();
 
     cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(itemName);
@@ -93,7 +93,7 @@ describe("List Items", function() {
 
     cy.get("[data-cy=simple-form-cancel]").click();
 
-    cy.get("[data-cy=item-new-button-fixed]").click();
+    cy.get("[data-cy=item-new-button-inline]").click();
 
     cy.focused().should("have.value", "");
 

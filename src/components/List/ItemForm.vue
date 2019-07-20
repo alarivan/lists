@@ -1,41 +1,30 @@
 <template>
-  <div>
-    <FixedForm
-      ref="newItemForm"
-      :name="fixedFormName"
-      @submit="newItem"
-      @opened="focus"
-      @closed="closed"
-    >
-      <div class="flex w-full">
-        <InputText
-          data-cy="item-new-name"
-          class="flex-auto"
-          ref="newItemInput"
-          :model.sync="itemName"
-          placeholder="Item Name"
-        />
-        <button
-          data-cy="item-new-multiple-toggle"
-          @click="toggleMultiple"
-          type="button"
-          class="item-form-multiple-toggle"
-          :class="{ enabled: multiple }"
-        >
-          <Icon href="#icon-infinite" size="md" />
-        </button>
-      </div>
-    </FixedForm>
-
-    <button
-      data-cy="item-new-button-inline"
-      @click="open"
-      class="hidden sm:block button primary w-full item-form-trigger"
-    >
-      <Icon href="#icon-plus" size="md" class="mx-auto" />
-    </button>
-    <FixedButton data-cy="item-new-button-fixed" v-if="isListView" @click="open" />
-  </div>
+  <FixedForm
+    ref="newItemForm"
+    :name="fixedFormName"
+    @submit="newItem"
+    @opened="focus"
+    @closed="closed"
+  >
+    <div class="flex w-full">
+      <InputText
+        data-cy="item-new-name"
+        class="flex-auto"
+        ref="newItemInput"
+        :model.sync="itemName"
+        placeholder="Item Name"
+      />
+      <button
+        data-cy="item-new-multiple-toggle"
+        @click="toggleMultiple"
+        type="button"
+        class="item-form-multiple-toggle"
+        :class="{ enabled: multiple }"
+      >
+        <Icon href="#icon-infinite" size="md" />
+      </button>
+    </div>
+  </FixedForm>
 </template>
 
 <script>
@@ -46,7 +35,6 @@ import ListApi from "Api/list";
 
 import Icon from "Components/common/Icon.vue";
 import FixedForm from "Components/common/FixedForm.vue";
-import FixedButton from "Components/common/FixedButton.vue";
 import InputText from "Components/common/InputText.vue";
 
 export default {
@@ -54,7 +42,6 @@ export default {
   components: {
     Icon,
     FixedForm,
-    FixedButton,
     InputText
   },
 
@@ -103,10 +90,6 @@ export default {
   },
 
   computed: {
-    isListView() {
-      return this.$route.name === "view-list";
-    },
-
     fixedFormName() {
       return `item-new-from-${this.list.id}`;
     },

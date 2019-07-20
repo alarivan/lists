@@ -1,5 +1,7 @@
 <template>
   <div class="px-1">
+    <NewButton />
+
     <div class="lists flex flex-wrap -mx-1" v-if="listsWithItems.length">
       <div
         data-cy="lists-list"
@@ -11,8 +13,6 @@
       </div>
     </div>
     <EmptyBlock v-else />
-
-    <NewButton />
 
     <NewListForm />
   </div>
