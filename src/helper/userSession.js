@@ -27,7 +27,6 @@ export function getFile() {
 export function putFile() {
   if (userSession.isUserSignedIn()) {
     const data = {
-      items: store.getters.items,
       lists: store.getters.lists
     };
 

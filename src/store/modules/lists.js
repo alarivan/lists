@@ -1,8 +1,8 @@
+import Vue from "vue";
 import { getIndexFromArrayById } from "Helper/main";
-import ListApi from "Api/list";
 
 const state = {
-  lists: []
+  lists: {}
 };
 
 // getters
@@ -11,10 +11,8 @@ const getters = {
     return state.lists;
   },
 
-  listsWithItems: state => {
-    return state.lists.map(l => {
-      return ListApi.getListById(l.id);
-    });
+  listsArray: state => {
+    return Object.values(state.lists);
   }
 };
 
@@ -29,43 +27,51 @@ const actions = {
   },
 
   updateList({ commit, state }, { id, name }) {
-    const index = getIndexFromArrayById(state.lists, id);
-    if (index !== null) {
-      let list = state.lists[index];
+    if (state.lists.hasOwnProperty(id)) {
+      const list = state.lists[id];
       list.name = name;
-      commit("UPDATE_LIST", { index, list });
+      commit("UPDATE_LIST", list);
     }
   },
 
   updateListOption({ commit, state }, { id, option, value }) {
-    const index = getIndexFromArrayById(state.lists, id);
-    if (index !== null) {
-      commit("UPDATE_LIST_OPTION", { index, option, value });
+    if (state.lists.hasOwnProperty(id)) {
+      commit("UPDATE_LIST_OPTION", { id, option, value });
     }
   },
 
-  removeList({ commit, state }, id) {
-    const index = getIndexFromArrayById(state.lists, id);
-    if (index !== null) {
-      commit("REMOVE_LIST", index);
+  removeList({ commit }, id) {
+    commit("REMOVE_LIST", id);
+  },
+
+  addListItem({ commit, state }, { list_id, item }) {
+    if (state.lists.hasOwnProperty(list_id)) {
+      commit("ADD_LIST_ITEM", { list_id, item });
     }
   },
 
-  addListItem({ commit, state }, { list_id, item_id }) {
-    const index = getIndexFromArrayById(state.lists, list_id);
-    if (index !== null) {
-      commit("ADD_LIST_ITEM", { index, item_id });
+  updateListItem({ commit, state }, { list_id, item_id, status }) {
+    if (state.lists.hasOwnProperty(list_id)) {
+      const item_index = getIndexFromArrayById(
+        state.lists[list_id].items,
+        item_id
+      );
+
+      if (item_index !== null) {
+        commit("UPDATE_LIST_ITEM", { list_id, item_index, status });
+      }
     }
   },
 
   removeListItem({ commit, state }, { list_id, item_id }) {
-    const list_index = getIndexFromArrayById(state.lists, list_id);
-    if (list_index !== null) {
-      const item_index = state.lists[list_index].items.findIndex(
-        i => i === item_id
+    if (state.lists.hasOwnProperty(list_id)) {
+      const item_index = getIndexFromArrayById(
+        state.lists[list_id].items,
+        item_id
       );
+
       if (item_index !== null) {
-        commit("REMOVE_LIST_ITEM", { list_index, item_index });
+        commit("REMOVE_LIST_ITEM", { list_id, item_index });
       }
     }
   }
@@ -78,29 +84,43 @@ const mutations = {
   },
 
   ADD_LIST(state, list) {
-    state.lists.push(list);
+    Vue.set(state.lists, list.id, list);
   },
 
-  UPDATE_LIST(state, { index, list }) {
-    state.lists[index] = list;
+  UPDATE_LIST(state, list) {
+    Vue.set(state.lists, list.id, list);
   },
 
-  REMOVE_LIST(state, index) {
-    state.lists.splice(index, 1);
+  REMOVE_LIST(state, id) {
+    Vue.delete(state.lists, id);
   },
 
-  ADD_LIST_ITEM(state, { index, item_id }) {
-    state.lists[index].items.unshift(item_id);
+  ADD_LIST_ITEM(state, { list_id, item }) {
+    const list = state.lists[list_id];
+    list.items.unshift(item);
+
+    Vue.set(state.lists, list.id, list);
   },
 
-  REMOVE_LIST_ITEM(state, { list_index, item_index }) {
-    state.lists[list_index].items.splice(item_index, 1);
+  UPDATE_LIST_ITEM(state, { list_id, item_index, status }) {
+    const list = state.lists[list_id];
+    list.items[item_index].status = status;
+
+    Vue.set(state.lists, list.id, list);
   },
 
-  UPDATE_LIST_OPTION(state, { index, option, value }) {
-    let list = state.lists[index];
+  REMOVE_LIST_ITEM(state, { list_id, item_index }) {
+    const list = state.lists[list_id];
+    list.items.splice(item_index, 1);
+
+    Vue.set(state.lists, list.id, list);
+  },
+
+  UPDATE_LIST_OPTION(state, { id, option, value }) {
+    const list = state.lists[id];
     list.options[option] = value;
-    state.lists[index] = list;
+
+    Vue.set(state.lists, list.id, list);
   }
 };
 

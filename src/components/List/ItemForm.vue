@@ -71,8 +71,7 @@ export default {
     },
 
     newItem() {
-      const item = ItemApi.addItem(this.itemName);
-      ListApi.addItemToList(this.list, item);
+      ListApi.addItemToList(this.list, this.itemName);
 
       this.itemName = "";
       if (this.multiple) {

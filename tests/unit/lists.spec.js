@@ -7,13 +7,15 @@ describe("lists Store", () => {
   });
 
   it("creates a list", () => {
-    ListApi.addList("list name");
-    expect(store.getters.lists.length).toEqual(1);
+    const list = ListApi.addList("list name");
+    expect(store.getters.lists[list.id]).toEqual(list);
+    expect(store.getters.listsArray.length).toEqual(1);
   });
 
   it("creates a list with correct name", () => {
-    const list = ListApi.addList("list name");
-    expect(list.name).toEqual("list name");
+    const listName = "list name";
+    const list = ListApi.addList(listName);
+    expect(store.getters.lists[list.id].name).toEqual(listName);
   });
 
   it("deletes a list", () => {
@@ -21,6 +23,6 @@ describe("lists Store", () => {
     store.dispatch("addList", list);
 
     store.dispatch("removeList", list.id);
-    expect(store.getters.lists.length).toEqual(0);
+    expect(store.getters.listsArray.length).toEqual(0);
   });
 });

@@ -52,7 +52,7 @@ export default {
 
   methods: {
     updateItem() {
-      ItemApi.updateItem(this.item.id, !this.item.status);
+      ListApi.updateItem(this.list, this.item, !this.item.status);
     },
 
     deleteItem() {

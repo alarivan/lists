@@ -2,8 +2,6 @@ import ListModel from "Models/list";
 import store from "Store";
 import { putFile } from "Helper/userSession";
 
-import { getFromArrayById } from "Helper/main";
-
 import ItemApi from "Api/item";
 
 const ListApi = {
@@ -12,19 +10,7 @@ const ListApi = {
   },
 
   getListById(id) {
-    let list = getFromArrayById(ListApi.getLists(), id);
-    if (list !== null) {
-      list = Object.assign({}, list);
-      list.items = list.items
-        .map(i => {
-          return getFromArrayById(ItemApi.getItems(), i);
-        })
-        .filter(i => {
-          return i !== null;
-        });
-    }
-
-    return list;
+    return this.getLists()[id];
   },
 
   newList(name, items) {
@@ -55,30 +41,39 @@ const ListApi = {
   },
 
   deleteList(list) {
-    store.dispatch("removeList", list.id);
-
-    return ItemApi.deleteItems(list.items).then(() => {
-      putFile();
-    });
+    return store.dispatch("removeList", list.id);
   },
 
-  addItemToList(list, item) {
+  addItemToList(list, item_name) {
+    const item = ItemApi.newItem(item_name);
     return store
-      .dispatch("addListItem", { list_id: list.id, item_id: item.id })
+      .dispatch("addListItem", { list_id: list.id, item })
+      .then(() => {
+        putFile();
+      });
+  },
+
+  updateItem(list, item, status) {
+    return store
+      .dispatch("updateListItem", {
+        list_id: list.id,
+        item_id: item.id,
+        status
+      })
       .then(() => {
         putFile();
       });
   },
 
   removeItemFromList(list, item) {
-    store.dispatch("removeListItem", {
-      list_id: list.id,
-      item_id: item.id
-    });
-
-    return ItemApi.deleteItem(item).then(() => {
-      putFile();
-    });
+    return store
+      .dispatch("removeListItem", {
+        list_id: list.id,
+        item_id: item.id
+      })
+      .then(() => {
+        putFile();
+      });
   },
 
   formatName(name) {

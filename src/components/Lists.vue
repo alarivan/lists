@@ -2,11 +2,11 @@
   <div class="px-1">
     <NewButton />
 
-    <div class="lists flex flex-wrap -mx-1" v-if="listsWithItems.length">
+    <div class="lists flex flex-wrap -mx-1" v-if="listsArray.length">
       <div
         data-cy="lists-list"
         class="w-full px-1 mb-2"
-        v-for="(list, index) in listsWithItems"
+        v-for="(list, index) in listsArray"
         :key="index"
       >
         <ComponentVerySimpleList :list="list" />
@@ -44,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["listsWithItems"])
+    ...mapGetters(["listsArray"])
   }
 };
 </script>

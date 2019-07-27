@@ -27,7 +27,6 @@ export default {
 
       getFile().then(data => {
         if (data) {
-          this.setItems(data.items);
           this.setLists(data.lists);
         }
 

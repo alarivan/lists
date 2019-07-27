@@ -25,3 +25,11 @@ export function generateUniqueId(arr) {
 
   return id;
 }
+
+export function generateUniqueIdObject(m) {
+  const id = randomString();
+
+  if (m.hasOwnProperty(id)) generateUniqueId(m);
+
+  return id;
+}

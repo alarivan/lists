@@ -1,4 +1,4 @@
-import { generateUniqueId } from "Helper/main";
+import { generateUniqueIdObject } from "Helper/main";
 
 export const DEFAULT_OPTIONS = {
   sortStatus: true,
@@ -8,7 +8,7 @@ export const DEFAULT_OPTIONS = {
 
 class ListModel {
   constructor(lists, name, items = []) {
-    this.id = generateUniqueId(lists);
+    this.id = generateUniqueIdObject(lists);
     this.name = name;
     this.items = items;
 
