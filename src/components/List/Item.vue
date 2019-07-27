@@ -6,6 +6,7 @@
       @click="updateItem"
       class="list-item flex items-center"
     >
+      <div v-if="showOrder" data-cy="item-order" class="mr-2 font-bold">{{item.order}}</div>
       <div class="checkmark mr-2">
         <Icon data-cy="item-status" :href="itemStatus" size="md" />
       </div>
@@ -69,6 +70,10 @@ export default {
   computed: {
     itemStatus() {
       return this.item.status ? "#icon-checkmark1" : "#icon-checkmark";
+    },
+
+    showOrder() {
+      return this.list.options.sortByOrder;
     },
 
     deleteDialogName() {

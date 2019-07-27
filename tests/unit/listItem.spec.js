@@ -3,7 +3,7 @@ import ItemApi from "../../src/api/item";
 import store from "../../src/store";
 
 function addItemToList(list, itemName) {
-  const item = ItemApi.newItem(itemName);
+  const item = ItemApi.newItem(list, itemName);
   store.dispatch("addListItem", { list_id: list.id, item });
 
   return item;

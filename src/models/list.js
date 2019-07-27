@@ -3,7 +3,8 @@ import { generateUniqueIdObject } from "Helper/main";
 export const DEFAULT_OPTIONS = {
   sortStatus: true,
   sortDirection: false,
-  showComplete: true
+  showComplete: true,
+  sortByOrder: false
 };
 
 class ListModel {

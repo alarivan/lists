@@ -7,13 +7,18 @@
 
     <NewButton :listId="list.id" />
 
-    <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
-      <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
-    </transition-group>
+    <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
+      <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
+        <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
+import { mapActions } from "vuex";
+
 import Item from "Components/List/Item.vue";
 import ListHead from "Components/List/Head.vue";
 import ListPanel from "Components/List/Panel.vue";
@@ -23,6 +28,7 @@ import NewButton from "Components/List/ItemForm/NewButton.vue";
 export default {
   name: "component-list",
   components: {
+    draggable,
     Item,
     ListHead,
     ListPanel,
@@ -38,29 +44,41 @@ export default {
     list: { type: Object, required: true }
   },
 
+  methods: {
+    ...mapActions(["updateItemsOrder"])
+  },
+
   computed: {
-    sortedItems() {
-      let result = [...this.list.items];
+    sortedItems: {
+      get() {
+        let result = [...this.list.items];
 
-      if (this.list.options.sortStatus) {
-        result = result.sort((a, b) => {
-          if (a.status && !b.status) {
-            return this.list.options.sortDirection ? -1 : 1;
-          } else if (!a.status && b.status) {
-            return this.list.options.sortDirection ? 1 : -1;
-          } else {
-            return 0;
-          }
-        });
+        if (this.list.options.sortStatus && !this.list.options.sortByOrder) {
+          result = result.sort((a, b) => {
+            if (a.status && !b.status) {
+              return this.list.options.sortDirection ? -1 : 1;
+            } else if (!a.status && b.status) {
+              return this.list.options.sortDirection ? 1 : -1;
+            } else {
+              return 0;
+            }
+          });
+        } else if (this.list.options.sortByOrder) {
+          result = result.sort((a, b) => (a.order > b.order ? 1 : -1));
+        }
+
+        if (!this.list.options.showComplete) {
+          result = result.filter(i => {
+            return !i.status;
+          });
+        }
+
+        return result;
+      },
+
+      set(items) {
+        this.updateItemsOrder({ id: this.list.id, items });
       }
-
-      if (!this.list.options.showComplete) {
-        result = result.filter(i => {
-          return !i.status;
-        });
-      }
-
-      return result;
     }
   }
 };

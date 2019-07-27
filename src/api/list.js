@@ -45,7 +45,7 @@ const ListApi = {
   },
 
   addItemToList(list, item_name) {
-    const item = ItemApi.newItem(item_name);
+    const item = ItemApi.newItem(list, item_name);
     return store
       .dispatch("addListItem", { list_id: list.id, item })
       .then(() => {

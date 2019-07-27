@@ -15,6 +15,16 @@
     <collapse-transition :duration="150">
       <div data-cy="list-panel-more" class="list-panel-more" v-show="more">
         <PanelButton
+          data-cy="list-panel-sort-by-order"
+          class="togglable"
+          :class="{ active: sortByOrder }"
+          :title="sortByOrderTitle"
+          @click.native="togglesortByOrder"
+        >
+          <Icon href="#icon-list-numbered" size="md" />
+        </PanelButton>
+
+        <PanelButton
           data-cy="list-panel-sort-direction"
           title="Sort Direction"
           @click.native="toggleSortDirection"
@@ -87,6 +97,10 @@ export default {
       ListApi.updateListOption(this.list, "showComplete", !this.showComplete);
     },
 
+    togglesortByOrder() {
+      ListApi.updateListOption(this.list, "sortByOrder", !this.sortByOrder);
+    },
+
     toggleMore() {
       this.more = !this.more;
     }
@@ -113,6 +127,10 @@ export default {
       return this.more ? "Hide Options" : "Show Options";
     },
 
+    sortByOrderTitle() {
+      return this.sortByOrder ? "Ordered List" : "Unordered List";
+    },
+
     sortDirection() {
       return this.list.options.sortDirection;
     },
@@ -123,6 +141,10 @@ export default {
 
     showComplete() {
       return this.list.options.showComplete;
+    },
+
+    sortByOrder() {
+      return this.list.options.sortByOrder;
     }
   }
 };

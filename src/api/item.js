@@ -1,8 +1,11 @@
 import ItemModel from "Models/item";
 
 const ItemApi = {
-  newItem(name, status) {
-    return new ItemModel(ItemApi.formatName(name), status);
+  newItem(list, name, status) {
+    return new ItemModel(ItemApi.formatName(name), {
+      status,
+      order: list.items.length + 1
+    });
   },
 
   formatName(name) {

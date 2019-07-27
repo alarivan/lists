@@ -1,6 +1,12 @@
 import Vue from "vue";
 import { getIndexFromArrayById } from "Helper/main";
 
+function reorderItems(items) {
+  return items.map((item, index) => {
+    return (item.order = index + 1) && item;
+  });
+}
+
 const state = {
   lists: {}
 };
@@ -74,6 +80,12 @@ const actions = {
         commit("REMOVE_LIST_ITEM", { list_id, item_index });
       }
     }
+  },
+
+  updateItemsOrder({ commit, state }, { id, items }) {
+    if (state.lists.hasOwnProperty(id)) {
+      commit("UPDATE_ITEMS_ORDER", { id, items });
+    }
   }
 };
 
@@ -97,7 +109,12 @@ const mutations = {
 
   ADD_LIST_ITEM(state, { list_id, item }) {
     const list = state.lists[list_id];
-    list.items.unshift(item);
+
+    if (list.options.sortByOrder) {
+      list.items.push(item);
+    } else {
+      list.items.unshift(item);
+    }
 
     Vue.set(state.lists, list.id, list);
   },
@@ -112,6 +129,7 @@ const mutations = {
   REMOVE_LIST_ITEM(state, { list_id, item_index }) {
     const list = state.lists[list_id];
     list.items.splice(item_index, 1);
+    list.items = reorderItems(list.items);
 
     Vue.set(state.lists, list.id, list);
   },
@@ -119,6 +137,13 @@ const mutations = {
   UPDATE_LIST_OPTION(state, { id, option, value }) {
     const list = state.lists[id];
     list.options[option] = value;
+
+    Vue.set(state.lists, list.id, list);
+  },
+
+  UPDATE_ITEMS_ORDER(state, { id, items }) {
+    const list = state.lists[id];
+    list.items = reorderItems(items);
 
     Vue.set(state.lists, list.id, list);
   }
