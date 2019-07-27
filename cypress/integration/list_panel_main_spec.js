@@ -30,7 +30,7 @@ describe("List Panel Stats", function() {
   });
 
   it("Opens and closes More Menu", function() {
-    cy.get("[data-cy=list-panel-more]").should("not.exist");
+    cy.get("[data-cy=list-panel-more]").should("not.be.visible");
 
     cy.get("[data-cy=list-panel-more-options]").should(
       "have.attr",
@@ -60,7 +60,7 @@ describe("List Panel Stats", function() {
 
     cy.get("[data-cy=list-panel-more-options]").click();
 
-    cy.get("[data-cy=list-panel-more]").should("not.exist");
+    cy.get("[data-cy=list-panel-more]").should("not.be.visible");
 
     cy.get("[data-cy=list-panel-more-options]").should(
       "have.attr",
