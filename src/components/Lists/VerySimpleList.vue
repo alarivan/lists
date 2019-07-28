@@ -1,5 +1,5 @@
 <template>
-  <div class="component-very-simple-list bg-green-200">
+  <div class="component-very-simple-list bg-green-200 p-2">
     <router-link
       data-cy="list-view-button"
       class="flex items-center"
