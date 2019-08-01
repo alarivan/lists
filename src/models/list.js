@@ -1,4 +1,4 @@
-import { generateUniqueIdObject } from "Helper/main";
+import ItemModel from "Models/item";
 
 export const DEFAULT_OPTIONS = {
   sortStatus: true,
@@ -7,14 +7,15 @@ export const DEFAULT_OPTIONS = {
   sortByOrder: false
 };
 
-class ListModel {
-  constructor(lists, name, items = []) {
-    this.id = generateUniqueIdObject(lists);
-    this.name = name;
-    this.items = items;
+const ListModel = function(values) {
+  const list = {
+    items: [],
+    options: { ...DEFAULT_OPTIONS }
+  };
 
-    this.options = DEFAULT_OPTIONS;
-  }
-}
+  Object.assign(list, ItemModel(values));
+
+  return list;
+};
 
 export default ListModel;

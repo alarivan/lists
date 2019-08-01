@@ -1,6 +1,10 @@
 <template>
   <div>
-    <ButtonAdd class="hidden sm:block mb-2" data-cy="item-new-button-inline" @click="open" />
+    <ButtonAdd
+      class="hidden sm:block mb-2"
+      data-cy="item-new-button-inline"
+      @click="open"
+    />
     <FixedButton data-cy="item-new-button-fixed" @click="open" />
   </div>
 </template>

@@ -1,10 +1,12 @@
+import { generateUniqueIdArray } from "Helper/main";
 import ItemModel from "Models/item";
 
 const ItemApi = {
-  newItem(list, name, status) {
-    return new ItemModel(ItemApi.formatName(name), {
-      status,
-      order: list.items.length + 1
+  newItem(list, name, status = false) {
+    return ItemModel({
+      id: generateUniqueIdArray(list.items),
+      name: ItemApi.formatName(name),
+      status
     });
   },
 

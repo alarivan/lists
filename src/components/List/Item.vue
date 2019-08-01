@@ -6,13 +6,19 @@
       @click="updateItem"
       class="list-item flex items-center"
     >
-      <div v-if="showOrder" data-cy="item-order" class="mr-2 font-bold">{{item.order}}</div>
+      <div v-if="showOrder" data-cy="item-order" class="mr-2 font-bold">
+        {{ item.order }}
+      </div>
       <div class="checkmark mr-2">
         <Icon data-cy="item-status" :href="itemStatus" size="md" />
       </div>
       <div>{{ item.name }}</div>
     </div>
-    <button data-cy="item-delete-button" class="button delete" @click="openDeleteDialog">
+    <button
+      data-cy="item-delete-button"
+      class="button delete"
+      @click="openDeleteDialog"
+    >
       <Icon href="#icon-bin" />
     </button>
 
@@ -27,8 +33,7 @@
 </template>
 
 <script>
-import ItemApi from "Api/item";
-import ListApi from "Api/list";
+import { mapActions } from "vuex";
 
 import Icon from "Components/common/Icon.vue";
 import Dialog from "Components/common/Dialog.vue";
@@ -53,18 +58,24 @@ export default {
 
   methods: {
     updateItem() {
-      ListApi.updateItem(this.list, this.item, !this.item.status);
+      this.updateListItem({
+        list_id: this.list.id,
+        item_id: this.item.id,
+        values: { status: !this.item.status }
+      });
     },
 
     deleteItem() {
-      ListApi.removeItemFromList(this.list, this.item);
+      this.deleteListItem({ list_id: this.list.id, item_id: this.item.id });
 
       this.$refs.deleteDialog.close();
     },
 
     openDeleteDialog() {
       this.$refs.deleteDialog.open();
-    }
+    },
+
+    ...mapActions(["updateListItem", "deleteListItem"])
   },
 
   computed: {

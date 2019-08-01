@@ -7,7 +7,8 @@
       data-cy="list-view-button"
       class="block text-center button primary w-full uppercase font-bold"
       :to="{ name: 'view-list', params: { id: this.list.id } }"
-    >view</router-link>
+      >view</router-link
+    >
   </div>
 </template>
 

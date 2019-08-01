@@ -1,5 +1,8 @@
 <template>
-  <div class="component-input-text" :class="{'component-input-text-error-active': error}">
+  <div
+    class="component-input-text"
+    :class="{ 'component-input-text-error-active': error }"
+  >
     <input
       data-cy="input-text"
       class="input-text block w-full"
@@ -9,7 +12,9 @@
       :value="model"
       @input="input"
     />
-    <div v-if="error" class="input-text-error text-red-700">{{this.error}}</div>
+    <div v-if="error" class="input-text-error text-red-700">
+      {{ this.error }}
+    </div>
   </div>
 </template>
 

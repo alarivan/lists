@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="items.length" class="font-bold italic list-panel-item flex px-3 py-2">
+    <div
+      v-if="items.length"
+      class="font-bold italic list-panel-item flex px-3 py-2"
+    >
       <StatsItem
         data-cy="list-stats-item-complete"
         class="stats-item-complete"
@@ -12,7 +15,9 @@
         data-cy="list-stats-item-divider"
         v-if="stats.complete && stats.incomplete"
         class="mx-1"
-      >/</div>
+      >
+        /
+      </div>
 
       <StatsItem
         data-cy="list-stats-item-incomplete"

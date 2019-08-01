@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import ListApi from "Api/list";
+import { mapActions } from "vuex";
 
 import Stats from "Components/List/Panel/Stats.vue";
 import PanelButton from "Components/List/Panel/Button.vue";
@@ -86,24 +86,42 @@ export default {
 
   methods: {
     toggleSortDirection() {
-      ListApi.updateListOption(this.list, "sortDirection", !this.sortDirection);
+      this.updateListOption({
+        id: this.list.id,
+        option: "sortDirection",
+        value: !this.sortDirection
+      });
     },
 
     toggleSortStatus() {
-      ListApi.updateListOption(this.list, "sortStatus", !this.sortStatus);
+      this.updateListOption({
+        id: this.list.id,
+        option: "sortStatus",
+        value: !this.sortStatus
+      });
     },
 
     toggleShowComplete() {
-      ListApi.updateListOption(this.list, "showComplete", !this.showComplete);
+      this.updateListOption({
+        id: this.list.id,
+        option: "showComplete",
+        value: !this.showComplete
+      });
     },
 
     togglesortByOrder() {
-      ListApi.updateListOption(this.list, "sortByOrder", !this.sortByOrder);
+      this.updateListOption({
+        id: this.list.id,
+        option: "sortByOrder",
+        value: !this.sortByOrder
+      });
     },
 
     toggleMore() {
       this.more = !this.more;
-    }
+    },
+
+    ...mapActions(["updateListOption"])
   },
 
   computed: {

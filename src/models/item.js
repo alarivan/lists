@@ -1,16 +1,19 @@
-import { randomString } from "Helper/main";
+export const NAME_ERROR_MESSAGE = "Name can't be empty";
 
 const DEFAULT_VALUES = {
-  status: false,
-  order: 1
+  status: false
 };
 
-class ItemModel {
-  constructor(name, values) {
-    this.id = randomString();
-    this.name = name;
-    Object.assign(this, DEFAULT_VALUES, values);
+const ItemModel = function(values) {
+  const item = {};
+
+  if (!values.name) {
+    throw NAME_ERROR_MESSAGE;
   }
-}
+
+  Object.assign(item, DEFAULT_VALUES, values);
+
+  return item;
+};
 
 export default ItemModel;

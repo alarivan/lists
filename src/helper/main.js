@@ -5,31 +5,29 @@ export function randomString() {
 }
 
 export function getFromArrayById(arr, id) {
-  const index = getIndexFromArrayById(arr, id);
+  const { found, index } = getIndexFromArrayById(arr, id);
 
-  return index !== null ? arr[index] : null;
+  return { found, item: arr[index] };
 }
 
 export function getIndexFromArrayById(arr, id) {
   const index = arr.findIndex(i => i.id === id);
 
-  return index !== -1 ? index : null;
+  return { found: index !== -1, index };
 }
 
-export function generateUniqueId(arr) {
-  const id = randomString();
-
-  if (getFromArrayById(arr, id)) {
-    return generateUniqueId(arr);
-  }
-
-  return id;
+export function generateUniqueIdArray(arr) {
+  return generateUniqueId(arr, (col, id) => getFromArrayById(col, id).found);
 }
 
-export function generateUniqueIdObject(m) {
+export function generateUniqueIdObject(obj) {
+  return generateUniqueId(obj, (col, id) => col.hasOwnProperty(id));
+}
+
+export function generateUniqueId(collection, checker) {
   const id = randomString();
 
-  if (m.hasOwnProperty(id)) generateUniqueId(m);
+  if (checker(collection, id)) return generateUniqueId(collection, checker);
 
   return id;
 }

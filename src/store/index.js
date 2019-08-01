@@ -4,6 +4,7 @@ import VuexPersistence from "vuex-persist";
 import lists from "Store/modules/lists";
 import user from "Store/modules/user";
 import local from "Store/modules/local";
+import blockstackPersist from "Store/plugins/blockstack-persist";
 
 Vue.use(Vuex);
 
@@ -23,5 +24,5 @@ export default new Vuex.Store({
     local
   },
 
-  plugins: [vuexStorage.plugin]
+  plugins: [vuexStorage.plugin, blockstackPersist]
 });

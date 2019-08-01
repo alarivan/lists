@@ -10,8 +10,6 @@
 <script>
 import ComponentList from "Components/List.vue";
 
-import ListApi from "Api/list";
-
 export default {
   name: "view-list",
   components: {
@@ -20,7 +18,7 @@ export default {
 
   computed: {
     list() {
-      return ListApi.getListById(this.$route.params.id);
+      return this.$store.getters.listById(this.$route.params.id);
     }
   }
 };

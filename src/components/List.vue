@@ -8,8 +8,18 @@
     <NewButton :listId="list.id" />
 
     <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
-      <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
-        <Item v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
+      <transition-group
+        tag="div"
+        name="list"
+        data-cy="list-items"
+        class="list-items"
+      >
+        <Item
+          v-for="item in sortedItems"
+          :key="item.id"
+          :item="item"
+          :list="list"
+        />
       </transition-group>
     </draggable>
   </div>

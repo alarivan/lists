@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 import ItemApi from "Api/item";
-import ListApi from "Api/list";
 
 import Icon from "Components/common/Icon.vue";
 import FixedForm from "Components/common/FixedForm.vue";
@@ -71,7 +70,10 @@ export default {
     },
 
     newItem() {
-      ListApi.addItemToList(this.list, this.itemName);
+      this.addListItem({
+        list_id: this.list.id,
+        item: ItemApi.newItem(this.list, this.itemName)
+      });
 
       this.itemName = "";
       if (this.multiple) {
@@ -85,15 +87,15 @@ export default {
       this.multiple = !this.multiple;
 
       this.$refs.newItemInput.focus();
-    }
+    },
+
+    ...mapActions(["addListItem"])
   },
 
   computed: {
     fixedFormName() {
       return `item-new-from-${this.list.id}`;
-    },
-
-    ...mapGetters(["items"])
+    }
   }
 };
 </script>

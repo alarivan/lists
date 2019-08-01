@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import ListApi from "Api/list";
 
 import FixedForm from "Components/common/FixedForm.vue";
@@ -38,7 +39,9 @@ export default {
   methods: {
     newList() {
       if (this.$refs.listNameInput.validate()) {
-        const list = ListApi.addList(this.listName);
+        const list = ListApi.newList(this.listName);
+
+        this.addList(list);
         this.viewList(list);
       }
     },
@@ -53,7 +56,9 @@ export default {
 
     opened() {
       this.$refs.listNameInput.focus();
-    }
+    },
+
+    ...mapActions(["addList"])
   }
 };
 </script>

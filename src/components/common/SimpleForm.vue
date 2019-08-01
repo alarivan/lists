@@ -8,12 +8,16 @@
         data-cy="simple-form-submit"
         class="simple-form-actions-button button save"
         @click="submit"
-      >Save</button>
+      >
+        Save
+      </button>
       <button
         data-cy="simple-form-cancel"
         class="simple-form-actions-button button secondary"
         @click="cancel"
-      >Cancel</button>
+      >
+        Cancel
+      </button>
     </div>
   </div>
 </template>

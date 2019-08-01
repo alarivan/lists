@@ -33,7 +33,7 @@ export default {
         this.setLoading(false);
       });
     } else if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then(userData => {
+      userSession.handlePendingSignIn().then(() => {
         window.location = window.location.origin;
       });
     } else {

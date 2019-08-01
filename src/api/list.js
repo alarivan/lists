@@ -1,83 +1,57 @@
 import ListModel from "Models/list";
-import store from "Store";
-import { putFile } from "Helper/userSession";
-
-import ItemApi from "Api/item";
+import { getIndexFromArrayById } from "Helper/main";
 
 const ListApi = {
-  getLists() {
-    return store.getters.lists;
-  },
-
-  getListById(id) {
-    return this.getLists()[id];
-  },
-
-  newList(name, items) {
-    return new ListModel(ListApi.getLists(), ListApi.formatName(name), items);
-  },
-
-  addList(name, items) {
-    const list = ListApi.newList(name, items);
-    store.dispatch("addList", list).then(() => {
-      putFile();
+  newList(name, items = []) {
+    return ListModel({
+      name: this.formatName(name),
+      items
     });
+  },
+
+  updateList(list, values) {
+    return Object.assign(list, values);
+  },
+
+  addItem(list, item) {
+    if (list.options.sortByOrder) {
+      list.items.push(item);
+    } else {
+      list.items.unshift(item);
+    }
+
+    list.items = this.reorderItems(list.items);
 
     return list;
   },
 
-  updateList(list, name) {
-    return store.dispatch("updateList", { id: list.id, name }).then(() => {
-      putFile();
-    });
+  updateItem(list, item_id, values) {
+    const { found, index } = getIndexFromArrayById(list.items, item_id);
+
+    if (found) {
+      Object.assign(list.items[index], values);
+    }
+
+    return list;
   },
 
-  updateListOption(list, option, value) {
-    return store
-      .dispatch("updateListOption", { id: list.id, option, value })
-      .then(() => {
-        putFile();
-      });
-  },
+  deleteItem(list, id) {
+    const { found, index } = getIndexFromArrayById(list.items, id);
 
-  deleteList(list) {
-    return store.dispatch("removeList", list.id);
-  },
+    if (found) {
+      list.items.splice(index, 1);
+      list.items = this.reorderItems(list.items);
+    }
 
-  addItemToList(list, item_name) {
-    const item = ItemApi.newItem(list, item_name);
-    return store
-      .dispatch("addListItem", { list_id: list.id, item })
-      .then(() => {
-        putFile();
-      });
-  },
-
-  updateItem(list, item, status) {
-    return store
-      .dispatch("updateListItem", {
-        list_id: list.id,
-        item_id: item.id,
-        status
-      })
-      .then(() => {
-        putFile();
-      });
-  },
-
-  removeItemFromList(list, item) {
-    return store
-      .dispatch("removeListItem", {
-        list_id: list.id,
-        item_id: item.id
-      })
-      .then(() => {
-        putFile();
-      });
+    return list;
   },
 
   formatName(name) {
     return name.trim();
+  },
+
+  reorderItems(items) {
+    return items.map((item, index) => (item.order = index + 1) && item);
   }
 };
 

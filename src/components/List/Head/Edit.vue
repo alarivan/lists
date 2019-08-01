@@ -1,12 +1,16 @@
 <template>
   <div>
-    <button data-cy="list-head-button-edit" @click="openForm" class="button primary h-full">
+    <button
+      data-cy="list-head-button-edit"
+      @click="openForm"
+      class="button primary h-full"
+    >
       <Icon href="#icon-pencil" />
     </button>
 
     <FixedForm
       :name="fixedFormName"
-      @submit="updateList"
+      @submit="updateListAction"
       ref="listForm"
       @opened="focusForm"
       @closed="closed"
@@ -24,7 +28,7 @@
 </template>
 
 <script>
-import ListApi from "Api/list";
+import { mapActions } from "vuex";
 
 import Icon from "Components/common/Icon.vue";
 import FixedForm from "Components/common/FixedForm.vue";
@@ -63,11 +67,13 @@ export default {
       this.listName = this.list.name;
     },
 
-    updateList() {
-      ListApi.updateList(this.list, this.listName);
+    updateListAction() {
+      this.updateList({ id: this.list.id, values: { name: this.listName } });
 
       this.$refs.listForm.close();
-    }
+    },
+
+    ...mapActions(["updateList"])
   },
 
   computed: {

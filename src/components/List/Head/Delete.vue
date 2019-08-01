@@ -13,13 +13,13 @@
       :name="deleteDialogName"
       :text="deleteDialogText"
       confirmText="delete"
-      @confirm="deleteList"
+      @confirm="deleteListAction"
     />
   </div>
 </template>
 
 <script>
-import ListApi from "Api/list";
+import { mapActions } from "vuex";
 
 import Dialog from "Components/common/Dialog.vue";
 import Icon from "Components/common/Icon.vue";
@@ -36,8 +36,8 @@ export default {
   },
 
   methods: {
-    deleteList() {
-      ListApi.deleteList(this.list);
+    deleteListAction() {
+      this.deleteList(this.list.id);
 
       this.$refs.deleteDialog.close();
 
@@ -48,7 +48,9 @@ export default {
 
     openDeleteDialog() {
       this.$refs.deleteDialog.open();
-    }
+    },
+
+    ...mapActions(["deleteList"])
   },
 
   computed: {
