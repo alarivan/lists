@@ -102,4 +102,41 @@ describe("List Items", function() {
       "enabled"
     );
   });
+
+  it("Correctly shows and updates suggested Items", function() {
+    ["Item 1", "item 2", "Item 3"].forEach(name => cy.addItem(name));
+
+    Array(2)
+      .fill()
+      .forEach(() =>
+        cy
+          .get("[data-cy=list-item]")
+          .eq(0)
+          .click()
+      );
+
+    cy.checkListItemStatusByIndex(0, false);
+    cy.checkListItemStatusByIndex(1, true);
+    cy.checkListItemStatusByIndex(2, true);
+
+    cy.get("[data-cy=item-new-button-fixed]").click();
+
+    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type("it");
+
+    cy.get("[data-cy=item-form-suggest]")
+      .find("[data-cy=list-item]")
+      .should("have.length", 2);
+
+    cy.get("[data-cy=item-form-suggest] [data-cy=list-item]")
+      .eq(0)
+      .click();
+
+    cy.get("[data-cy=item-form-suggest]")
+      .find("[data-cy=list-item]")
+      .should("have.length", 1);
+
+    cy.checkListItemStatusByIndex(0, false);
+    cy.checkListItemStatusByIndex(1, false);
+    cy.checkListItemStatusByIndex(2, true);
+  });
 });

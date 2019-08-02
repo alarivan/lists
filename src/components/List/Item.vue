@@ -1,19 +1,11 @@
 <template>
   <div class="flex mb-1">
-    <div
-      data-cy="list-item"
+    <ItemBody
+      :list="list"
+      :item="item"
       v-touch:swipe.left="deleteItem"
-      @click="updateItem"
-      class="list-item flex items-center"
-    >
-      <div v-if="showOrder" data-cy="item-order" class="mr-2 font-bold">
-        {{ item.order }}
-      </div>
-      <div class="checkmark mr-2">
-        <Icon data-cy="item-status" :href="itemStatus" size="md" />
-      </div>
-      <div>{{ item.name }}</div>
-    </div>
+      @click.native="updateItem"
+    />
     <button
       data-cy="item-delete-button"
       class="button delete"
@@ -37,12 +29,14 @@ import { mapActions } from "vuex";
 
 import Icon from "Components/common/Icon.vue";
 import Dialog from "Components/common/Dialog.vue";
+import ItemBody from "Components/List/Item/Body.vue";
 
 export default {
   name: "component-item",
   components: {
     Icon,
-    Dialog
+    Dialog,
+    ItemBody
   },
 
   data() {
@@ -95,10 +89,6 @@ export default {
 </script>
 
 <style lang="scss">
-.list-item {
-  @apply w-full bg-orange-200 text-gray-900 cursor-pointer px-4 py-3;
-}
-
 .button-delete {
   @apply bg-red-800 text-white px-4;
 }
