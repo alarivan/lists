@@ -6,6 +6,7 @@
     @opened="focus"
     @closed="closed"
   >
+    <Suggest :list="list" :name="itemName" @item-click="updateItem" />
     <div class="flex w-full">
       <InputText
         data-cy="item-new-name"
@@ -35,13 +36,15 @@ import ItemApi from "Api/item";
 import Icon from "Components/common/Icon.vue";
 import FixedForm from "Components/common/FixedForm.vue";
 import InputText from "Components/common/InputText.vue";
+import Suggest from "Components/List/ItemForm/Suggest.vue";
 
 export default {
   name: "component-list-item-from",
   components: {
     Icon,
     FixedForm,
-    InputText
+    InputText,
+    Suggest
   },
 
   data() {
@@ -89,7 +92,15 @@ export default {
       this.$refs.newItemInput.focus();
     },
 
-    ...mapActions(["addListItem"])
+    updateItem(item) {
+      this.updateListItem({
+        list_id: this.list.id,
+        item_id: item.id,
+        values: { status: false }
+      });
+    },
+
+    ...mapActions(["addListItem", "updateListItem"])
   },
 
   computed: {
