@@ -105,9 +105,9 @@ describe("List Items", function() {
 
   it("Correctly shows and updates suggested Items", function() {
     const typedValue = "it";
-    ["Item 1", "item 2", "Item 3"].forEach(name => cy.addItem(name));
+    ["Item 1", "item 2", "Item 3", "other"].forEach(name => cy.addItem(name));
 
-    Array(2)
+    Array(3)
       .fill()
       .forEach(() =>
         cy
@@ -119,6 +119,7 @@ describe("List Items", function() {
     cy.checkListItemStatusByIndex(0, false);
     cy.checkListItemStatusByIndex(1, true);
     cy.checkListItemStatusByIndex(2, true);
+    cy.checkListItemStatusByIndex(3, true);
 
     cy.get("[data-cy=item-new-button-fixed]").click();
 
@@ -127,6 +128,8 @@ describe("List Items", function() {
     cy.get("[data-cy=item-form-suggest]")
       .find("[data-cy=list-item]")
       .should("have.length", 2);
+
+    cy.get("[data-cy=item-form-suggest]").should("not.contain", "other");
 
     cy.get("[data-cy=item-form-suggest] [data-cy=list-item]")
       .eq(0)
@@ -141,5 +144,6 @@ describe("List Items", function() {
     cy.checkListItemStatusByIndex(0, false);
     cy.checkListItemStatusByIndex(1, false);
     cy.checkListItemStatusByIndex(2, true);
+    cy.checkListItemStatusByIndex(3, true);
   });
 });
