@@ -104,6 +104,7 @@ describe("List Items", function() {
   });
 
   it("Correctly shows and updates suggested Items", function() {
+    const typedValue = "it";
     ["Item 1", "item 2", "Item 3"].forEach(name => cy.addItem(name));
 
     Array(2)
@@ -121,7 +122,7 @@ describe("List Items", function() {
 
     cy.get("[data-cy=item-new-button-fixed]").click();
 
-    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type("it");
+    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(typedValue);
 
     cy.get("[data-cy=item-form-suggest]")
       .find("[data-cy=list-item]")
@@ -130,6 +131,8 @@ describe("List Items", function() {
     cy.get("[data-cy=item-form-suggest] [data-cy=list-item]")
       .eq(0)
       .click();
+
+    cy.focused().should("have.value", typedValue);
 
     cy.get("[data-cy=item-form-suggest]")
       .find("[data-cy=list-item]")

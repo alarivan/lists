@@ -93,6 +93,8 @@ export default {
     },
 
     updateItem(item) {
+      this.$refs.newItemInput.focus();
+
       this.updateListItem({
         list_id: this.list.id,
         item_id: item.id,
