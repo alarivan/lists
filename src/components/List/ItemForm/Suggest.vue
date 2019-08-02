@@ -31,9 +31,10 @@ export default {
 
   computed: {
     items() {
+      const name = this.name.toLowerCase();
       return this.name
         ? this.list.items.filter(
-            i => i.name.toLowerCase().includes(this.name) && i.status
+            i => i.name.toLowerCase().includes(name) && i.status
           )
         : [];
     }
@@ -43,7 +44,7 @@ export default {
 
 <style lang="scss">
 .item-form-suggest {
-  @apply relative overflow-y-scroll mb-1;
+  @apply relative overflow-y-auto mb-1;
   max-height: 140px;
 }
 </style>
