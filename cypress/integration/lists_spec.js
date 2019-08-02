@@ -7,17 +7,13 @@ describe("Lists Page", function() {
   });
 
   it("Creates List", function() {
-    cy.get("[data-cy=list-new-button-inline]")
-      .should("exist")
-      .click();
+    cy.get("[data-cy=list-new-button-inline]").click();
 
     cy.get("[data-cy=list-new-form]").should("exist");
 
     cy.focused().should("have.attr", "placeholder", "List Name");
 
-    cy.get("[data-cy=list-new-name] [data-cy=input-text]")
-      .should("exist")
-      .type(listName);
+    cy.get("[data-cy=list-new-name] [data-cy=input-text]").type(listName);
 
     cy.get("[data-cy=simple-form-submit]").click();
 
@@ -30,17 +26,11 @@ describe("Lists Page", function() {
   });
 
   it("Creates List from Empty Block", function() {
-    cy.get("[data-cy=empty-block-button]")
-      .should("exist")
-      .click();
+    cy.get("[data-cy=empty-block-button]").click();
 
     cy.get("[data-cy=list-new-form]").should("exist");
 
-    cy.focused().should("have.attr", "placeholder", "List Name");
-
-    cy.get("[data-cy=list-new-name] [data-cy=input-text]")
-      .should("exist")
-      .type(listName);
+    cy.get("[data-cy=list-new-name] [data-cy=input-text]").type(listName);
 
     cy.get("[data-cy=simple-form-submit]").click();
 

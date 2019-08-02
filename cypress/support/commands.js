@@ -42,11 +42,38 @@ Cypress.Commands.add("createList", listName => {
   cy.get(".simple-form-actions-button.save").click();
 });
 
-Cypress.Commands.add("checkListItemStatusByIndex", (index, status) => {
+Cypress.Commands.add("listItemShouldHaveStatus", (index, status) => {
   const iconHref = status ? "#icon-checkmark1" : "#icon-checkmark";
 
   cy.get("[data-cy=list-items] [data-cy=list-item]")
     .eq(index)
     .find("[data-cy=icon-use]")
     .should("have.attr", "xlink:href", iconHref);
+});
+
+Cypress.Commands.add("listItemsShouldHaveLength", (parent, length) => {
+  cy.get(parent)
+    .find("[data-cy=list-item]")
+    .should("have.length", length);
+});
+
+Cypress.Commands.add("listItemClick", (index, parent) => {
+  const listItemSelector = "[data-cy=list-item]";
+  const selector = parent ? `${parent} ${listItemSelector}` : listItemSelector;
+
+  cy.get(selector)
+    .eq(index)
+    .click();
+});
+
+Cypress.Commands.add("shouldHaveIcon", (selector, iconHref) => {
+  cy.get(`${selector} [data-cy=icon-use]`).should(
+    "have.attr",
+    "xlink:href",
+    iconHref
+  );
+});
+
+Cypress.Commands.add("shouldHaveTitle", (selector, title) => {
+  cy.get(selector).should("have.attr", "title", title);
 });

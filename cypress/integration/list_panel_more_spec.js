@@ -1,5 +1,12 @@
 /// <reference types="Cypress" />
 
+const getListItemOrder = index => {
+  return cy
+    .get("[data-cy=list-item]")
+    .eq(index)
+    .find("[data-cy=item-order]");
+};
+
 describe("List Panel Actions", function() {
   beforeEach(() => {
     cy.visit("/");
@@ -13,154 +20,75 @@ describe("List Panel Actions", function() {
   });
 
   it("Correctly switches order of items", function() {
-    cy.get("[data-cy=list-panel-sort-direction] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-move-up"
-    );
+    cy.shouldHaveIcon("[data-cy=list-panel-sort-direction]", "#icon-move-up");
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .click();
+    cy.listItemClick(0);
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark");
-
-    cy.get("[data-cy=list-item]")
-      .eq(1)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark1");
+    cy.listItemShouldHaveStatus(0, false);
+    cy.listItemShouldHaveStatus(1, true);
 
     cy.get("[data-cy=list-panel-sort-direction]").click();
 
-    cy.get("[data-cy=list-panel-sort-direction] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-move-down"
-    );
+    cy.shouldHaveIcon("[data-cy=list-panel-sort-direction]", "#icon-move-down");
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark1");
-
-    cy.get("[data-cy=list-item]")
-      .eq(1)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark");
+    cy.listItemShouldHaveStatus(0, true);
+    cy.listItemShouldHaveStatus(1, false);
   });
 
   it("Doesn't switch order of items when sort is disabled", function() {
-    cy.get("[data-cy=list-panel-sort-status] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-tab"
-    );
+    cy.shouldHaveIcon("[data-cy=list-panel-sort-status]", "#icon-tab");
 
     cy.get("[data-cy=list-panel-sort-status]").click();
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .click();
+    cy.listItemClick(0);
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark1");
-
-    cy.get("[data-cy=list-item]")
-      .eq(1)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark");
+    cy.listItemShouldHaveStatus(0, true);
+    cy.listItemShouldHaveStatus(1, false);
 
     cy.get("[data-cy=list-panel-sort-direction]").click();
 
-    cy.get("[data-cy=list-panel-sort-direction] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-move-down"
-    );
+    cy.shouldHaveIcon("[data-cy=list-panel-sort-direction]", "#icon-move-down");
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark1");
-
-    cy.get("[data-cy=list-item]")
-      .eq(1)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark");
+    cy.listItemShouldHaveStatus(0, true);
+    cy.listItemShouldHaveStatus(1, false);
   });
 
   it("Doesn't show completed items when showComplete is diasbled", function() {
-    cy.get("[data-cy=list-panel-show-complete] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-checkmark1"
-    );
+    cy.shouldHaveIcon("[data-cy=list-panel-show-complete]", "#icon-checkmark1");
 
-    cy.get("[data-cy=list-items]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 2);
+    cy.listItemsShouldHaveLength("[data-cy=list-items]", 2);
 
     cy.get("[data-cy=list-panel-show-complete]").click();
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .click();
+    cy.listItemClick(0);
 
-    cy.get("[data-cy=list-items]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 1);
+    cy.listItemsShouldHaveLength("[data-cy=list-items]", 1);
   });
 
-  it("shows order number when sortByOrder is enabled", function() {
-    cy.get("[data-cy=list-panel-sort-by-order] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
+  it("Shows order number when sortByOrder is enabled", function() {
+    cy.shouldHaveIcon(
+      "[data-cy=list-panel-sort-by-order]",
       "#icon-list-numbered"
     );
 
-    cy.get("[data-cy=list-items]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 2);
+    cy.listItemsShouldHaveLength("[data-cy=list-items]", 2);
 
     cy.get("[data-cy=list-panel-sort-by-order]").click();
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=item-order]")
-      .should("contain", 1);
+    getListItemOrder(0).should("contain", 1);
 
-    cy.get("[data-cy=list-item]")
-      .eq(1)
-      .find("[data-cy=item-order]")
-      .should("contain", 2);
+    getListItemOrder(1).should("contain", 2);
 
     cy.addItem("Item 3");
 
-    cy.get("[data-cy=list-item]")
-      .eq(2)
-      .find("[data-cy=item-order]")
-      .should("contain", 3);
+    getListItemOrder(2).should("contain", 3);
   });
 
-  it("doesn't show order number when sortByOrder is disabled", function() {
-    cy.get("[data-cy=list-items]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 2);
+  it("Doesn't show order number when sortByOrder is disabled", function() {
+    cy.listItemsShouldHaveLength("[data-cy=list-items]", 2);
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=item-order]")
-      .should("not.exist");
-
-    cy.get("[data-cy=list-item]")
-      .eq(1)
-      .find("[data-cy=item-order]")
-      .should("not.exist");
+    getListItemOrder(0).should("not.exist");
+    getListItemOrder(1).should("not.exist");
 
     const item3Name = "Item 3";
     cy.addItem(item3Name);
