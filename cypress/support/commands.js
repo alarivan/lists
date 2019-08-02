@@ -41,3 +41,12 @@ Cypress.Commands.add("createList", listName => {
 
   cy.get(".simple-form-actions-button.save").click();
 });
+
+Cypress.Commands.add("checkListItemStatusByIndex", (index, status) => {
+  const iconHref = status ? "#icon-checkmark1" : "#icon-checkmark";
+
+  cy.get("[data-cy=list-items] [data-cy=list-item]")
+    .eq(index)
+    .find("[data-cy=icon-use]")
+    .should("have.attr", "xlink:href", iconHref);
+});
