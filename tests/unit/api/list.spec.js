@@ -1,21 +1,9 @@
 import ItemModel from "Models/item";
 import ListModel from "Models/list";
 import ListApi from "Api/list";
-import ItemApi from "Api/item";
 
 const createItem = name => {
   return ItemModel({ name });
-};
-
-const addMultpleItems = (list, names) => {
-  const items = names.map(name => {
-    const item = ItemApi.newItem(list, name);
-    ListApi.addItem(list, item);
-
-    return item;
-  });
-
-  return items;
 };
 
 const reverseIndexValue = (arr, index) => arr[arr.length - (index + 1)];
@@ -100,6 +88,7 @@ describe("List items delete", () => {
   });
 
   it("deletes item from list and reorders when 'sortByOrder' is false", () => {
+    // eslint-disable-next-line no-undef
     const items = addMultpleItems(list, names);
 
     [...Array(names.length).keys()].forEach(i => {
@@ -115,6 +104,7 @@ describe("List items delete", () => {
 
   it("deletes item from list and reorders when 'sortByOrder' is true", () => {
     list.options.sortByOrder = true;
+    // eslint-disable-next-line no-undef
     const items = addMultpleItems(list, names);
 
     [...Array(items.length).keys()].forEach(i => {
