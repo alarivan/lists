@@ -42,6 +42,7 @@ describe("List Items", function() {
     cy.get("[data-cy=dialog-cancel]").click();
 
     cy.url().should("include", "/list/");
+
     cy.get("[data-cy=list-head] [data-cy=list-name]").should(
       "contain",
       listName

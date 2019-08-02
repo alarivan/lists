@@ -14,16 +14,12 @@ describe("List Panel Stats", function() {
     cy.get("[data-cy=list-stats-item-complete]").should("not.exist");
     cy.get("[data-cy=list-stats-item-incomplete]").should("contain", 2);
 
-    cy.get("[data-cy=list-item")
-      .eq(0)
-      .click();
+    cy.listItemClick(0);
 
     cy.get("[data-cy=list-stats-item-complete]").should("contain", 1);
     cy.get("[data-cy=list-stats-item-incomplete]").should("contain", 1);
 
-    cy.get("[data-cy=list-item")
-      .eq(0)
-      .click();
+    cy.listItemClick(0);
 
     cy.get("[data-cy=list-stats-item-complete]").should("contain", 2);
     cy.get("[data-cy=list-stats-item-incomplete]").should("not.exist");
@@ -32,29 +28,15 @@ describe("List Panel Stats", function() {
   it("Opens and closes More Menu", function() {
     cy.get("[data-cy=list-panel-more]").should("not.be.visible");
 
-    cy.get("[data-cy=list-panel-more-options]").should(
-      "have.attr",
-      "title",
-      "Show Options"
-    );
-    cy.get("[data-cy=list-panel-more-options] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-menu-down"
-    );
+    cy.shouldHaveTitle("[data-cy=list-panel-more-options]", "Show Options");
+
+    cy.shouldHaveIcon("[data-cy=list-panel-more-options]", "#icon-menu-down");
 
     cy.get("[data-cy=list-panel-more-options]").click();
 
-    cy.get("[data-cy=list-panel-more-options]").should(
-      "have.attr",
-      "title",
-      "Hide Options"
-    );
-    cy.get("[data-cy=list-panel-more-options] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-menu-up"
-    );
+    cy.shouldHaveTitle("[data-cy=list-panel-more-options]", "Hide Options");
+
+    cy.shouldHaveIcon("[data-cy=list-panel-more-options]", "#icon-menu-up");
 
     cy.get("[data-cy=list-panel-more]").should("exist");
 
@@ -62,15 +44,8 @@ describe("List Panel Stats", function() {
 
     cy.get("[data-cy=list-panel-more]").should("not.be.visible");
 
-    cy.get("[data-cy=list-panel-more-options]").should(
-      "have.attr",
-      "title",
-      "Show Options"
-    );
-    cy.get("[data-cy=list-panel-more-options] [data-cy=icon-use]").should(
-      "have.attr",
-      "xlink:href",
-      "#icon-menu-down"
-    );
+    cy.shouldHaveTitle("[data-cy=list-panel-more-options]", "Show Options");
+
+    cy.shouldHaveIcon("[data-cy=list-panel-more-options]", "#icon-menu-down");
   });
 });

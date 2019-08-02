@@ -28,9 +28,7 @@ describe("List Items", function() {
 
     cy.get("[data-cy=dialog-confirm]").click();
 
-    cy.get("[data-cy=list-items]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 0);
+    cy.listItemsShouldHaveLength("[data-cy=list-items]", 0);
   });
 
   it("Cancels Item delete action", function() {
@@ -40,32 +38,21 @@ describe("List Items", function() {
 
     cy.get("[data-cy=dialog-cancel]").click();
 
-    cy.get("[data-cy=list-items]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 1);
+    cy.listItemsShouldHaveLength("[data-cy=list-items]", 1);
   });
 
   it("Updates item status", function() {
     cy.addItem(itemName);
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark");
+    cy.listItemShouldHaveStatus(0, false);
 
     cy.get("[data-cy=list-item]").click();
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark1");
+    cy.listItemShouldHaveStatus(0, true);
 
     cy.get("[data-cy=list-item]").click();
 
-    cy.get("[data-cy=list-item]")
-      .eq(0)
-      .find("[data-cy=icon-use]")
-      .should("have.attr", "xlink:href", "#icon-checkmark");
+    cy.listItemShouldHaveStatus(0, false);
   });
 
   it("Doesn't close ItemForm if multiple-toggle is active", function() {
@@ -107,43 +94,30 @@ describe("List Items", function() {
     const typedValue = "it";
     ["Item 1", "item 2", "Item 3", "other"].forEach(name => cy.addItem(name));
 
-    Array(3)
-      .fill()
-      .forEach(() =>
-        cy
-          .get("[data-cy=list-item]")
-          .eq(0)
-          .click()
-      );
+    for (let i = 0; i < 3; i++) {
+      cy.listItemClick(0);
+    }
 
-    cy.checkListItemStatusByIndex(0, false);
-    cy.checkListItemStatusByIndex(1, true);
-    cy.checkListItemStatusByIndex(2, true);
-    cy.checkListItemStatusByIndex(3, true);
+    [false, true, true, true].forEach((v, i) =>
+      cy.listItemShouldHaveStatus(i, v)
+    );
 
     cy.get("[data-cy=item-new-button-fixed]").click();
 
     cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(typedValue);
 
-    cy.get("[data-cy=item-form-suggest]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 2);
+    cy.listItemsShouldHaveLength("[data-cy=item-form-suggest]", 2);
 
     cy.get("[data-cy=item-form-suggest]").should("not.contain", "other");
 
-    cy.get("[data-cy=item-form-suggest] [data-cy=list-item]")
-      .eq(0)
-      .click();
+    cy.listItemClick(0, "[data-cy=item-form-suggest]");
 
     cy.focused().should("have.value", typedValue);
 
-    cy.get("[data-cy=item-form-suggest]")
-      .find("[data-cy=list-item]")
-      .should("have.length", 1);
+    cy.listItemsShouldHaveLength("[data-cy=item-form-suggest]", 1);
 
-    cy.checkListItemStatusByIndex(0, false);
-    cy.checkListItemStatusByIndex(1, false);
-    cy.checkListItemStatusByIndex(2, true);
-    cy.checkListItemStatusByIndex(3, true);
+    [false, false, true, true].forEach((v, i) =>
+      cy.listItemShouldHaveStatus(i, v)
+    );
   });
 });
