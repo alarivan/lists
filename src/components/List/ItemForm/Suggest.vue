@@ -31,9 +31,10 @@ export default {
 
   computed: {
     items() {
+      const name = this.name.toLowerCase();
       return this.name
         ? this.list.items.filter(
-            i => i.name.toLowerCase().includes(this.name) && i.status
+            i => i.name.toLowerCase().includes(name) && i.status
           )
         : [];
     }
