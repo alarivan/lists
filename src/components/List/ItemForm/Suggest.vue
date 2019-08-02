@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss">
 .item-form-suggest {
-  @apply relative overflow-y-scroll mb-1;
+  @apply relative overflow-y-auto mb-1;
   max-height: 140px;
 }
 </style>
