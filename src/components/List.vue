@@ -8,20 +8,26 @@
     <NewButton :listId="list.id" />
 
     <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
-      <transition-group
-        tag="div"
-        name="list"
-        data-cy="list-items"
-        class="list-items"
-      >
+      <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
         <Item
           v-for="item in sortedItems"
           :key="item.id"
           :item="item"
           :list="list"
+          @on-delete-swipe="deleteItem"
+          @on-delete-click="openDeleteDialog"
         />
       </transition-group>
     </draggable>
+
+    <Dialog
+      ref="deleteDialog"
+      name="delete-item-dialog"
+      :text="deleteItemDialogText"
+      confirmText="delete"
+      @confirm="confirmDeleteItem"
+      @cancel="cancelDeleteItem"
+    />
   </div>
 </template>
 
@@ -34,6 +40,7 @@ import ListHead from "Components/List/Head.vue";
 import ListPanel from "Components/List/Panel.vue";
 import ItemForm from "Components/List/ItemForm.vue";
 import NewButton from "Components/List/ItemForm/NewButton.vue";
+import Dialog from "Components/common/Dialog.vue";
 
 export default {
   name: "component-list",
@@ -43,11 +50,15 @@ export default {
     ListHead,
     ListPanel,
     ItemForm,
-    NewButton
+    NewButton,
+    Dialog
   },
 
   data() {
-    return {};
+    return {
+      deleteItemDialogText: "Delete Item?",
+      deleteDialogItem: null
+    };
   },
 
   props: {
@@ -55,7 +66,30 @@ export default {
   },
 
   methods: {
-    ...mapActions(["updateItemsOrder"])
+    deleteItem(item) {
+      this.deleteListItem({ list_id: this.list.id, item_id: item.id });
+
+      this.$refs.deleteDialog.close();
+    },
+
+    openDeleteDialog(item) {
+      this.deleteDialogItem = item;
+      this.$refs.deleteDialog.open();
+    },
+
+    confirmDeleteItem() {
+      if (this.deleteDialogItem) {
+        this.deleteItem(this.deleteDialogItem);
+      }
+
+      this.deleteDialogItem = null;
+    },
+
+    cancelDeleteItem() {
+      this.deleteDialogItem = null;
+    },
+
+    ...mapActions(["updateListItem", "deleteListItem", "updateItemsOrder"])
   },
 
   computed: {

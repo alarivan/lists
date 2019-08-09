@@ -3,24 +3,12 @@
     <ItemBody
       :list="list"
       :item="item"
-      v-touch:swipe.left="deleteItem"
+      v-touch:swipe.left="emitDeleteSwipe"
       @click.native="updateItem"
     />
-    <button
-      data-cy="item-delete-button"
-      class="button delete"
-      @click="openDeleteDialog"
-    >
+    <button data-cy="item-delete-button" class="button delete" @click="emitDeleteClick">
       <Icon href="#icon-bin" />
     </button>
-
-    <Dialog
-      ref="deleteDialog"
-      :name="deleteDialogName"
-      :text="deleteDialogText"
-      confirmText="delete"
-      @confirm="deleteItem"
-    />
   </div>
 </template>
 
@@ -28,21 +16,13 @@
 import { mapActions } from "vuex";
 
 import Icon from "Components/common/Icon.vue";
-import Dialog from "Components/common/Dialog.vue";
 import ItemBody from "Components/List/Item/Body.vue";
 
 export default {
   name: "component-item",
   components: {
     Icon,
-    Dialog,
     ItemBody
-  },
-
-  data() {
-    return {
-      deleteDialogText: "Delete Item?"
-    };
   },
 
   props: {
@@ -59,17 +39,15 @@ export default {
       });
     },
 
-    deleteItem() {
-      this.deleteListItem({ list_id: this.list.id, item_id: this.item.id });
-
-      this.$refs.deleteDialog.close();
+    emitDeleteClick() {
+      this.$emit("on-delete-click", this.item);
     },
 
-    openDeleteDialog() {
-      this.$refs.deleteDialog.open();
+    emitDeleteSwipe() {
+      this.$emit("on-delete-swipe", this.item);
     },
 
-    ...mapActions(["updateListItem", "deleteListItem"])
+    ...mapActions(["updateListItem"])
   },
 
   computed: {
@@ -79,10 +57,6 @@ export default {
 
     showOrder() {
       return this.list.options.sortByOrder;
-    },
-
-    deleteDialogName() {
-      return `delete-item-dialog-${this.item.id}`;
     }
   }
 };
