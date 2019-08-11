@@ -16,6 +16,12 @@ export function getIndexFromArrayById(arr, id) {
   return { found: index !== -1, index };
 }
 
+export function getIndexFromArray(arr, id) {
+  const index = arr.findIndex(i => i === id);
+
+  return { found: index !== -1, index };
+}
+
 export function generateUniqueIdArray(arr) {
   return generateUniqueId(arr, (col, id) => getFromArrayById(col, id).found);
 }

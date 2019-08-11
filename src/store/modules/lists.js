@@ -1,18 +1,26 @@
 import Vue from "vue";
 import ListApi from "Api/list";
+import ItemApi from "Api/item";
 import { generateUniqueIdObject } from "Helper/main";
 
+const reorderItems = (state, items) => {
+  Vue.set(state, "items", ItemApi.reorderItems(state.items, items));
+};
+
 const state = {
-  lists: {}
+  items: {}
 };
 
 // getters
 const getters = {
-  lists: state => state.lists,
+  items: state => state.items,
 
-  listsArray: state => Object.values(state.lists),
+  listsArray: state => Object.values(state.items).filter(i => !i.parent),
+  itemsArray: state => listId =>
+    state.items[listId].items.map(i => state.items[i]),
 
-  listById: state => id => state.lists[id]
+  listById: state => id => state.items[id],
+  itemById: state => id => state.item[id]
 };
 
 // actions
@@ -22,13 +30,13 @@ const actions = {
   },
 
   addList({ commit }, list) {
-    list.id = generateUniqueIdObject(state.lists);
+    list.id = generateUniqueIdObject(state.items);
 
     commit("ADD_LIST", list);
   },
 
   updateList({ commit, state }, { id, values }) {
-    if (state.lists.hasOwnProperty(id)) {
+    if (state.items.hasOwnProperty(id)) {
       commit("UPDATE_LIST", { id, values });
     }
   },
@@ -38,31 +46,31 @@ const actions = {
   },
 
   updateListOption({ commit, state }, { id, option, value }) {
-    if (state.lists.hasOwnProperty(id)) {
+    if (state.items.hasOwnProperty(id)) {
       commit("UPDATE_LIST_OPTION", { id, option, value });
     }
   },
 
   addListItem({ commit, state }, { list_id, item }) {
-    if (state.lists.hasOwnProperty(list_id)) {
+    if (state.items.hasOwnProperty(list_id)) {
       commit("ADD_LIST_ITEM", { list_id, item });
     }
   },
 
   updateListItem({ commit, state }, { list_id, item_id, values }) {
-    if (state.lists.hasOwnProperty(list_id)) {
-      commit("UPDATE_LIST_ITEM", { list_id, item_id, values });
+    if (state.items.hasOwnProperty(list_id)) {
+      commit("UPDATE_LIST_ITEM", { item_id, values });
     }
   },
 
   deleteListItem({ commit, state }, { list_id, item_id }) {
-    if (state.lists.hasOwnProperty(list_id)) {
+    if (state.items.hasOwnProperty(list_id)) {
       commit("DELETE_LIST_ITEM", { list_id, item_id });
     }
   },
 
   updateItemsOrder({ commit, state }, { id, items }) {
-    if (state.lists.hasOwnProperty(id)) {
+    if (state.items.hasOwnProperty(id)) {
       commit("UPDATE_ITEMS_ORDER", { id, items });
     }
   }
@@ -70,54 +78,82 @@ const actions = {
 
 // mutations
 const mutations = {
-  SET_LISTS(state, lists) {
-    state.lists = lists;
+  SET_LISTS(state, items) {
+    state.items = items;
   },
 
   ADD_LIST(state, list) {
-    Vue.set(state.lists, list.id, list);
+    Vue.set(state.items, list.id, list);
   },
 
   UPDATE_LIST(state, { id, values }) {
-    Vue.set(state.lists, id, ListApi.updateList(state.lists[id], values));
+    Vue.set(state.items, id, Object.assign(state.items[id], values));
   },
 
   DELETE_LIST(state, id) {
-    Vue.delete(state.lists, id);
+    const parentId = state.items[id].parent;
+
+    state.items[id].items.forEach(i => {
+      Vue.delete(state.items, i);
+    });
+
+    Vue.delete(state.items, id);
+
+    if (parentId) {
+      Vue.set(
+        state.items,
+        parentId,
+        ListApi.deleteItem(state.items[parentId], id)
+      );
+
+      reorderItems(state, state.items[parentId].items);
+    }
   },
 
   UPDATE_LIST_OPTION(state, { id, option, value }) {
-    const list = state.lists[id];
+    const list = state.items[id];
     list.options[option] = value;
 
-    Vue.set(state.lists, list.id, list);
+    Vue.set(state.items, list.id, list);
   },
 
   ADD_LIST_ITEM(state, { list_id, item }) {
-    Vue.set(state.lists, list_id, ListApi.addItem(state.lists[list_id], item));
+    Vue.set(state.items, item.id, item);
+    Vue.set(
+      state.items,
+      list_id,
+      ListApi.addItem(state.items[list_id], item.id)
+    );
+
+    reorderItems(state, state.items[list_id].items);
   },
 
-  UPDATE_LIST_ITEM(state, { list_id, item_id, values }) {
+  UPDATE_LIST_ITEM(state, { item_id, values }) {
     Vue.set(
-      state.lists,
-      list_id,
-      ListApi.updateItem(state.lists[list_id], item_id, values)
+      state.items,
+      item_id,
+      Object.assign({}, state.items[item_id], values)
     );
   },
 
   DELETE_LIST_ITEM(state, { list_id, item_id }) {
     Vue.set(
-      state.lists,
+      state.items,
       list_id,
-      ListApi.deleteItem(state.lists[list_id], item_id)
+      ListApi.deleteItem(state.items[list_id], item_id)
     );
+
+    Vue.delete(state.items, item_id);
+
+    reorderItems(state, state.items[list_id].items);
   },
 
   UPDATE_ITEMS_ORDER(state, { id, items }) {
-    const list = state.lists[id];
-    list.items = ListApi.reorderItems(items);
+    const list = state.items[id];
+    list.items = items.map(i => i.id);
+    Vue.set(state.items, list.id, list);
 
-    Vue.set(state.lists, list.id, list);
+    reorderItems(state, list.items);
   }
 };
 
