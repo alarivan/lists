@@ -1,12 +1,7 @@
 <template>
   <div class="component-list-items">
     <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
-      <transition-group
-        tag="div"
-        name="list"
-        data-cy="list-items"
-        class="list-items"
-      >
+      <slide-x-left-transition group :duration="200">
         <template v-for="item in sortedItems">
           <template v-if="item.items">
             <NestedList :key="item.id" :list="item" />
@@ -15,7 +10,7 @@
             <Item :key="item.id" :item="item" :list="list" />
           </template>
         </template>
-      </transition-group>
+      </slide-x-left-transition>
     </draggable>
   </div>
 </template>
@@ -25,13 +20,15 @@ import draggable from "vuedraggable";
 import { mapActions } from "vuex";
 
 import Item from "Components/List/Item.vue";
+import { SlideXLeftTransition } from "vue2-transitions";
 
 export default {
   name: "component-list-items",
   components: {
     draggable,
     Item,
-    NestedList: () => import("Components/List/NestedList.vue")
+    NestedList: () => import("Components/List/NestedList.vue"),
+    SlideXLeftTransition
   },
 
   data() {

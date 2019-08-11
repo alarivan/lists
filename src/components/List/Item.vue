@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mb-1">
+  <div class="w-full flex mb-1">
     <ItemBody
       :list="list"
       :item="item"
