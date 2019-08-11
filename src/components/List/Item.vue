@@ -1,12 +1,11 @@
 <template>
   <div class="flex mb-1">
-    <ItemBody
-      :list="list"
-      :item="item"
-      v-touch:swipe.left="emitDeleteSwipe"
-      @click.native="updateItem"
-    />
-    <button data-cy="item-delete-button" class="button delete" @click="emitDeleteClick">
+    <ItemBody :list="list" :item="item" v-touch:swipe.left="deleteItem" @click.native="updateItem" />
+    <button
+      data-cy="item-delete-button"
+      class="button delete"
+      @click="openDeleteItemDialog({list_id: list.id, item_id: item.id})"
+    >
       <Icon href="#icon-bin" />
     </button>
   </div>
@@ -39,15 +38,11 @@ export default {
       });
     },
 
-    emitDeleteClick() {
-      this.$emit("on-delete-click", this.item);
+    deleteItem() {
+      this.deleteListItem({ list_id: this.list.id, item_id: this.item.id });
     },
 
-    emitDeleteSwipe() {
-      this.$emit("on-delete-swipe", this.item);
-    },
-
-    ...mapActions(["updateListItem"])
+    ...mapActions(["updateListItem", "deleteListItem", "openDeleteItemDialog"])
   },
 
   computed: {
