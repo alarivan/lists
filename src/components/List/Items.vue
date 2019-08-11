@@ -1,16 +1,9 @@
 <template>
   <div class="component-list-items">
     <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
-      <slide-x-left-transition group :duration="200">
-        <template v-for="item in sortedItems">
-          <template v-if="item.items">
-            <NestedList :key="item.id" :list="item" />
-          </template>
-          <template v-else>
-            <Item :key="item.id" :item="item" :list="list" />
-          </template>
-        </template>
-      </slide-x-left-transition>
+      <transition-group tag="div" name="slide" data-cy="list-items" class="list-items">
+        <ItemContainer v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
+      </transition-group>
     </draggable>
   </div>
 </template>
@@ -19,16 +12,13 @@
 import draggable from "vuedraggable";
 import { mapActions } from "vuex";
 
-import Item from "Components/List/Item.vue";
-import { SlideXLeftTransition } from "vue2-transitions";
+import ItemContainer from "Components/List/ItemContainer.vue";
 
 export default {
   name: "component-list-items",
   components: {
     draggable,
-    Item,
-    NestedList: () => import("Components/List/NestedList.vue"),
-    SlideXLeftTransition
+    ItemContainer
   },
 
   data() {
@@ -79,4 +69,16 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.slide-leave-active,
+.slide-enter-active {
+  transition: 150ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+  transition-property: transform;
+}
+.slide-enter {
+  transform: translate(100%, 0);
+}
+.slide-leave-to {
+  transform: translate(-100%, 0);
+}
+</style>
