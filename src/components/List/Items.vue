@@ -1,33 +1,17 @@
 <template>
-  <div class="component-list">
-    <ListHead :list="list" />
-    <ListPanel :list="list" />
-
-    <ItemForm class="mb-1" ref="itemForm" :list="list" />
-
-    <NewButton :listId="list.id" />
-
+  <div class="component-list-items">
     <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
       <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
-        <Item
-          v-for="item in sortedItems"
-          :key="item.id"
-          :item="item"
-          :list="list"
-          @on-delete-swipe="deleteItem"
-          @on-delete-click="openDeleteDialog"
-        />
+        <template v-for="item in sortedItems">
+          <template v-if="item.items">
+            <NestedList :key="item.id" :list="item" />
+          </template>
+          <template v-else>
+            <Item :key="item.id" :item="item" :list="list" />
+          </template>
+        </template>
       </transition-group>
     </draggable>
-
-    <Dialog
-      ref="deleteDialog"
-      name="delete-item-dialog"
-      :text="deleteItemDialogText"
-      confirmText="delete"
-      @confirm="confirmDeleteItem"
-      @cancel="cancelDeleteItem"
-    />
   </div>
 </template>
 
@@ -36,29 +20,17 @@ import draggable from "vuedraggable";
 import { mapActions } from "vuex";
 
 import Item from "Components/List/Item.vue";
-import ListHead from "Components/List/Head.vue";
-import ListPanel from "Components/List/Panel.vue";
-import ItemForm from "Components/List/ItemForm.vue";
-import NewButton from "Components/List/ItemForm/NewButton.vue";
-import Dialog from "Components/common/Dialog.vue";
 
 export default {
-  name: "component-list",
+  name: "component-list-items",
   components: {
     draggable,
     Item,
-    ListHead,
-    ListPanel,
-    ItemForm,
-    NewButton,
-    Dialog
+    NestedList: () => import("Components/List/NestedList.vue")
   },
 
   data() {
-    return {
-      deleteItemDialogText: "Delete Item?",
-      deleteDialogItem: null
-    };
+    return {};
   },
 
   props: {
@@ -66,36 +38,13 @@ export default {
   },
 
   methods: {
-    deleteItem(item) {
-      this.deleteListItem({ list_id: this.list.id, item_id: item.id });
-
-      this.$refs.deleteDialog.close();
-    },
-
-    openDeleteDialog(item) {
-      this.deleteDialogItem = item;
-      this.$refs.deleteDialog.open();
-    },
-
-    confirmDeleteItem() {
-      if (this.deleteDialogItem) {
-        this.deleteItem(this.deleteDialogItem);
-      }
-
-      this.deleteDialogItem = null;
-    },
-
-    cancelDeleteItem() {
-      this.deleteDialogItem = null;
-    },
-
-    ...mapActions(["updateListItem", "deleteListItem", "updateItemsOrder"])
+    ...mapActions(["updateItemsOrder"])
   },
 
   computed: {
     sortedItems: {
       get() {
-        let result = [...this.list.items];
+        let result = [...this.$store.getters.itemsArray(this.list.id)];
 
         if (this.list.options.sortStatus && !this.list.options.sortByOrder) {
           result = result.sort((a, b) => {
