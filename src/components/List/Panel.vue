@@ -1,7 +1,7 @@
 <template>
   <div class="list-panel mb-1">
     <div data-cy="list-panel-main" class="list-panel-main flex">
-      <Stats class="flex-auto" :items="list.items" />
+      <Stats class="flex-auto" :items="listItems" />
 
       <PanelButton
         data-cy="list-panel-more-options"
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import Stats from "Components/List/Panel/Stats.vue";
 import PanelButton from "Components/List/Panel/Button.vue";
@@ -163,7 +163,13 @@ export default {
 
     sortByOrder() {
       return this.list.options.sortByOrder;
-    }
+    },
+
+    listItems() {
+      return this.itemsArray(this.list.id);
+    },
+
+    ...mapGetters(["itemsArray"])
   }
 };
 </script>
