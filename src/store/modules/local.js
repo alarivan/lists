@@ -1,16 +1,13 @@
 const state = {
   loading: true,
-  itemFormList: null,
-  deleteItemDialogData: null
+  itemFormList: null
 };
 
 // getters
 const getters = {
   loading: state => state.loading,
 
-  itemFormList: state => state.itemFormList,
-
-  deleteItemDialogData: state => state.deleteItemDialogData
+  itemFormList: state => state.itemFormList
 };
 
 // actions
@@ -25,14 +22,6 @@ const actions = {
 
   closeItemForm({ commit }) {
     commit("SET_ITEM_FORM_LIST", null);
-  },
-
-  openDeleteItemDialog({ commit }, data) {
-    commit("SET_DELETE_DIALOG_DATA", data);
-  },
-
-  closeDeleteItemDialog({ commit }) {
-    commit("SET_DELETE_DIALOG_DATA", null);
   }
 };
 
@@ -44,10 +33,6 @@ const mutations = {
 
   SET_ITEM_FORM_LIST(state, list) {
     state.itemFormList = list;
-  },
-
-  SET_DELETE_DIALOG_DATA(state, data) {
-    state.deleteItemDialogData = data;
   }
 };
 

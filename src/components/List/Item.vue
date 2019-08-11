@@ -1,10 +1,15 @@
 <template>
   <div class="flex mb-1">
-    <ItemBody :list="list" :item="item" v-touch:swipe.left="deleteItem" @click.native="updateItem" />
+    <ItemBody
+      :list="list"
+      :item="item"
+      v-touch:swipe.left="deleteItem"
+      @click.native="updateItem"
+    />
     <button
       data-cy="item-delete-button"
       class="button delete"
-      @click="openDeleteItemDialog({list_id: list.id, item_id: item.id})"
+      @click="handleDeleteClick()"
     >
       <Icon href="#icon-bin" />
     </button>
@@ -16,6 +21,7 @@ import { mapActions } from "vuex";
 
 import Icon from "Components/common/Icon.vue";
 import ItemBody from "Components/List/Item/Body.vue";
+import Dialog from "Components/common/Dialog.vue";
 
 export default {
   name: "component-item",
@@ -42,7 +48,21 @@ export default {
       this.deleteListItem({ list_id: this.list.id, item_id: this.item.id });
     },
 
-    ...mapActions(["updateListItem", "deleteListItem", "openDeleteItemDialog"])
+    handleDeleteClick() {
+      this.$modal.show(
+        Dialog,
+        {
+          confirmCallback: () => {
+            this.deleteItem();
+          },
+          text: `Delete "${this.item.name}"?`,
+          confirmText: "delete"
+        },
+        { width: "100%", height: "auto", pivotY: 0.7 }
+      );
+    },
+
+    ...mapActions(["updateListItem", "deleteListItem"])
   },
 
   computed: {

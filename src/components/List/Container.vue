@@ -1,19 +1,15 @@
 <template>
   <div class="container-list">
-    <ItemForm v-if="itemFormList" class="mb-1" ref="itemForm" :list="itemFormList" />
+    <ItemForm
+      v-if="itemFormList"
+      class="mb-1"
+      ref="itemForm"
+      :list="itemFormList"
+    />
 
     <FixedButton data-cy="item-new-button-fixed" @click="openNewItemForm" />
 
     <List :list="list" />
-
-    <Dialog
-      ref="deleteDialog"
-      name="delete-item-dialog"
-      :text="deleteItemDialogText"
-      confirmText="delete"
-      @confirm="confirmDeleteItem"
-      @cancel="cancelDeleteItem"
-    />
   </div>
 </template>
 
@@ -22,7 +18,6 @@ import { mapActions, mapGetters } from "vuex";
 
 import List from "Components/List/List.vue";
 import ItemForm from "Components/List/ItemForm.vue";
-import Dialog from "Components/common/Dialog.vue";
 import FixedButton from "Components/common/FixedButton.vue";
 
 export default {
@@ -30,14 +25,7 @@ export default {
   components: {
     List,
     ItemForm,
-    FixedButton,
-    Dialog
-  },
-
-  data() {
-    return {
-      deleteItemDialogText: "Delete Item?"
-    };
+    FixedButton
   },
 
   props: {
@@ -45,49 +33,15 @@ export default {
   },
 
   methods: {
-    confirmDeleteItem() {
-      if (this.deleteItemDialogData) {
-        this.deleteListItem(this.deleteItemDialogData);
-      }
-
-      this.closeDeleteItemDialog();
-    },
-
-    openDeleteDialog() {
-      this.$refs.deleteDialog.open();
-    },
-
-    closeDeleteDialog() {
-      this.$refs.deleteDialog.close();
-    },
-
-    cancelDeleteItem() {
-      this.closeDeleteItemDialog();
-    },
-
     openNewItemForm() {
       this.openItemForm(this.list);
     },
 
-    ...mapActions([
-      "updateListItem",
-      "deleteListItem",
-      "updateItemsOrder",
-      "openItemForm",
-      "openDeleteItemDialog",
-      "closeDeleteItemDialog"
-    ])
+    ...mapActions(["openItemForm"])
   },
 
   computed: {
-    ...mapGetters(["itemFormList", "deleteItemDialogData"])
-  },
-
-  watch: {
-    deleteItemDialogData(n) {
-      if (n) this.openDeleteDialog();
-      else this.closeDeleteDialog();
-    }
+    ...mapGetters(["itemFormList"])
   }
 };
 </script>
