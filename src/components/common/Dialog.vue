@@ -6,19 +6,21 @@
         data-cy="dialog-confirm"
         class="dialog-action-button button delete"
         @click="confirm"
-      >{{ confirmText }}</button>
+      >
+        {{ confirmText }}
+      </button>
       <button
         data-cy="dialog-cancel"
         class="dialog-action-button button secondary"
         @click="cancel"
-      >{{ cancelText }}</button>
+      >
+        {{ cancelText }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
 export default {
   props: {
     text: { type: String, required: true },

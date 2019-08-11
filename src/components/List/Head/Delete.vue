@@ -19,7 +19,6 @@ import Icon from "Components/common/Icon.vue";
 export default {
   name: "component-list-head-delete",
   components: {
-    Dialog,
     Icon
   },
 

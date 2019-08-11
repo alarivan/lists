@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 import Icon from "Components/common/Icon.vue";
 
 export default {

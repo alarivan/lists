@@ -1,7 +1,12 @@
 <template>
   <div class="component-list-items">
     <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
-      <transition-group tag="div" name="list" data-cy="list-items" class="list-items">
+      <transition-group
+        tag="div"
+        name="list"
+        data-cy="list-items"
+        class="list-items"
+      >
         <template v-for="item in sortedItems">
           <template v-if="item.items">
             <NestedList :key="item.id" :list="item" />
