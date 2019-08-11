@@ -42,7 +42,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["addUser", "setItems", "setLists", "setLoading"])
+    ...mapActions(["addUser", "setLists", "setLoading"])
   }
 };
 </script>
