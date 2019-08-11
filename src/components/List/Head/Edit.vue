@@ -1,10 +1,6 @@
 <template>
   <div>
-    <button
-      data-cy="list-head-button-edit"
-      @click="openForm"
-      class="button primary h-full"
-    >
+    <button data-cy="list-head-button-edit" @click="openForm" class="button edit h-full">
       <Icon href="#icon-pencil" />
     </button>
 

@@ -41,7 +41,7 @@ export default {
 
       this.$refs.deleteDialog.close();
 
-      if (this.isListView) {
+      if (!this.list.parent) {
         this.$router.push("/");
       }
     },
