@@ -2,19 +2,11 @@
   <div>
     <button
       data-cy="list-head-button-delete"
-      @click="openDeleteDialog"
+      @click="handleDeleteClick"
       class="button delete h-full"
     >
       <Icon href="#icon-bin" />
     </button>
-
-    <Dialog
-      ref="deleteDialog"
-      :name="deleteDialogName"
-      :text="deleteDialogText"
-      confirmText="delete"
-      @confirm="deleteListAction"
-    />
   </div>
 </template>
 
@@ -39,15 +31,23 @@ export default {
     deleteListAction() {
       this.deleteList(this.list.id);
 
-      this.$refs.deleteDialog.close();
-
       if (!this.list.parent) {
         this.$router.push("/");
       }
     },
 
-    openDeleteDialog() {
-      this.$refs.deleteDialog.open();
+    handleDeleteClick() {
+      this.$modal.show(
+        Dialog,
+        {
+          confirmCallback: () => {
+            this.deleteListAction();
+          },
+          text: `Delete ${this.list.name}`,
+          confirmText: "delete"
+        },
+        { width: "100%", height: "auto", pivotY: 0.7 }
+      );
     },
 
     ...mapActions(["deleteList"])

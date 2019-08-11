@@ -10,7 +10,7 @@ import "Styles/main.scss";
 
 Vue.config.productionTip = false;
 
-Vue.use(VModal);
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 
 Vue.use(VueMq, {
   breakpoints: {
