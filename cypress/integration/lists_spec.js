@@ -52,7 +52,7 @@ describe("Lists Page", function() {
     cy.focused().should("have.value", "");
   });
 
-  it.only("Has View Link", function() {
+  it("Has View Link", function() {
     cy.createList(listName);
 
     cy.get("[data-cy=header-logo]").click();

@@ -1,5 +1,8 @@
 <template>
-  <div class="component-list w-full border-l-4 border-t-4 border-gray-300">
+  <div
+    data-cy="list-item-nested"
+    class="component-list w-full border-l-4 border-t-4 border-gray-300"
+  >
     <ListHead :list="list" :showButtons="showHeadButtons">
       <HeadAddItem v-if="showHeadButtons" :list="list" />
       <template v-slot:after>
