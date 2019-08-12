@@ -1,5 +1,5 @@
 import ListModel from "Models/list";
-import { getIndexFromArrayById } from "Helper/main";
+import { getIndexFromArray } from "Helper/main";
 
 const ListApi = {
   newList(name, items = []) {
@@ -9,38 +9,21 @@ const ListApi = {
     });
   },
 
-  updateList(list, values) {
-    return Object.assign(list, values);
-  },
-
-  addItem(list, item) {
+  addItem(list, item_id) {
     if (list.options.sortByOrder) {
-      list.items.push(item);
+      list.items.push(item_id);
     } else {
-      list.items.unshift(item);
-    }
-
-    list.items = this.reorderItems(list.items);
-
-    return list;
-  },
-
-  updateItem(list, item_id, values) {
-    const { found, index } = getIndexFromArrayById(list.items, item_id);
-
-    if (found) {
-      Object.assign(list.items[index], values);
+      list.items.unshift(item_id);
     }
 
     return list;
   },
 
   deleteItem(list, id) {
-    const { found, index } = getIndexFromArrayById(list.items, id);
+    const { found, index } = getIndexFromArray(list.items, id);
 
     if (found) {
       list.items.splice(index, 1);
-      list.items = this.reorderItems(list.items);
     }
 
     return list;
@@ -48,10 +31,6 @@ const ListApi = {
 
   formatName(name) {
     return name.trim();
-  },
-
-  reorderItems(items) {
-    return items.map((item, index) => (item.order = index + 1) && item);
   }
 };
 

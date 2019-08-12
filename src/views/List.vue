@@ -1,19 +1,19 @@
 <template>
   <div>
     <div v-if="list">
-      <ComponentList :list="list" />
+      <ContainerList :list="list" />
     </div>
     <div v-else>List not found</div>
   </div>
 </template>
 
 <script>
-import ComponentList from "Components/List.vue";
+import ContainerList from "Components/List/Container.vue";
 
 export default {
   name: "view-list",
   components: {
-    ComponentList
+    ContainerList
   },
 
   computed: {

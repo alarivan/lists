@@ -4,7 +4,8 @@ export const DEFAULT_OPTIONS = {
   sortStatus: true,
   sortDirection: false,
   showComplete: true,
-  sortByOrder: false
+  sortByOrder: false,
+  parent: null
 };
 
 const ListModel = function(values) {
