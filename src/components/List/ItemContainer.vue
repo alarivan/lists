@@ -11,7 +11,6 @@
 
 <script>
 import Item from "Components/List/Item.vue";
-import { SlideXLeftTransition } from "vue2-transitions";
 
 export default {
   name: "component-list-item-container",
