@@ -1,6 +1,6 @@
 <template>
   <div class="component-list-items">
-    <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder">
+    <draggable v-model="sortedItems" :disabled="!list.options.sortByOrder" :delay="100">
       <transition-group tag="div" name="slide" data-cy="list-items" class="list-items">
         <ItemContainer v-for="item in sortedItems" :key="item.id" :item="item" :list="list" />
       </transition-group>
