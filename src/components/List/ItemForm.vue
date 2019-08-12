@@ -24,6 +24,16 @@
       >
         <Icon href="#icon-infinite" size="md" />
       </button>
+      <div class="w-1 border border-gray-200"></div>
+      <button
+        data-cy="item-new-list-toggle"
+        @click="toggleList"
+        type="button"
+        class="item-form-list-toggle"
+        :class="{ enabled: isList }"
+      >
+        <Icon href="#icon-list" size="md" />
+      </button>
     </div>
   </FixedForm>
 </template>
@@ -50,12 +60,17 @@ export default {
   data() {
     return {
       itemName: "",
-      multiple: false
+      multiple: false,
+      isList: false
     };
   },
 
   props: {
     list: { type: Object, required: true }
+  },
+
+  mounted() {
+    this.open();
   },
 
   methods: {
@@ -70,13 +85,21 @@ export default {
     closed() {
       this.multiple = false;
       this.itemName = "";
+      this.closeItemForm();
     },
 
     newItem() {
-      this.addListItem({
-        list_id: this.list.id,
-        item: ItemApi.newItem(this.list, this.itemName)
-      });
+      if (this.isList) {
+        this.addListItem({
+          list_id: this.list.id,
+          item: ItemApi.newListItem(this.list, this.itemName)
+        });
+      } else {
+        this.addListItem({
+          list_id: this.list.id,
+          item: ItemApi.newItem(this.list, this.itemName)
+        });
+      }
 
       this.itemName = "";
       if (this.multiple) {
@@ -92,6 +115,12 @@ export default {
       this.$refs.newItemInput.focus();
     },
 
+    toggleList() {
+      this.isList = !this.isList;
+
+      this.$refs.newItemInput.focus();
+    },
+
     updateItem(item) {
       this.$refs.newItemInput.focus();
 
@@ -102,7 +131,7 @@ export default {
       });
     },
 
-    ...mapActions(["addListItem", "updateListItem"])
+    ...mapActions(["addListItem", "updateListItem", "closeItemForm"])
   },
 
   computed: {
@@ -114,7 +143,8 @@ export default {
 </script>
 
 <style lang="scss">
-.item-form-multiple-toggle {
+.item-form-multiple-toggle,
+.item-form-list-toggle {
   @apply bg-gray-200 px-3 text-gray-500;
 
   &.enabled {

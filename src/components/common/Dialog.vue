@@ -1,60 +1,42 @@
 <template>
-  <modal
-    class="dialog-modal"
-    :name="name"
-    width="100%"
-    height="auto"
-    :pivotY="0.7"
-  >
-    <div class="dialog-container">
-      <h1 data-cy="dialog-text" class="dialog-text">{{ text }}</h1>
-      <div class="dialog-actions">
-        <button
-          data-cy="dialog-confirm"
-          class="dialog-action-button button delete"
-          @click="confirm"
-        >
-          {{ confirmText }}
-        </button>
-        <button
-          data-cy="dialog-cancel"
-          class="dialog-action-button button secondary"
-          @click="cancel"
-        >
-          {{ cancelText }}
-        </button>
-      </div>
+  <div class="dialog-container">
+    <h1 data-cy="dialog-text" class="dialog-text">{{ text }}</h1>
+    <div class="dialog-actions">
+      <button
+        data-cy="dialog-confirm"
+        class="dialog-action-button button delete"
+        @click="confirm"
+      >
+        {{ confirmText }}
+      </button>
+      <button
+        data-cy="dialog-cancel"
+        class="dialog-action-button button secondary"
+        @click="cancel"
+      >
+        {{ cancelText }}
+      </button>
     </div>
-  </modal>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "component-dialog",
-
   props: {
-    name: { type: String, required: true },
     text: { type: String, required: true },
+    confirmCallback: { type: Function, required: true },
     confirmText: { type: String, default: "confirm" },
     cancelText: { type: String, default: "cancel" }
   },
 
   methods: {
     confirm() {
-      this.$emit("confirm");
+      this.confirmCallback();
+      this.$emit("close");
     },
 
     cancel() {
-      this.close();
-      this.$emit("cancel");
-    },
-
-    open() {
-      this.$modal.show(this.name);
-    },
-
-    close() {
-      this.$modal.hide(this.name);
+      this.$emit("close");
     }
   }
 };

@@ -120,4 +120,49 @@ describe("List Items", function() {
       cy.listItemShouldHaveStatus(i, v)
     );
   });
+
+  it.only("Adds nested list", function() {
+    cy.get("[data-cy=item-new-button-fixed]").click();
+
+    cy.focused().should("have.attr", "placeholder", "Item Name");
+
+    cy.get("[data-cy=item-new-name] [data-cy=input-text]").type(itemName);
+
+    cy.get("[data-cy=item-new-list-toggle]").click();
+
+    cy.get("[data-cy=simple-form-submit]").click();
+
+    cy.get("[data-cy=list-items] [data-cy=list-item-nested]").should(
+      "contain",
+      itemName
+    );
+
+    cy.get(
+      "[data-cy=list-item-nested] [data-cy=list-head-button-toggle]"
+    ).click();
+
+    cy.get(
+      "[data-cy=list-item-nested] [data-cy=list-head-button-delete]"
+    ).should("exist");
+    cy.get("[data-cy=list-item-nested] [data-cy=list-head-button-edit]").should(
+      "exist"
+    );
+    cy.get(
+      "[data-cy=list-item-nested] [data-cy=list-head-button-add-item]"
+    ).should("exist");
+
+    cy.get(
+      "[data-cy=list-item-nested] [data-cy=list-head-button-toggle]"
+    ).click();
+
+    cy.get(
+      "[data-cy=list-item-nested] [data-cy=list-head-button-delete]"
+    ).should("not.exist");
+    cy.get("[data-cy=list-item-nested] [data-cy=list-head-button-edit]").should(
+      "not.exist"
+    );
+    cy.get(
+      "[data-cy=list-item-nested] [data-cy=list-head-button-add-item]"
+    ).should("not.exist");
+  });
 });

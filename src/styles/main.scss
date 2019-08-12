@@ -50,6 +50,16 @@ button,
         }
     }
 
+    &.edit {
+        @apply bg-yellow-500;
+
+        &:hover,
+        &:focus,
+        &:active {
+            @apply bg-yellow-600;
+        }
+    }
+
     &.delete {
         @apply bg-red-500;
 

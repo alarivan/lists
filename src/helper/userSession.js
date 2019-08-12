@@ -27,7 +27,7 @@ export function getFile() {
 export function putFile() {
   if (userSession.isUserSignedIn()) {
     const data = {
-      lists: store.getters.lists
+      lists: store.getters.items
     };
 
     return userSession.putFile(FILE_NAME, JSON.stringify(data), PUT_OPTIONS);

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ItemBody from "Components/List/Item/Body.vue";
 import { CollapseTransition } from "vue2-transitions";
 
@@ -32,12 +33,13 @@ export default {
   computed: {
     items() {
       const name = this.name.toLowerCase();
+      const items = this.itemsArray(this.list.id);
       return this.name
-        ? this.list.items.filter(
-            i => i.name.toLowerCase().includes(name) && i.status
-          )
+        ? items.filter(i => i.name.toLowerCase().includes(name) && i.status)
         : [];
-    }
+    },
+
+    ...mapGetters(["itemsArray"])
   }
 };
 </script>

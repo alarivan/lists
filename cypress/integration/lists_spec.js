@@ -54,7 +54,8 @@ describe("Lists Page", function() {
 
   it("Has View Link", function() {
     cy.createList(listName);
-    cy.visit("/");
+
+    cy.get("[data-cy=header-logo]").click();
 
     cy.get("[data-cy=list-view-button]")
       .should("have.attr", "href")

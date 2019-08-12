@@ -3,7 +3,7 @@
     <button
       data-cy="list-head-button-edit"
       @click="openForm"
-      class="button primary h-full"
+      class="button edit h-full"
     >
       <Icon href="#icon-pencil" />
     </button>
