@@ -22,15 +22,6 @@ const ItemApi = {
     });
   },
 
-  reorderItems(stateItems, listItems) {
-    const items = Object.assign({}, stateItems);
-    listItems.forEach((id, index) => {
-      items[id].order = index + 1;
-    });
-
-    return items;
-  },
-
   formatName(name) {
     return name.trim();
   }

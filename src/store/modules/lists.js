@@ -1,10 +1,11 @@
 import Vue from "vue";
 import ListApi from "Api/list";
-import ItemApi from "Api/item";
 import { generateUniqueIdObject } from "Helper/main";
 
 const reorderItems = (state, items) => {
-  Vue.set(state, "items", ItemApi.reorderItems(state.items, items));
+  items.forEach((id, index) => {
+    Vue.set(state.items[id], "order", index + 1);
+  });
 };
 
 const state = {
