@@ -121,7 +121,7 @@ describe("List Items", function() {
     );
   });
 
-  it.only("Adds nested list", function() {
+  it("Adds nested list", function() {
     cy.get("[data-cy=item-new-button-fixed]").click();
 
     cy.focused().should("have.attr", "placeholder", "Item Name");

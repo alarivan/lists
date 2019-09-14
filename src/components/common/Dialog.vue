@@ -4,7 +4,8 @@
     <div class="dialog-actions">
       <button
         data-cy="dialog-confirm"
-        class="dialog-action-button button delete"
+        class="dialog-action-button button"
+        :class="confirmButtonClass"
         @click="confirm"
       >
         {{ confirmText }}
@@ -25,8 +26,10 @@ export default {
   props: {
     text: { type: String, required: true },
     confirmCallback: { type: Function, required: true },
+    cancelCallback: { type: Function },
     confirmText: { type: String, default: "confirm" },
-    cancelText: { type: String, default: "cancel" }
+    cancelText: { type: String, default: "cancel" },
+    confirmButtonClass: { type: String, default: "delete" }
   },
 
   methods: {
@@ -36,6 +39,8 @@ export default {
     },
 
     cancel() {
+      if (this.cancelCallback) this.cancelCallback();
+
       this.$emit("close");
     }
   }

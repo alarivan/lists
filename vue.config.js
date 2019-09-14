@@ -15,7 +15,10 @@ module.exports = {
     }
   },
   pwa: {
-    workboxOptions: { skipWaiting: true }
+    workboxPluginMode: "InjectManifest",
+    workboxOptions: {
+      swSrc: "src/service-worker.js"
+    }
   },
   devServer: {
     headers: {
