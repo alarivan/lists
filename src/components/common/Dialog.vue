@@ -7,12 +7,16 @@
         class="dialog-action-button button"
         :class="confirmButtonClass"
         @click="confirm"
-      >{{ confirmText }}</button>
+      >
+        {{ confirmText }}
+      </button>
       <button
         data-cy="dialog-cancel"
         class="dialog-action-button button secondary"
         @click="cancel"
-      >{{ cancelText }}</button>
+      >
+        {{ cancelText }}
+      </button>
     </div>
   </div>
 </template>

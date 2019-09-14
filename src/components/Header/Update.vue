@@ -1,5 +1,10 @@
 <template>
-  <button data-cy="header-update-button" class="success" v-if="updateExists" @click="refreshApp">
+  <button
+    data-cy="header-update-button"
+    class="success"
+    v-if="updateExists"
+    @click="refreshApp"
+  >
     <Icon href="#icon-loop" size="md" class="mx-auto" />
   </button>
 </template>
