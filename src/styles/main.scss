@@ -79,4 +79,14 @@ button,
             @apply bg-gray-600;
         }
     }
+
+    &.success {
+        @apply bg-green-500;
+
+        &:hover,
+        &:focus,
+        &:active {
+            @apply bg-green-600;
+        }
+    }
 }
