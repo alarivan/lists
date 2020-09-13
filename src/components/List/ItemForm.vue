@@ -122,6 +122,7 @@ export default {
     },
 
     updateItem(item) {
+      this.itemName = "";
       this.$refs.newItemInput.focus();
 
       this.updateListItem({

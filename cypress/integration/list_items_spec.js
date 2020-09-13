@@ -90,9 +90,9 @@ describe("List Items", function() {
     );
   });
 
-  it("Correctly shows and updates suggested Items", function() {
+  it.only("Correctly shows and updates suggested Items", function() {
     const typedValue = "it";
-    ["Item 1", "item 2", "Item 3", "other"].forEach(name => cy.addItem(name));
+    ["Item 1", "item 2", "Item 3", "other"].forEach((name) => cy.addItem(name));
 
     for (let i = 0; i < 3; i++) {
       cy.listItemClick(0);
@@ -112,9 +112,9 @@ describe("List Items", function() {
 
     cy.listItemClick(0, "[data-cy=item-form-suggest]");
 
-    cy.focused().should("have.value", typedValue);
+    cy.listItemsShouldHaveLength("[data-cy=item-form-suggest]", 0);
 
-    cy.listItemsShouldHaveLength("[data-cy=item-form-suggest]", 1);
+    cy.focused().should("have.value", "");
 
     [false, false, true, true].forEach((v, i) =>
       cy.listItemShouldHaveStatus(i, v)
