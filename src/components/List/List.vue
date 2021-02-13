@@ -8,18 +8,24 @@
       data-cy="item-new-button-inline"
       @click="openItemForm(list)"
     />
+    <div v-if="undoItem">
+      <UndoButton data-cy="undo-item-button" @click="undo">
+        UNDO
+      </UndoButton>
+    </div>
 
     <ListItems :list="list" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import ListHead from "Components/List/Head.vue";
 import ListPanel from "Components/List/Panel.vue";
 import ListItems from "Components/List/Items.vue";
 import ButtonAdd from "Components/common/ButtonAdd.vue";
+import UndoButton from "Components/common/UndoButton.vue";
 
 export default {
   name: "component-list",
@@ -27,7 +33,8 @@ export default {
     ListHead,
     ListPanel,
     ListItems,
-    ButtonAdd
+    ButtonAdd,
+    UndoButton
   },
 
   props: {
@@ -35,7 +42,23 @@ export default {
   },
 
   methods: {
-    ...mapActions(["openItemForm"])
+    undo() {
+      if (this.undoItem) {
+        const { status } = this.undoItem;
+        this.updateListItem({
+          list_id: this.undoItem.parent,
+          item_id: this.undoItem.id,
+          values: { status }
+        });
+        this.setUndoItem(null);
+      }
+    },
+
+    ...mapActions(["openItemForm", "updateListItem", "setUndoItem"])
+  },
+
+  computed: {
+    ...mapGetters(["undoItem"])
   }
 };
 </script>

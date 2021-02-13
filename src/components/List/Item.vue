@@ -42,6 +42,7 @@ export default {
         item_id: this.item.id,
         values: { status: !this.item.status }
       });
+      this.setUndoItem(this.item);
     },
 
     deleteItem() {
@@ -62,7 +63,7 @@ export default {
       );
     },
 
-    ...mapActions(["updateListItem", "deleteListItem"])
+    ...mapActions(["updateListItem", "deleteListItem", "setUndoItem"])
   },
 
   computed: {
