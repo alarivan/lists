@@ -1,7 +1,8 @@
 const state = {
   loading: true,
   itemFormList: null,
-  undoItem: null
+  undoItem: null,
+  undoTimeout: null
 };
 
 // getters
@@ -27,12 +28,17 @@ const actions = {
     commit("SET_ITEM_FORM_LIST", null);
   },
 
-  setUndoItem({ commit }, item) {
-    commit("SET_UNDO_ITEM", item);
+  setUndoItem({ commit, state }, item) {
+    if (state.undoTimeout) clearTimeout(state.undoTimeout);
+    if (item) {
+      const timeout = setTimeout(() => {
+        commit("SET_UNDO_ITEM", { item: null, timeout: null });
+      }, 3000);
 
-    setTimeout(() => {
-      commit("SET_UNDO_ITEM", null);
-    }, 3000);
+      commit("SET_UNDO_ITEM", { item, timeout });
+    } else {
+      commit("SET_UNDO_ITEM", { item, timeout: null });
+    }
   }
 };
 
@@ -46,7 +52,8 @@ const mutations = {
     state.itemFormList = list;
   },
 
-  SET_UNDO_ITEM(state, item) {
+  SET_UNDO_ITEM(state, { item, timeout }) {
+    state.undoTimeout = timeout;
     state.undoItem = item;
   }
 };
