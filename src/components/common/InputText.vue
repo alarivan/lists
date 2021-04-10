@@ -11,6 +11,7 @@
       :placeholder="placeholder"
       :value="model"
       @input="input"
+      autofocus
     />
     <div v-if="error" class="input-text-error text-red-700">
       {{ this.error }}
